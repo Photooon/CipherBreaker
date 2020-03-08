@@ -31,11 +31,11 @@ namespace CipherBreaker
 		private string encodeKey;
 		private string decodeKey;
 		private ConcurrentQueue<string> processLog;
-
+		public static Dictionary<SchemeType, int> schemeCount = new Dictionary<SchemeType, int>();
 
 		public Scheme(string plain="",string cipher="",string encodeKey="",string decodeKey="")
 		{
-			state = SchemeState.Ready;
+			this.state = SchemeState.Ready;
 			this.plain = plain;
 			this.cipher = cipher;
 			this.encodeKey = encodeKey;
@@ -54,7 +54,10 @@ namespace CipherBreaker
 		public string Cipher { get => cipher; set => cipher = value; }
 		public string EncodeKey { get => encodeKey; set => encodeKey = value; }
 		public string DecodeKey { get => decodeKey; set => decodeKey = value; }
+
 		public bool ShouldOutput;
+
+
 
 		public abstract bool Encode(string plain = "", string encodeKey = "");
 		public abstract bool Decode(string cipher = "", string decodeKey = "");
@@ -72,5 +75,10 @@ namespace CipherBreaker
 
 		public abstract bool Save(string fileName);
 		public abstract bool Load(string fileName);
+
+		public int SchemeCount(SchemeType type)
+		{
+			return schemeCount[type];
+		}
 	}
 }
