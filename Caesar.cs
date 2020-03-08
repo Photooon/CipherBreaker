@@ -6,9 +6,15 @@ namespace CipherBreaker
 {
 	class Caesar : Scheme
 	{
+		public Caesar()
+		{
+			// Do nothing
+		}
 
-
-
+		~Caesar()
+		{
+			// Do nothing
+		}
 		public override bool Encode(string plain = "", string encodeKey = "")
 		{
 			throw new NotImplementedException();
@@ -17,9 +23,6 @@ namespace CipherBreaker
 		{
 			throw new NotImplementedException();
 		}
-
-
-
 		public override bool Save(string fileName)
 		{
 			throw new NotImplementedException();
