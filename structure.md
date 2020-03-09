@@ -52,6 +52,11 @@ Scheme类是一个抽象类，每一种算法都是Scheme类的派生类，继�
 ### Scheme的派生类
 每一个派生类必须实现Encode、Decode、Save、Load方法。实现自身的构造函数与析构函数。并且适当地重写部分属性的get、set。
 
+## Caesar类
+
+### EncodeKey属性
+set中需要判断数据是否可解析为整数，并通过取模使其在[0,26)
+
 --- 
 
 ## FrequencyAnalyst类
