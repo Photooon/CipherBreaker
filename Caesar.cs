@@ -8,13 +8,40 @@ namespace CipherBreaker
 	{
 		public Caesar()
 		{
-			// Do nothing
+			
 		}
 
 		~Caesar()
 		{
-			// Do nothing
+			
 		}
+
+		public override string EncodeKey
+		{
+			get
+			{
+				return encodeKey;
+			}
+			set
+			{
+				int result;
+				if (int.TryParse(value,out result))
+				{
+					result %= 26;
+					encodeKey = $"{result}";
+				}
+				else
+				{
+					throw new FormatException("不可用密钥");
+				}
+			}
+		}
+
+		public override string DecodeKey
+		{
+			get;set;
+		}
+
 		public override bool Encode(string plain = "", string encodeKey = "")
 		{
 			throw new NotImplementedException();
@@ -28,6 +55,11 @@ namespace CipherBreaker
 			throw new NotImplementedException();
 		}
 		public override bool Load(string fileName)
+		{
+			throw new NotImplementedException();
+		}
+
+		public override string ToString()
 		{
 			throw new NotImplementedException();
 		}
