@@ -17,6 +17,7 @@ namespace CipherBreaker
 	enum SchemeState
 	{
 		Ready,
+		Running,
 		Pause,
 		Finish,
 		Over
@@ -24,22 +25,20 @@ namespace CipherBreaker
 
 	abstract class Scheme
 	{
-		private SchemeType type;
-		private SchemeState state;
-		private string plain;
-		private string cipher;
-		private string encodeKey;
-		private string decodeKey;
-		private ConcurrentQueue<string> processLog;
-		public static Dictionary<SchemeType, int> schemeCount = new Dictionary<SchemeType, int>();
+		protected static Dictionary<SchemeType, int> schemeCount = new Dictionary<SchemeType, int>();
+
+		protected SchemeState state;
+		protected string encodeKey;
+		protected string decodeKey;
+		protected ConcurrentQueue<string> processLog;
 
 		public Scheme(string plain="",string cipher="",string encodeKey="",string decodeKey="")
 		{
 			this.state = SchemeState.Ready;
-			this.plain = plain;
-			this.cipher = cipher;
-			this.encodeKey = encodeKey;
-			this.decodeKey = decodeKey;
+			this.Plain = plain;
+			this.Cipher = cipher;
+			this.EncodeKey = encodeKey;
+			this.DecodeKey = decodeKey;
 			this.ShouldOutput = false;
 		}
 
@@ -48,16 +47,14 @@ namespace CipherBreaker
 			// Do nothing
 		}
 
-		public SchemeType Type { get => type; set => type = value; }
-		public SchemeState State { get => state; set => state = value; }
-		public string Plain { get => plain; set => plain = value; }
-		public string Cipher { get => cipher; set => cipher = value; }
-		public string EncodeKey { get => encodeKey; set => encodeKey = value; }
-		public string DecodeKey { get => decodeKey; set => decodeKey = value; }
+		public SchemeType Type { get; protected set; }
+		public SchemeState State { get => state;}
+		public string Plain { get; set; }
+		public string Cipher { get; set; }
+		public virtual string EncodeKey { get => encodeKey; set => encodeKey = value; }
+		public virtual string DecodeKey { get => decodeKey; set => decodeKey = value; }
 
-		public bool ShouldOutput;
-
-
+		public bool ShouldOutput { get; set; }
 
 		public abstract bool Encode(string plain = "", string encodeKey = "");
 		public abstract bool Decode(string cipher = "", string decodeKey = "");
@@ -76,9 +73,20 @@ namespace CipherBreaker
 		public abstract bool Save(string fileName);
 		public abstract bool Load(string fileName);
 
+		public int SchemeCount()
+		{
+			int sum = 0;
+			foreach(int val in schemeCount.Values)
+			{
+				sum += val;
+			}
+			return sum;
+		}
 		public int SchemeCount(SchemeType type)
 		{
 			return schemeCount[type];
 		}
+
+		public new abstract string ToString();
 	}
 }
