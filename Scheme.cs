@@ -58,6 +58,7 @@ namespace CipherBreaker
 
 		public abstract bool Encode(string plain = "", string encodeKey = "");
 		public abstract bool Decode(string cipher = "", string decodeKey = "");
+		public abstract bool Break(string cipher = "");
 		public SchemeState Pause()
 		{
 			state = SchemeState.Pause;
