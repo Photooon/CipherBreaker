@@ -27,7 +27,7 @@ namespace CipherBreaker
 				int result;
 				if (int.TryParse(value,out result))
 				{
-					result %= 26;
+					result = (result % 26 + 26) % 26;
 					encodeKey = $"{result}";
 				}
 				else
