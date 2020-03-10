@@ -48,7 +48,7 @@ namespace CipherBreaker
 		}
 
 
-		public Scheme(string plain="",string cipher="",string encodeKey="",string decodeKey="")
+		public Scheme(string plain=null,string cipher=null,string encodeKey=null,string decodeKey=null)
 		{
 			this.state = SchemeState.Ready;
 			this.Plain = plain;
