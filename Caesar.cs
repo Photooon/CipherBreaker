@@ -50,6 +50,10 @@ namespace CipherBreaker
 		{
 			throw new NotImplementedException();
 		}
+		public override bool Break(string cipher = "")
+		{
+			throw new NotImplementedException();
+		}
 		public override bool Save(string fileName)
 		{
 			throw new NotImplementedException();
