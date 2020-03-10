@@ -30,7 +30,7 @@ namespace CipherBreaker
 			}
 			Substitution sub = new Substitution("hello", key: key.ToString());
 			sub.Encode();
-
+			sub.Decode();
 
 			return;
 		}
