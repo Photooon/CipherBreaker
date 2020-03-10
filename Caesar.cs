@@ -51,7 +51,7 @@ namespace CipherBreaker
 				if (int.TryParse(value, out result))
 				{
 					result = (result % 26 + 26) % 26;
-					encodeKey = $"{result}";
+					decodeKey = $"{result}";
 				}
 			}
 		}
