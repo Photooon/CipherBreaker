@@ -25,12 +25,28 @@ namespace CipherBreaker
 
 	abstract class Scheme
 	{
+		protected const int LetterSetSize = 26;
+
 		protected static Dictionary<SchemeType, int> schemeCount = new Dictionary<SchemeType, int>();
 
 		protected SchemeState state;
 		protected string encodeKey;
 		protected string decodeKey;
 		protected ConcurrentQueue<string> processLog;
+
+		protected virtual bool keyIsValid(string key)
+		{
+			return true;
+		}
+		protected virtual bool encodeKeyIsValid()
+		{
+			return keyIsValid(encodeKey);
+		}
+		protected virtual bool decodeKeyIsValid()
+		{
+			return keyIsValid(decodeKey);
+		}
+
 
 		public Scheme(string plain="",string cipher="",string encodeKey="",string decodeKey="")
 		{
@@ -39,6 +55,7 @@ namespace CipherBreaker
 			this.Cipher = cipher;
 			this.EncodeKey = encodeKey;
 			this.DecodeKey = decodeKey;
+			processLog = new ConcurrentQueue<string>();
 			this.ShouldOutput = false;
 		}
 
@@ -56,9 +73,9 @@ namespace CipherBreaker
 
 		public bool ShouldOutput { get; set; }
 
-		public abstract bool Encode(string plain = "", string encodeKey = "");
-		public abstract bool Decode(string cipher = "", string decodeKey = "");
-		public abstract bool Break(string cipher = "");
+		public abstract bool Encode(string plain = null, string encodeKey = null);
+		public abstract bool Decode(string cipher = null, string decodeKey = null);
+		public abstract bool Break(string cipher = null);
 		public SchemeState Pause()
 		{
 			state = SchemeState.Pause;
