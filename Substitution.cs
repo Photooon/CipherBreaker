@@ -48,10 +48,9 @@ namespace CipherBreaker
                     this.DecodeKey = this.EncodeKey;
             }
 
-            calPermutation();
-
             this.Type = SchemeType.Substitution;
             permutation = new int[Scheme.LetterSetSize];
+            calPermutation();
         }
 
         ~Substitution()
