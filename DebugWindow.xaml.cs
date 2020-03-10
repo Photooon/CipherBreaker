@@ -21,10 +21,18 @@ namespace CipherBreaker
 		{
 			InitializeComponent();
 
-			Caesar caesar = new Caesar();
-			caesar.Plain = "hello";
+			StringBuilder key = new StringBuilder();
+			for(int i = 25;i>=0;i--)
+			{
+				key.Append(i.ToString());
+				if (i > 0)
+					key.Append(',');
+			}
+			Substitution sub = new Substitution("hello", key: key.ToString());
+			sub.Encode();
+			sub.Decode();
 
-			DebugInfo.Content += "\n" + caesar.Plain;
+			return;
 		}
 	}
 }
