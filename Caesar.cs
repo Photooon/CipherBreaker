@@ -30,16 +30,30 @@ namespace CipherBreaker
 					result = (result % 26 + 26) % 26;
 					encodeKey = $"{result}";
 				}
+				/*
 				else
 				{
 					throw new FormatException("不可用密钥");
 				}
+				*/
 			}
 		}
 
 		public override string DecodeKey
 		{
-			get;set;
+			get
+			{
+				return decodeKey;
+			}
+			set
+			{
+				int result;
+				if (int.TryParse(value, out result))
+				{
+					result = (result % 26 + 26) % 26;
+					decodeKey = $"{result}";
+				}
+			}
 		}
 
 		public override bool Encode(string plain = "", string encodeKey = "")
