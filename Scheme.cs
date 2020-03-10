@@ -90,4 +90,20 @@ namespace CipherBreaker
 
 		public new abstract string ToString();
 	}
+
+	static class FrequencyAnalyst
+	{
+		private static Dictionary<string, long> frequencyDict = new Dictionary<string, long>();
+
+		public static double Analyze(string str)
+		{
+			return 0.0;
+		}
+
+		public static string[] Split(string str)
+		{
+			return null;
+		}
+
+	}
 }
