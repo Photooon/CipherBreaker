@@ -25,6 +25,8 @@ namespace CipherBreaker
 
 	abstract class Scheme
 	{
+		private string name;
+
 		protected const int LetterSetSize = 26;
 
 		protected static Dictionary<SchemeType, int> schemeCount = new Dictionary<SchemeType, int>();
@@ -62,6 +64,18 @@ namespace CipherBreaker
 		~Scheme()
 		{
 			// Do nothing
+		}
+
+		public string Name
+		{
+			get => name;
+			set
+			{
+				StringBuilder nameBuilder = new StringBuilder(value);
+				foreach (char invalidChar in System.IO.Path.GetInvalidFileNameChars())
+					nameBuilder = nameBuilder.Replace(invalidChar.ToString(), string.Empty);
+				this.name = nameBuilder.ToString();
+			}
 		}
 
 		public SchemeType Type { get; protected set; }
