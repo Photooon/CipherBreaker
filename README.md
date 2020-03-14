@@ -31,7 +31,7 @@ TODO...
 
 # See Sharp小组
 
-## 成员
+## 成员//see sharp lzm保姆级教师
 - [李政民](https://github.com/FremontLi)
 - [洪敏](https://github.com/hm333z)
 - [廖宇阳](https://github.com/lyy1240056777)
