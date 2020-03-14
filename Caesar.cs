@@ -39,7 +39,7 @@ namespace CipherBreaker
 				//注释注释
 			}
 		}
-
+		//注释
 		public override string DecodeKey
 		{
 			get
