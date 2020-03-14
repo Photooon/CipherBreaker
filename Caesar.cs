@@ -35,7 +35,7 @@ namespace CipherBreaker
 				{
 					throw new FormatException("不可用密钥");
 				}
-				*/
+				一条注释~*/
 			}
 		}
 
