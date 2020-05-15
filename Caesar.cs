@@ -89,7 +89,7 @@ namespace CipherBreaker
 
 			return (plain, true);
 		}
-		public override (string, bool) Break(string cipher = "")
+		public override (string, bool) Break(string cipher = null)
 		{
 			throw new NotImplementedException();
 		}
