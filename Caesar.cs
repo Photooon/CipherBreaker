@@ -88,7 +88,6 @@ namespace CipherBreaker
 			this.Plain = plain;
 
 			return (cipher, true);
-			throw new NotImplementedException();
 		}
 		public override (string, bool) Decode(string cipher = null, string key = null)
 		{
