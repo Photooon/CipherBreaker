@@ -48,6 +48,46 @@ namespace CipherBreaker
 
 		public override (string, bool) Encode(string plain = null, string key = null)
 		{
+			if (plain == null)
+			{
+				plain = Plain;
+			}
+			if (key == null)
+			{
+				key = Key;
+			}
+			if (!keyIsValid(key))
+			{
+				return (null, false);
+			}
+			int keyInt = int.Parse(key);
+			string cipher = "";
+			foreach (char p in plain)
+			{
+				int c = p;
+				if (p >= 'a' && p <= 'z')
+				{
+					c = p + keyInt;
+					if (c > 'z')
+					{
+						c -= Scheme.LetterSetSize;
+					}
+				}
+				else if(p>='A'&&p<='Z')
+				{
+					c = p + keyInt;
+					if (c > 'Z')
+					{
+						c -= Scheme.LetterSetSize;
+					}
+				}
+				cipher.Append(Convert.ToChar(c));
+			}
+			this.Key = key;
+			this.Cipher = cipher;
+			this.Plain = plain;
+
+			return (cipher, true);
 			throw new NotImplementedException();
 		}
 		public override (string, bool) Decode(string cipher = null, string key = null)
