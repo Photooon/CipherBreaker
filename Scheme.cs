@@ -35,7 +35,7 @@ namespace CipherBreaker
 		protected SchemeState state;
 		protected ConcurrentQueue<string> processLog;
 
-		public Scheme(string plain=null,string cipher=null)
+		public Scheme(string plain = null, string cipher = null)
 		{
 			this.state = SchemeState.Ready;
 			this.Plain = plain;
@@ -62,13 +62,13 @@ namespace CipherBreaker
 		}
 
 		public SchemeType Type { get; protected set; }
-		public SchemeState State { get => state;}
+		public SchemeState State { get => state; }
 		public string Plain { get; set; }
 		public string Cipher { get; set; }
 
 		public bool ShouldOutput { get; set; }
 
-		public abstract (string,bool) Encode(string plain = null, string encodeKey = null);
+		public abstract (string, bool) Encode(string plain = null, string encodeKey = null);
 		public abstract (string, bool) Decode(string cipher = null, string decodeKey = null);
 		public abstract (string, bool) Break(string cipher = null);
 
@@ -81,16 +81,16 @@ namespace CipherBreaker
 		public abstract bool Save(string fileName);
 		public abstract bool Load(string fileName);
 
-		public int SchemeCount()
+		public static int SchemeCount()
 		{
 			int sum = 0;
-			foreach(int val in schemeCount.Values)
+			foreach (int val in schemeCount.Values)
 			{
 				sum += val;
 			}
 			return sum;
 		}
-		public int SchemeCount(SchemeType type)
+		public static int SchemeCount(SchemeType type)
 		{
 			return schemeCount[type];
 		}
