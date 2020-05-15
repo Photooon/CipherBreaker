@@ -63,7 +63,7 @@ namespace CipherBreaker
 
 			if (!keyIsValid(key))
 			{
-				return ("", false);
+				return (null, false);
 			}
 
 			int keyInt = int.Parse(key);
