@@ -17,46 +17,29 @@ namespace CipherBreaker
 	enum SchemeState
 	{
 		Ready,
-		Running,
-		Pause,
+		Encoding,
+		Decoding,
+		Breaking,
 		Finish,
 		Over
 	}
 
 	abstract class Scheme
 	{
-		private string name;
+		protected string name;
 
 		protected const int LetterSetSize = 26;
 
 		protected static Dictionary<SchemeType, int> schemeCount = new Dictionary<SchemeType, int>();
 
 		protected SchemeState state;
-		protected string encodeKey;
-		protected string decodeKey;
 		protected ConcurrentQueue<string> processLog;
 
-		protected virtual bool keyIsValid(string key)
-		{
-			return true;
-		}
-		protected virtual bool encodeKeyIsValid()
-		{
-			return keyIsValid(encodeKey);
-		}
-		protected virtual bool decodeKeyIsValid()
-		{
-			return keyIsValid(decodeKey);
-		}
-
-
-		public Scheme(string plain=null,string cipher=null,string encodeKey=null,string decodeKey=null)
+		public Scheme(string plain=null,string cipher=null)
 		{
 			this.state = SchemeState.Ready;
 			this.Plain = plain;
 			this.Cipher = cipher;
-			this.EncodeKey = encodeKey;
-			this.DecodeKey = decodeKey;
 			processLog = new ConcurrentQueue<string>();
 			this.ShouldOutput = false;
 		}
@@ -82,19 +65,12 @@ namespace CipherBreaker
 		public SchemeState State { get => state;}
 		public string Plain { get; set; }
 		public string Cipher { get; set; }
-		public virtual string EncodeKey { get => encodeKey; set => encodeKey = value; }
-		public virtual string DecodeKey { get => decodeKey; set => decodeKey = value; }
 
 		public bool ShouldOutput { get; set; }
 
 		public abstract bool Encode(string plain = null, string encodeKey = null);
 		public abstract bool Decode(string cipher = null, string decodeKey = null);
 		public abstract bool Break(string cipher = null);
-		public SchemeState Pause()
-		{
-			state = SchemeState.Pause;
-			return state;
-		}
 
 		public SchemeState End()
 		{

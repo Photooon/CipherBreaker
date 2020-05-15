@@ -4,18 +4,18 @@ using System.Text;
 
 namespace CipherBreaker
 {
-    class Substitution : Scheme
+    class Substitution : SymmetricScheme
     {
         private int[] permutation;
         private bool permutationIsValid;
         private bool calPermutation()
         {
             int cur = 0, pos = 0;
-            for(int i = 0;i<this.EncodeKey.Length;i++)
+            for (int i = 0; i < this.key.Length; i++)
             {
-                if(this.EncodeKey[i]==',')
+                if (this.key[i] == ',')
                 {
-                    if(pos==Scheme.LetterSetSize)
+                    if (pos == Scheme.LetterSetSize)
                     {
                         return false;
                     }
@@ -24,30 +24,22 @@ namespace CipherBreaker
                 }
                 else
                 {
-                    cur = 10 * cur + this.EncodeKey[i] - '0';
+                    cur = 10 * cur + this.key[i] - '0';
                 }
             }
             permutation[pos++] = cur;
 
             return permutationIsValid = (pos == Scheme.LetterSetSize);
         }
-        protected override bool keyIsValid(string key)
+        protected override bool keyIsValid(string key = null)
         {
             if (permutationIsValid)
                 return true;
             return calPermutation();
         }
 
-        public Substitution(string plain = null, string cipher = null, string key = null):base(plain,cipher,key,key)
+        public Substitution(string plain = null, string cipher = null, string key = null) : base(plain, cipher, key)
         {
-            if(this.EncodeKey != this.DecodeKey)
-            {
-                if (this.EncodeKey == null)
-                    this.EncodeKey = this.DecodeKey;
-                else if (this.DecodeKey == null)
-                    this.DecodeKey = this.EncodeKey;
-            }
-
             this.Type = SchemeType.Substitution;
             permutation = new int[Scheme.LetterSetSize];
             calPermutation();
@@ -55,29 +47,30 @@ namespace CipherBreaker
 
         ~Substitution()
         {
-         
+
         }
 
-        public override string EncodeKey
+        public override string Key
         {
             get
             {
-                return encodeKey;
+                return key;
             }
             set
             {
-                decodeKey = encodeKey = value;
-            }
-        }
-        public override string DecodeKey
-        {
-            get
-            {
-                return decodeKey;
-            }
-            set
-            {
-                decodeKey = encodeKey = value;
+                if (value.Length == Scheme.LetterSetSize)
+                {
+                    value = value.ToLower();
+                    bool[] isMarked = new bool[Scheme.LetterSetSize];
+                    foreach (char c in value)
+                    {
+                        if (isMarked[c - 'a'])
+                        {
+                            return;
+                        }
+                        isMarked[c - 'a'] = true;
+                    }
+                }
             }
         }
 
@@ -89,19 +82,19 @@ namespace CipherBreaker
             }
             if (encodeKey != null)
             {
-                this.EncodeKey = encodeKey;
+                this.key = encodeKey;
             }
 
-            if (encodeKeyIsValid())
+            if (keyIsValid())
             {
                 StringBuilder cipher = new StringBuilder();
-                for(int i = 0;i<this.Plain.Length;i++)
+                for (int i = 0; i < this.Plain.Length; i++)
                 {
-                    if(char.IsLetter(this.Plain[i]))
+                    if (char.IsLetter(this.Plain[i]))
                     {
                         char bottom = char.IsLower(this.Plain[i]) ? 'a' : 'A';
                         int index = this.Plain[i] - bottom;
-                        char subLetter = (char)(bottom+permutation[index]);
+                        char subLetter = (char)(bottom + permutation[index]);
                         cipher.Append(subLetter);
                     }
                 }
@@ -118,16 +111,12 @@ namespace CipherBreaker
             {
                 this.Cipher = cipher;
             }
-            if (decodeKey != null)
-            {
-                this.DecodeKey = decodeKey;
-            }
 
-            if (decodeKeyIsValid())
+            if (keyIsValid())
             {
                 StringBuilder plain = new StringBuilder();
                 int[] reverseKey = new int[Scheme.LetterSetSize];
-                for(int i = 0;i<Scheme.LetterSetSize;i++)
+                for (int i = 0; i < Scheme.LetterSetSize; i++)
                 {
                     reverseKey[this.permutation[i]] = i;
                 }
