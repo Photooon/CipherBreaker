@@ -6,7 +6,7 @@ namespace CipherBreaker
 {
 	static class FrequencyAnalyst
 	{
-		private static Dictionary<string, double> frequencyDict = new Dictionary<string, double>();
+		private static Dictionary<string, long> frequencyDict = new Dictionary<string, long>();
 
 		public static double Analyze(string str)
 		{
