@@ -72,20 +72,28 @@ namespace CipherBreaker
 			foreach (char c in cipher)
 			{
 				int p = c;
-				if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z')
+				if (c >= 'a' && c <= 'z')
 				{
-					p = c + keyInt;
-					if (p > 'z')
+					p = c - keyInt;
+					if (p < 'a')
 					{
-						p -= Scheme.LetterSetSize;
+						p += Scheme.LetterSetSize;
+					}
+				}
+				else if (c >= 'A' && c <= 'Z')
+				{
+					p = c - keyInt;
+					if (p < 'A')
+					{
+						p += Scheme.LetterSetSize;
 					}
 				}
 				plain.Append(Convert.ToChar(p));
 			}
 
 			this.Key = key;
-			this.Cipher = cipher;
 			this.Plain = plain;
+			this.Cipher = cipher;
 
 			return (plain, true);
 		}
