@@ -46,7 +46,7 @@ namespace CipherBreaker
 			}
 		}
 
-		public override (string,bool) Encode(string plain = null, string key = null)
+		public override (string, bool) Encode(string plain = null, string key = null)
 		{
 			throw new NotImplementedException();
 		}
@@ -63,19 +63,19 @@ namespace CipherBreaker
 
 			if (!keyIsValid(key))
 			{
-				return ("",false);
+				return ("", false);
 			}
 
 			int keyInt = int.Parse(key);
 
-			string plain="";
+			string plain = "";
 			foreach (char c in cipher)
 			{
 				int p = c;
-				if (c >= 'a' && c <= 'z' || c>='A' && c<='Z')
+				if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z')
 				{
 					p = c + keyInt;
-					if (p>'z')
+					if (p > 'z')
 					{
 						p -= Scheme.LetterSetSize;
 					}
@@ -87,7 +87,7 @@ namespace CipherBreaker
 			this.Cipher = cipher;
 			this.Plain = plain;
 
-			return (plain,true);
+			return (plain, true);
 		}
 		public override (string, bool) Break(string cipher = "")
 		{
