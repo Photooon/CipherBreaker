@@ -68,9 +68,9 @@ namespace CipherBreaker
 
 		public bool ShouldOutput { get; set; }
 
-		public abstract bool Encode(string plain = null, string encodeKey = null);
-		public abstract bool Decode(string cipher = null, string decodeKey = null);
-		public abstract bool Break(string cipher = null);
+		public abstract (string,bool) Encode(string plain = null, string encodeKey = null);
+		public abstract (string, bool) Decode(string cipher = null, string decodeKey = null);
+		public abstract (string, bool) Break(string cipher = null);
 
 		public SchemeState End()
 		{

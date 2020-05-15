@@ -74,7 +74,7 @@ namespace CipherBreaker
             }
         }
 
-        public override bool Encode(string plain = null, string encodeKey = null)
+        public override (string, bool) Encode(string plain = null, string encodeKey = null)
         {
             if (plain != null)
             {
@@ -99,13 +99,13 @@ namespace CipherBreaker
                     }
                 }
                 this.Cipher = cipher.ToString();
-                return true;
+                return (cipher.ToString(),true);
             }
 
-            return false;
+            return ("",false);
         }
 
-        public override bool Decode(string cipher = null, string decodeKey = null)
+        public override (string, bool) Decode(string cipher = null, string decodeKey = null)
         {
             if (cipher != null)
             {
@@ -132,13 +132,13 @@ namespace CipherBreaker
                     }
                 }
                 this.Plain = plain.ToString();
-                return true;
+                return (plain.ToString(),true);
             }
 
-            return false;
+            return ("",false);
         }
 
-        public override bool Break(string cipher = null)
+        public override (string, bool) Break(string cipher = null)
         {
             throw new NotImplementedException();
         }
