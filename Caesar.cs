@@ -73,7 +73,7 @@ namespace CipherBreaker
 						c -= Scheme.LetterSetSize;
 					}
 				}
-				else if(p>='A'&&p<='Z')
+				else if (p >= 'A' && p <= 'Z')
 				{
 					c = p + keyInt;
 					if (c > 'Z')
@@ -81,7 +81,7 @@ namespace CipherBreaker
 						c -= Scheme.LetterSetSize;
 					}
 				}
-				cipher.Append(Convert.ToChar(c));
+				cipher += Convert.ToChar(c);
 			}
 			this.Key = key;
 			this.Cipher = cipher;
@@ -127,7 +127,7 @@ namespace CipherBreaker
 						p += Scheme.LetterSetSize;
 					}
 				}
-				plain.Append(Convert.ToChar(p));
+				plain += Convert.ToChar(p);
 			}
 
 			this.Key = key;
@@ -136,9 +136,32 @@ namespace CipherBreaker
 
 			return (plain, true);
 		}
-		public override (string, bool) Break(string cipher = null)
+		public override (string, double) Break(string cipher = null)
 		{
-			throw new NotImplementedException();
+			if (cipher == null)
+			{
+				cipher = this.Cipher;
+			}
+
+			string plain = cipher;
+			double maxProb = FrequencyAnalyst.Analyze(cipher);
+
+			for (int i = 1; i < LetterSetSize; i++)
+			{
+				(string str, bool ok) result = Decode(cipher, i.ToString());
+				if (result.ok)
+				{
+					double prob = FrequencyAnalyst.Analyze(result.str);
+					if (prob > maxProb)
+					{
+						plain = result.str;
+						maxProb = prob;
+					}
+				}
+			}
+
+			this.Plain = plain;
+			return (plain, Math.Pow(Math.E, maxProb));
 		}
 		public override bool Save(string fileName)
 		{
