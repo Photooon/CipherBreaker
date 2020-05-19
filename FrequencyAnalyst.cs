@@ -23,6 +23,7 @@ namespace CipherBreaker
 				frequencyDict[quad] = frequency;
 				totalCount += frequency;
 			}
+			quadgramFile.Close();
 		}
 		public static double Analyze(string str)
 		{
