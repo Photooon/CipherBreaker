@@ -14,6 +14,7 @@ namespace CipherBreaker
 		public static void Init()
 		{
 			StreamReader quadgramFile = new StreamReader("./Resource/word_quadgrams.txt");
+
 			string line;
 			while ((line = quadgramFile.ReadLine()) != null)
 			{
@@ -23,6 +24,7 @@ namespace CipherBreaker
 				frequencyDict[quad] = frequency;
 				totalCount += frequency;
 			}
+
 			quadgramFile.Close();
 		}
 		public static double Analyze(string str)
