@@ -46,7 +46,7 @@ namespace CipherBreaker.Store
 			while (reader.Read())
 			{
 				wordList.Add(reader.GetString(0));
-				frequencyList.Add(reader.GetInt32(1));
+				frequencyList.Add(reader.GetInt64(1));
 			}
 
 			return (wordList, frequencyList);
