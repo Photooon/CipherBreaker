@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using CipherBreaker.Store;
 using Microsoft.Data.Sqlite;
 
 namespace CipherBreaker
@@ -13,25 +14,24 @@ namespace CipherBreaker
 
 		public static void Init()
 		{
-			StreamReader quadgramFile = new StreamReader("./Resource/word_quadgrams.txt");
-			string line;
-			while ((line = quadgramFile.ReadLine()) != null)
+			SqliteClient freqDB = new SqliteClient("Data Source=cipher_breaker.db");
+			freqDB.Open();
+
+			(var wordList, var frequencyList) = freqDB.QueryAll();
+			for (int i = 0; i < wordList.Count; i++)
 			{
-				string[] args = line.Split(' ');
-				string quad = args[0];
-				long frequency = long.Parse(args[1]);
-				frequencyDict[quad] = frequency;
-				totalCount += frequency;
+				frequencyDict[wordList[i]] = frequencyList[i];
+				totalCount += frequencyList[i];
 			}
 
-			quadgramFile.Close();
+			freqDB.Close();
 		}
 
 		public static void Flush()
 		{
 			var frequencyDB = new SqliteConnection("Data Source=cipher_breaker.db");
 			frequencyDB.Open();
-			
+
 			List<Task<int>> taskList = new List<Task<int>>();
 			foreach (var word_frequency in frequencyDict)
 			{
