@@ -138,7 +138,7 @@ namespace CipherBreaker
             return ("",false);
         }
 
-        public override (string, bool) Break(string cipher = null)
+        public override (string, double) Break(string cipher = null)
         {
             throw new NotImplementedException();
         }

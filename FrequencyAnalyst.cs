@@ -34,8 +34,8 @@ namespace CipherBreaker
 			}
 			for (int i = 0;i<str.Length-4;i++)
 			{
-				string quad = str.Substring(i, 4);
-				long frequency = frequencyDict[quad];
+				string quad = str.Substring(i, 4).ToUpper();
+				long frequency = frequencyDict.GetValueOrDefault(quad);
 				if (frequency == 0)
 				{
 					prob += Math.Log(1.0 / totalCount / 2.0);
