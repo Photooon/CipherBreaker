@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using CipherBreaker.Store;
 using Microsoft.Data.Sqlite;
 
 namespace CipherBreaker
@@ -13,46 +14,50 @@ namespace CipherBreaker
 
 		public static void Init()
 		{
-			StreamReader quadgramFile = new StreamReader("./Resource/word_quadgrams.txt");
-			string line;
-			while ((line = quadgramFile.ReadLine()) != null)
+			SqliteClient freqDB = new SqliteClient("Data Source=cipher_breaker.db");
+			freqDB.Open();
+
+			(var wordList, var frequencyList) = freqDB.QueryAll();
+			for (int i = 0; i < wordList.Count; i++)
 			{
-				string[] args = line.Split(' ');
-				string quad = args[0];
-				long frequency = long.Parse(args[1]);
-				frequencyDict[quad] = frequency;
-				totalCount += frequency;
+				frequencyDict[wordList[i]] = frequencyList[i];
+				totalCount += frequencyList[i];
 			}
 
-			quadgramFile.Close();
+			freqDB.Close();
 		}
 
 		public static void Flush()
 		{
 			var frequencyDB = new SqliteConnection("Data Source=cipher_breaker.db");
 			frequencyDB.Open();
-			
-			List<Task<int>> taskList = new List<Task<int>>();
-			foreach (var word_frequency in frequencyDict)
+
+			using (var transaction = frequencyDB.BeginTransaction())
 			{
-				var writeCommand = frequencyDB.CreateCommand();
-				writeCommand.CommandText =
+				var command = frequencyDB.CreateCommand();
+				command.CommandText =
 					@"
 					insert into word_frequency
 					values ($word, $frequency)
 				";
-				writeCommand.Parameters.AddWithValue("$word", word_frequency.Key);
-				writeCommand.Parameters.AddWithValue("$frequency", word_frequency.Value);
-				//writeCommand.ExecuteNonQuery();
-				var task = writeCommand.ExecuteNonQueryAsync();
-				taskList.Add(task);
-				if (taskList.Count >= 8)
+
+				(var wordParam, var freqParam) = (command.CreateParameter(), command.CreateParameter());
+				wordParam.ParameterName = "$word";
+				freqParam.ParameterName = "$frequency";
+				command.Parameters.Add(wordParam);
+				command.Parameters.Add(wordParam);
+
+				foreach (var wordFrequency in frequencyDict)
 				{
-					Task.WaitAll(taskList.ToArray());
-					taskList.Clear();
+					wordParam.Value = wordFrequency.Key;
+					freqParam.Value = wordFrequency.Value;
+					command.ExecuteNonQuery();
 				}
+
+				transaction.Commit();
 			}
-			Task.WaitAll(taskList.ToArray());
+
+			frequencyDB.Close();
 		}
 
 		public static double Analyze(string str)
