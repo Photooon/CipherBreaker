@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29926.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordFrequencyCrawler", "WordFrequencyCrawler\WordFrequencyCrawler.csproj", "{32D7BEF8-73A3-4092-801B-43AA9FA0A7FD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{32D7BEF8-73A3-4092-801B-43AA9FA0A7FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32D7BEF8-73A3-4092-801B-43AA9FA0A7FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32D7BEF8-73A3-4092-801B-43AA9FA0A7FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32D7BEF8-73A3-4092-801B-43AA9FA0A7FD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AC169AE3-7429-40DD-B275-17AA341C9C59}
+	EndGlobalSection
+EndGlobal
