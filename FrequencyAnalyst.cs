@@ -7,7 +7,7 @@ using Microsoft.Data.Sqlite;
 
 namespace CipherBreaker
 {
-	static class FrequencyAnalyst
+	class FrequencyAnalyst
 	{
 		private static Dictionary<string, long> frequencyDict = new Dictionary<string, long>();
 		private static long totalCount;
