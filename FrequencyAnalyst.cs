@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
+using CipherBreaker.Store;
+using Microsoft.Data.Sqlite;
 
 namespace CipherBreaker
 {
@@ -11,20 +14,52 @@ namespace CipherBreaker
 
 		public static void Init()
 		{
-			StreamReader quadgramFile = new StreamReader("./Resource/word_quadgrams.txt");
+			SqliteClient freqDB = new SqliteClient("Data Source=cipher_breaker.db");
+			freqDB.Open();
 
-			string line;
-			while ((line = quadgramFile.ReadLine()) != null)
+			(var wordList, var frequencyList) = freqDB.QueryAll();
+			for (int i = 0; i < wordList.Count; i++)
 			{
-				string[] args = line.Split(' ');
-				string quad = args[0];
-				long frequency = long.Parse(args[1]);
-				frequencyDict[quad] = frequency;
-				totalCount += frequency;
+				frequencyDict[wordList[i]] = frequencyList[i];
+				totalCount += frequencyList[i];
 			}
 
-			quadgramFile.Close();
+			freqDB.Close();
 		}
+
+		public static void Flush()
+		{
+			var frequencyDB = new SqliteConnection("Data Source=cipher_breaker.db");
+			frequencyDB.Open();
+
+			using (var transaction = frequencyDB.BeginTransaction())
+			{
+				var command = frequencyDB.CreateCommand();
+				command.CommandText =
+					@"
+					insert into word_frequency
+					values ($word, $frequency)
+				";
+
+				(var wordParam, var freqParam) = (command.CreateParameter(), command.CreateParameter());
+				wordParam.ParameterName = "$word";
+				freqParam.ParameterName = "$frequency";
+				command.Parameters.Add(wordParam);
+				command.Parameters.Add(wordParam);
+
+				foreach (var wordFrequency in frequencyDict)
+				{
+					wordParam.Value = wordFrequency.Key;
+					freqParam.Value = wordFrequency.Value;
+					command.ExecuteNonQuery();
+				}
+
+				transaction.Commit();
+			}
+
+			frequencyDB.Close();
+		}
+
 		public static double Analyze(string str)
 		{
 			double prob = 0.0;
@@ -32,7 +67,7 @@ namespace CipherBreaker
 			{
 				Init();
 			}
-			for (int i = 0;i<str.Length-4;i++)
+			for (int i = 0; i < str.Length - 4; i++)
 			{
 				string quad = str.Substring(i, 4).ToUpper();
 				long frequency = frequencyDict.GetValueOrDefault(quad);

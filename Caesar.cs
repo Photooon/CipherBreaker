@@ -21,7 +21,7 @@ namespace CipherBreaker
 
 		public Caesar(string plain = null, string cipher = null, string key = null) : base(plain, cipher, key)
 		{
-
+			Type = SchemeType.Caesar;
 		}
 
 		~Caesar()

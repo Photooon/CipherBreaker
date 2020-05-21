@@ -21,10 +21,20 @@ namespace CipherBreaker
 		{
 			InitializeComponent();
 
-			Caesar scheme = new Caesar(plain: "hello world", key: "2");
-			(string cipher,_) = scheme.Encode();
-
-			(string plain,double prob) = scheme.Break(cipher);
+			
+			
+			RailFence scheme = new RailFence(cipher: "ooentfehtrwe", key: "5");
+            (string plain, _) = scheme.Decode();
+			/*StringBuilder key = new StringBuilder();
+			for(int i = 25;i>=0;i--)
+			{
+				key.Append(i.ToString());
+				if (i > 0)
+					key.Append(',');
+			}
+			Substitution sub = new Substitution("hello", key: key.ToString());
+			sub.Encode();
+			sub.Decode();*/
 
 			return;
 		}
