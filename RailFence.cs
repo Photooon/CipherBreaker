@@ -17,7 +17,14 @@ namespace CipherBreaker
             return int.TryParse(key, out keyInt);
         }
 
-        
+        public RailFence(string plain=null,string cipher=null,string key = null) : base(plain, cipher, key)
+        {
+            Type = SchemeType.RailFence;
+        }
+        ~RailFence()
+        {
+
+        } 
         public override (string, bool) Encode(string plain = null, string key = null)
         {
             if (plain == null)
@@ -128,13 +135,6 @@ namespace CipherBreaker
             throw new NotImplementedException();
         }
 
-       public RailFence(string plain=null,string cipher=null,string key = null) : base(plain, cipher, key)
-        {
-
-        }
-        ~RailFence()
-        {
-
-        } 
+       
     }
 }
