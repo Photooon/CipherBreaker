@@ -41,17 +41,18 @@ namespace CipherBreaker
             }
             int keyInt = int.Parse(key);
             string cipher = "";
-            string[] cipherKey = new string[keyInt];
-            foreach (char p in plain) {
-                for (int i = 0; i < plain.Length; i++)
-                {
-                    int j;
-                    j = i % keyInt;
-                    cipherKey[j]+=p;
-                } }
+            string[] cipherBucket = new string[keyInt];
+            
+            for (int i = 0; i < plain.Length; i++)
+            {
+                int j;
+                j = i % keyInt;
+                cipherBucket[j]+=plain[i];
+            } 
+            
             for(int k=0;k<keyInt;k++)
             {
-                cipher = cipher + cipherKey[k];
+                cipher = cipher + cipherBucket[k];
             }
             this.Key = key;
             this.Cipher = cipher;
@@ -81,33 +82,40 @@ namespace CipherBreaker
             int keyInt = int.Parse(key);
 
             string plain = "";
-            string[] plainKey = null;
+            string[] plainBucket = new string[keyInt];
             int i = cipher.Length / keyInt;
             int j = cipher.Length % keyInt;
-            foreach (char c in cipher)
-            { 
-                for (int k = 0; k < j; k++)
+
+            for (int k = 0; k < keyInt; k++)
+            {
+                if (k < j)
                 {
                     for (int m = 0; m <= i; m++)
                     {
-                        plainKey[k]+=c;
+                        plainBucket[k] += cipher[k * (i + 1) + m];
                     }
                 }
-                for (int k = j; k < keyInt; k++)
+                else
                 {
                     for (int m = 0; m < i; m++)
                     {
-                        plainKey[k]+=c;
+                        plainBucket[k] += cipher[k * i + m + j];
                     }
                 }
             }
-            for(int m = 0; m <= i; m++)
+            
+            for(int m = 0; m < i; m++)
             {
-               for(int k=0;k<keyInt;k++)
+                for (int k = 0; k < keyInt; k++)
                 {
-                    plain = plain + plainKey[k].Substring(m, 1);
+                    plain = plain + plainBucket[k][m];
                 }
             }
+            for(int k=0;k<j;k++)
+            {
+                plain += plainBucket[k][i];
+            }
+
             this.Key = key;
             this.Plain = plain;
             this.Cipher = cipher;
