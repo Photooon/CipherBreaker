@@ -51,7 +51,7 @@ namespace CipherBreaker
                         j -= keyInt;
                     }
                         
-                    cipherKey[j].Append(p);
+                    cipherKey[j]+=p;
                 } }
             for(int k=0;k<keyInt;k++)
             {
@@ -94,14 +94,14 @@ namespace CipherBreaker
                 {
                     for (int m = 0; m <= i; m++)
                     {
-                        plainKey[k].Append(c);
+                        plainKey[k]+=c;
                     }
                 }
                 for (int k = j; k < keyInt; k++)
                 {
                     for (int m = 0; m < i; m++)
                     {
-                        plainKey[k].Append(c);
+                        plainKey[k]+=c;
                     }
                 }
             }
