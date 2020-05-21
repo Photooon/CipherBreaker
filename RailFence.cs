@@ -46,10 +46,7 @@ namespace CipherBreaker
                 for (int i = 0; i < plain.Length; i++)
                 {
                     int j = i;
-                    while (j >= keyInt) 
-                    { 
-                        j -= keyInt;
-                    }
+                    j %= keyInt;
                         
                     cipherKey[j]+=p;
                 } }
