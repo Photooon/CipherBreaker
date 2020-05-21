@@ -11,6 +11,7 @@ namespace CipherBreaker
 		Vigenere,
 		Substitution,
 		Transposition,
+		RailFence,
 		Columnar
 	}
 
