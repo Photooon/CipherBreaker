@@ -45,14 +45,12 @@ namespace CipherBreaker
             
             for (int i = 0; i < plain.Length; i++)
             {
-                int j;
-                j = i % keyInt;
-                cipherBucket[j]+=plain[i];
+                cipherBucket[i % keyInt]+=plain[i];
             } 
             
             for(int k=0;k<keyInt;k++)
             {
-                cipher = cipher + cipherBucket[k];
+                cipher += cipherBucket[k];
             }
             this.Key = key;
             this.Cipher = cipher;
