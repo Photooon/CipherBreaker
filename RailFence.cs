@@ -32,21 +32,21 @@ namespace CipherBreaker
             {
                 return (null, false);
             }
-            int KeyInt = int.Parse(key);
+            int keyInt = int.Parse(key);
             string cipher = "";
-            string[] cipherKey = new string[KeyInt];
+            string[] cipherKey = new string[keyInt];
             foreach (char p in plain) {
                 for (int i = 0; i < plain.Length; i++)
                 {
                     int j = i;
-                    while (j >= KeyInt) 
+                    while (j >= keyInt) 
                     { 
-                        j -= KeyInt;
+                        j -= keyInt;
                     }
                         
                     cipherKey[j].Append(p);
                 } }
-            for(int k=0;k<KeyInt;k++)
+            for(int k=0;k<keyInt;k++)
             {
                 cipher = cipher + cipherKey[k];
             }
@@ -75,12 +75,12 @@ namespace CipherBreaker
             {
                 return (null, false);
             }
-            int KeyInt = int.Parse(key);
+            int keyInt = int.Parse(key);
 
             string plain = "";
             string[] plainKey = null;
-            int i = cipher.Length / KeyInt;
-            int j = cipher.Length % KeyInt;
+            int i = cipher.Length / keyInt;
+            int j = cipher.Length % keyInt;
             foreach (char c in cipher)
             { 
                 for (int k = 0; k < j; k++)
@@ -90,7 +90,7 @@ namespace CipherBreaker
                         plainKey[k].Append(c);
                     }
                 }
-                for (int k = j; k < KeyInt; k++)
+                for (int k = j; k < keyInt; k++)
                 {
                     for (int m = 0; m < i; m++)
                     {
@@ -100,7 +100,7 @@ namespace CipherBreaker
             }
             for(int m = 0; m <= i; m++)
             {
-               for(int k=0;k<KeyInt;k++)
+               for(int k=0;k<keyInt;k++)
                 {
                     plain = plain + plainKey[k].Substring(m, 1);
                 }
