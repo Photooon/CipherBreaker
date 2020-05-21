@@ -195,8 +195,10 @@ namespace WebCrawler
 			{
 				try
 				{
-					var temp = pm.Value.IndexOf('>');
-					string para = pm.Value.Substring(temp + 1, pm.Value.Length - temp - 6); //截取引号内的文本
+					int startIndex = pm.Value.IndexOf('>') + 1;
+					int endIndex = pm.Value.LastIndexOf('<');
+					int length = endIndex - startIndex;
+					string para = pm.Value.Substring(startIndex, length).ToUpper();		//截取引号内的文本，且全部转换为大写
 					string[] words = para.Split(new char[] { ' ', '"', ',', '.', ':', ';', '-', '–',
 						'(', ')', '<', '>', '|', '&', '#', '$', '￥', '‘', '’' });
 					
@@ -283,6 +285,7 @@ namespace WebCrawler
 					{
 						Console.WriteLine("URL处理失败: " + ex.Message);
 					}
+					checkNullCount = 0;
 				}
 				else
 				{
