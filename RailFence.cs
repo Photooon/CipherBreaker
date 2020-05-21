@@ -34,18 +34,21 @@ namespace CipherBreaker
             }
             int KeyInt = int.Parse(key);
             string cipher = "";
-            string[] cipher_key = null;
+            string[] cipherKey = new string[KeyInt];
             foreach (char p in plain) {
                 for (int i = 0; i < plain.Length; i++)
                 {
                     int j = i;
-                    if (j >= KeyInt)
+                    while (j >= KeyInt) 
+                    { 
                         j -= KeyInt;
-                    cipher_key[j].Append(p);
+                    }
+                        
+                    cipherKey[j].Append(p);
                 } }
             for(int k=0;k<KeyInt;k++)
             {
-                cipher = cipher + cipher_key[k];
+                cipher = cipher + cipherKey[k];
             }
             this.Key = key;
             this.Cipher = cipher;
@@ -53,7 +56,7 @@ namespace CipherBreaker
             return (cipher, true);
         }
         
-        public override (string, bool) Break(string cipher = null)
+        public override (string, double) Break(string cipher = null)
         {
             throw new NotImplementedException();
         }
@@ -75,7 +78,7 @@ namespace CipherBreaker
             int KeyInt = int.Parse(key);
 
             string plain = "";
-            string[] plain_key = null;
+            string[] plainKey = null;
             int i = cipher.Length / KeyInt;
             int j = cipher.Length % KeyInt;
             foreach (char c in cipher)
@@ -84,14 +87,14 @@ namespace CipherBreaker
                 {
                     for (int m = 0; m <= i; m++)
                     {
-                        plain_key[k].Append(c);
+                        plainKey[k].Append(c);
                     }
                 }
                 for (int k = j; k < KeyInt; k++)
                 {
                     for (int m = 0; m < i; m++)
                     {
-                        plain_key[k].Append(c);
+                        plainKey[k].Append(c);
                     }
                 }
             }
@@ -99,7 +102,7 @@ namespace CipherBreaker
             {
                for(int k=0;k<KeyInt;k++)
                 {
-                    plain = plain + plain_key[k].Substring(m, 1);
+                    plain = plain + plainKey[k].Substring(m, 1);
                 }
             }
             this.Key = key;

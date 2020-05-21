@@ -71,7 +71,7 @@ namespace CipherBreaker
 
 		public abstract (string, bool) Encode(string plain = null, string encodeKey = null);
 		public abstract (string, bool) Decode(string cipher = null, string decodeKey = null);
-		public abstract (string, bool) Break(string cipher = null);
+		public abstract (string, double) Break(string cipher = null);
 
 		public SchemeState End()
 		{
