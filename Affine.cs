@@ -66,11 +66,11 @@ namespace CipherBreaker
 
 				if (p >= 'a' && p <= 'z')
 				{
-					c = (((p - 'a' + 1) * aInt + bInt) % Scheme.LetterSetSize) + 'a' - 1;
+					c = (((p - 'a') * aInt + bInt) % Scheme.LetterSetSize) + 'a';
 				}
 				else if (p >= 'A' && p <= 'Z')
 				{
-					c = (((p - 'A' + 1) * aInt + bInt) % Scheme.LetterSetSize) + 'A' - 1;
+					c = (((p - 'A') * aInt + bInt) % Scheme.LetterSetSize) + 'A';
 				}
 				cipher += Convert.ToChar(c);
 			}
@@ -109,7 +109,7 @@ namespace CipherBreaker
 					if (NumberTheory.Gcd(aInt, Scheme.LetterSetSize) == 1)  //只有当 a 与 n 互素的时候, a 才是有模逆的
 					{
 						int cInt = (int)NumberTheory.Inverse(aInt, Scheme.LetterSetSize);
-						p = (((c - 'a' + 1 - bInt) * cInt) % Scheme.LetterSetSize) + 'a' - 1;
+						p = (((c - 'a' - bInt) * cInt) % Scheme.LetterSetSize) + 'a';
 					}
 				}
 				else if (c >= 'A' && c <= 'Z')
@@ -117,7 +117,7 @@ namespace CipherBreaker
 					if (NumberTheory.Gcd(aInt, Scheme.LetterSetSize) == 1)  //只有当 a 与 n 互素的时候, a 才是有模逆的
 					{
 						int cInt = (int)NumberTheory.Inverse(aInt, Scheme.LetterSetSize);
-						p = (((c - 'A' + 1 - bInt) * cInt) % Scheme.LetterSetSize) + 'A' - 1;
+						p = (((c - 'A' - bInt) * cInt) % Scheme.LetterSetSize) + 'A';
 					}
 				}
 				plain += Convert.ToChar(p);
