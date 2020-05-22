@@ -36,6 +36,11 @@ namespace CipherBreaker
 			sub.Encode();
 			sub.Decode();*/
 
+			/*Affine affine = new Affine("Hello", "", "3,1");
+			affine.Encode();
+			Affine affines = new Affine("", "Wniir", "3,1");
+			affines.Decode();*/
+
 			return;
 		}
 	}
