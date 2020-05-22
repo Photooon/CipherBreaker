@@ -7,8 +7,9 @@ namespace WordFrequencyCrawler
     {
         static void Main(string[] args)
         {
-            Crawler crawler = new Crawler("http://www.chinadaily.com.cn", 1, 25, "chinadaily.txt");
-            crawler.Start();
+            Crawler crawler = new Crawler("http://www.chinadaily.com.cn", 10, 25, 3600, "chinadaily.txt");
+            //crawler.Start();
+            crawler.CarryOn();
         }
     }
 }
