@@ -9,33 +9,32 @@ namespace CipherBreaker.Store
 	class SqliteClient : SqliteConnection
 	{
 		const string WordFrequencyTableName = "word_frequency";
+		const string OperationRecordTableName = "operation_record";
 
-		public SqliteClient(string connectionString) : base(connectionString)
-		{
-		}
+		public SqliteClient(string connectionString) : base(connectionString) { }
 
-		public void Insert(string word, long frequency)
+		public void InsertWordFreq(string word, long frequency)
 		{
 			var command = CreateCommand();
 			command.CommandText = $"insert into {WordFrequencyTableName} values({word},{frequency})";
 			command.ExecuteNonQuery();
 		}
 
-		public void Updata(string word, long frequency)
+		public void UpdateWordFreq(string word, long frequency)
 		{
 			var command = CreateCommand();
 			command.CommandText = $"update {WordFrequencyTableName} set frequency={frequency} where word={word}";
 			command.ExecuteNonQuery();
 		}
 
-		public long Query(string word)
+		public long QueryWordFreq(string word)
 		{
 			var command = CreateCommand();
 			command.CommandText = $"select frequency from {WordFrequencyTableName} where word={word}";
 			return (long)command.ExecuteScalar();
 		}
 
-		public (List<string>, List<long>) QueryAll()
+		public (List<string>, List<long>) QueryAllWordFreq()
 		{
 			var command = CreateCommand();
 			command.CommandText = $"select * from {WordFrequencyTableName}";
@@ -53,7 +52,7 @@ namespace CipherBreaker.Store
 			return (wordList, frequencyList);
 		}
 
-		void Delete(string word)
+		public void DeleteWordFreq(string word)
 		{
 			var command = CreateCommand();
 			command.CommandText = $"delete from {WordFrequencyTableName} where word={word}";
