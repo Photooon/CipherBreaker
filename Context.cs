@@ -10,7 +10,7 @@ namespace CipherBreaker
 		private Scheme scheme;
 		public double BestProb;
 		public string BestKey;
-		public Dictionary<string, object> ctx;
+		public Dictionary<string, object> Ctx;
 
 		Context(Scheme scheme)
 		{
