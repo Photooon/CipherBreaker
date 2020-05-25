@@ -21,10 +21,10 @@ namespace CipherBreaker
 		{
 			InitializeComponent();
 
-			
-			
-			RailFence scheme = new RailFence(cipher: "ooentfehtrwe", key: "5");
-            (string plain, _) = scheme.Decode();
+			Scheme s = new RailFence();
+
+
+			RailFence scheme = s as RailFence;
 			/*StringBuilder key = new StringBuilder();
 			for(int i = 25;i>=0;i--)
 			{
