@@ -21,22 +21,34 @@ namespace CipherBreaker
 		{
 			InitializeComponent();
 
-			Scheme s = new RailFence();
-
-
-			RailFence scheme = s as RailFence;
-			/*StringBuilder key = new StringBuilder();
-			for(int i = 25;i>=0;i--)
-			{
-				key.Append(i.ToString());
-				if (i > 0)
-					key.Append(',');
-			}
-			Substitution sub = new Substitution("hello", key: key.ToString());
-			sub.Encode();
-			sub.Decode();*/
+			Print("Debug!");
 
 			return;
+		}
+
+		public bool TestCaesarEncode()
+		{
+			return true;
+		}
+
+		public bool TestCaesarDecode()
+		{
+			return true;
+		}
+
+		public bool TestCaesarBreak()
+		{
+			return true;
+		}
+
+		private void Print(object obj)
+		{
+			DebugInfo.Content += "\n" + obj.ToString();
+		}
+
+		private void ClearDebugInfo(object sender, RoutedEventArgs e)
+		{
+			DebugInfo.Content = "";
 		}
 	}
 }
