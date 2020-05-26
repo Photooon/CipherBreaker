@@ -21,7 +21,11 @@ namespace CipherBreaker
 		{
 			InitializeComponent();
 
-			StringBuilder key = new StringBuilder();
+			Scheme s = new RailFence();
+
+
+			RailFence scheme = s as RailFence;
+			/*StringBuilder key = new StringBuilder();
 			for(int i = 25;i>=0;i--)
 			{
 				key.Append(i.ToString());
@@ -30,7 +34,12 @@ namespace CipherBreaker
 			}
 			Substitution sub = new Substitution("hello", key: key.ToString());
 			sub.Encode();
-			sub.Decode();
+			sub.Decode();*/
+
+			/*Affine affine = new Affine("Hello", "", "3,1");
+			affine.Encode();
+			Affine affines = new Affine("", "Wniir", "3,1");
+			affines.Decode();*/
 
 			return;
 		}
