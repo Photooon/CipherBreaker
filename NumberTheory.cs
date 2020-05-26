@@ -72,7 +72,7 @@ namespace CipherBreaker
 
 		// 不存在逆元时返回0
 		// 用于一般情况，若n为素数使用InversePrime()可获得最佳性能
-		public long Inverse(long a, long n)
+		public static long Inverse(long a, long n)
 		{
 			if (n <= 0)
 			{
@@ -89,7 +89,7 @@ namespace CipherBreaker
 		}
 
 		// 针对素数模数的逆元
-		public long InversePrime(long a, long p)
+		public static long InversePrime(long a, long p)
 		{
 			if (p <= 0)
 			{
