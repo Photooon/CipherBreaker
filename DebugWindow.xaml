@@ -7,6 +7,14 @@
         mc:Ignorable="d"
         Title="DebugWindow" Height="720" Width="1280">
 	<Grid>
-		<Label x:Name="DebugInfo" Content="Info..." Height="595" Margin="0,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="1260"/>
+		<Grid.Background>
+			<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+				<GradientStop Color="White" Offset="0"/>
+				<GradientStop Color="#FF1A7E80" Offset="0.944"/>
+				<GradientStop Color="#FF2789E4" Offset="0.332"/>
+			</LinearGradientBrush>
+		</Grid.Background>
+		<Label x:Name="DebugInfo" Height="574" VerticalAlignment="Top" HorizontalAlignment="Center" Width="1260" BorderThickness="5,5,5,5" Margin="0,10,0,0" Background="Black" Foreground="White"/>
+		<Button x:Name="ClearButton" Content="Button" HorizontalAlignment="Left" Height="54" Margin="1101,604,0,0" VerticalAlignment="Top" Width="123" Click="ClearDebugInfo"/>
 	</Grid>
 </Window>

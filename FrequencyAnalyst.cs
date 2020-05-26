@@ -17,7 +17,7 @@ namespace CipherBreaker
 			SqliteClient freqDB = new SqliteClient("Data Source=cipher_breaker.db");
 			freqDB.Open();
 
-			(var wordList, var frequencyList) = freqDB.QueryAll();
+			(var wordList, var frequencyList) = freqDB.QueryAllWordFreq();
 			for (int i = 0; i < wordList.Count; i++)
 			{
 				frequencyDict[wordList[i]] = frequencyList[i];
