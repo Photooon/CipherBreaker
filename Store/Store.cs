@@ -63,7 +63,7 @@ namespace CipherBreaker.Store
 		{
 			var command = CreateCommand();
 			command.CommandText = $"insert into {OperationRecordTableName}" +
-				$" values(null,{record.Type},{record.OriginText},{record.Key},{record.ResultText},{DateTime.Now.ToString()})";
+				$" values(null,{(int)record.Type},{record.OriginText},{record.Key},{record.ResultText},{DateTime.Now.ToString()})";
 			command.ExecuteNonQuery();
 		}
 
