@@ -14,5 +14,9 @@ namespace CipherBreaker
 		public string OriginText;
 		public string Key;
 		public string ResultText;
+		public override string ToString()
+		{
+			return this.Name;
+		}
 	}
 }
