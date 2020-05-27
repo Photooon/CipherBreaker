@@ -41,6 +41,12 @@ namespace CipherBreaker
 			Affine affines = new Affine("", "Wniir", "3,1");
 			affines.Decode();*/
 
+			/*RailFence railFence = new RailFence("onetwothreefour", "", "4");
+			railFence.Encode();
+			RailFence railFence1 = new RailFence("", "owronoeueterthf");
+			railFence1.Decode();*/
+
+
 			return;
 		}
 	}

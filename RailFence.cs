@@ -60,7 +60,27 @@ namespace CipherBreaker
         
         public override (string, double) Break(string cipher = null)
         {
-            throw new NotImplementedException();
+            if (cipher == null)
+            {
+                cipher = this.Cipher;
+            }
+            string plain = cipher;
+            double maxProb = FrequencyAnalyst.Analyze(cipher);
+            for(int i = 1; i < cipher.Length; i++)
+            {
+                (string str, bool ok) result = Decode(cipher, i.ToString());
+                if(result.ok)
+                {
+                    double prob = FrequencyAnalyst.Analyze(result.str);
+                    if (prob > maxProb)
+                    {
+                        plain = result.str;
+                        maxProb = prob;
+                    }
+                }
+            }
+            this.Plain = plain;
+            return (plain, Math.Pow(Math.E, maxProb));
         }
 
         public override (string, bool) Decode(string cipher = null, string key = null)
