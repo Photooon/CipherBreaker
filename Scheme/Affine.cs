@@ -142,9 +142,9 @@ namespace CipherBreaker
 
 			for (int i = 0; i < LetterSetSize; i++)
 			{
-				for(int j = 0; j < LetterSetSize; j++)
+				if (NumberTheory.Gcd(i, LetterSetSize) == 1)
 				{
-					if (NumberTheory.Gcd(i, LetterSetSize) == 1)
+					for (int j = 0; j < LetterSetSize; j++)
 					{
 						string a = i.ToString();
 						string b = j.ToString();
