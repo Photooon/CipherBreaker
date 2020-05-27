@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Windows;
 using CipherBreaker.Store;
 using Microsoft.Data.Sqlite;
 
@@ -9,19 +12,35 @@ namespace CipherBreaker
 {
 	class FrequencyAnalyst
 	{
-		private static Dictionary<string, long> frequencyDict = new Dictionary<string, long>();
-		private static long totalCount;
+		private static Dictionary<string, long>[] freqs = null;
+		private static long[] totalCounts = null;
 
 		public static void Init()
 		{
+			totalCounts = new long[4];
+			freqs = new Dictionary<string, long>[4];
+			for (int i = 0; i < 4; i++)
+			{
+				freqs[i] = new Dictionary<string, long>();
+			}
+
 			SqliteClient freqDB = new SqliteClient("Data Source=cipher_breaker.db");
 			freqDB.Open();
 
 			(var wordList, var frequencyList) = freqDB.QueryAllWordFreq();
 			for (int i = 0; i < wordList.Count; i++)
 			{
-				frequencyDict[wordList[i]] = frequencyList[i];
-				totalCount += frequencyList[i];
+				(var word, var freq) = (wordList[i], frequencyList[i]);
+				if (word.Length >= 4)
+				{
+					freqs[0][word] = freq;
+					totalCounts[0] += freq;
+				}
+				else
+				{
+					freqs[word.Length][word] = freq;
+					totalCounts[word.Length] += freq;
+				}
 			}
 
 			freqDB.Close();
@@ -29,57 +48,81 @@ namespace CipherBreaker
 
 		public static void Flush()
 		{
-			var frequencyDB = new SqliteConnection("Data Source=cipher_breaker.db");
-			frequencyDB.Open();
+			//var frequencydb = new sqliteconnection("data source=cipher_breaker.db");
+			//frequencydb.open();
 
-			using (var transaction = frequencyDB.BeginTransaction())
-			{
-				var command = frequencyDB.CreateCommand();
-				command.CommandText =
-					@"
-					insert into word_frequency
-					values ($word, $frequency)
-				";
+			//using (var transaction = frequencydb.begintransaction())
+			//{
+			//	var command = frequencydb.createcommand();
+			//	command.commandtext =
+			//		@"
+			//		insert into word_frequency
+			//		values ($word, $frequency)
+			//	";
 
-				(var wordParam, var freqParam) = (command.CreateParameter(), command.CreateParameter());
-				wordParam.ParameterName = "$word";
-				freqParam.ParameterName = "$frequency";
-				command.Parameters.Add(wordParam);
-				command.Parameters.Add(wordParam);
+			//	(var wordparam, var freqparam) = (command.createparameter(), command.createparameter());
+			//	wordparam.parametername = "$word";
+			//	freqparam.parametername = "$frequency";
+			//	command.parameters.add(wordparam);
+			//	command.parameters.add(wordparam);
 
-				foreach (var wordFrequency in frequencyDict)
-				{
-					wordParam.Value = wordFrequency.Key;
-					freqParam.Value = wordFrequency.Value;
-					command.ExecuteNonQuery();
-				}
+			//	foreach (var wordfrequency in frequencydict)
+			//	{
+			//		wordparam.value = wordfrequency.key;
+			//		freqparam.value = wordfrequency.value;
+			//		command.executenonquery();
+			//	}
 
-				transaction.Commit();
-			}
+			//	transaction.commit();
+			//}
 
-			frequencyDB.Close();
+			//frequencydb.close();
 		}
 
 		public static double Analyze(string str)
 		{
 			double prob = 0.0;
-			if (totalCount == 0)
+
+			if (totalCounts == null)
 			{
 				Init();
 			}
-			for (int i = 0; i < str.Length - 4; i++)
+
+			var strList = str.Split(' ');
+
+			foreach (string s in strList)
 			{
-				string quad = str.Substring(i, 4).ToUpper();
-				long frequency = frequencyDict.GetValueOrDefault(quad);
-				if (frequency == 0)
+				if (s.Length >= 4)
 				{
-					prob += Math.Log(1.0 / totalCount / 2.0);
+					for (int i = 0; i < str.Length - 4; i++)
+					{
+						string quad = str.Substring(i, 4).ToUpper();
+						long frequency = freqs[0].GetValueOrDefault(quad);
+						if (frequency == 0)
+						{
+							prob += Math.Log(1.0 / totalCounts[0] / 2.0);
+						}
+						else
+						{
+							prob += Math.Log((double)frequency / totalCounts[0]);
+						}
+					}
 				}
 				else
 				{
-					prob += Math.Log((double)frequency / totalCount);
+					long frequency = freqs[s.Length].GetValueOrDefault(s);
+					if (frequency == 0)
+					{
+						prob += Math.Log(1.0 / totalCounts[s.Length] / 2.0);
+					}
+					else
+					{
+						prob += Math.Log((double)frequency / totalCounts[s.Length]);
+					}
 				}
 			}
+
+
 			return prob;
 		}
 
