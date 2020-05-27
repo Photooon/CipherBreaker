@@ -36,6 +36,19 @@ namespace CipherBreaker
 				Print("TestCaesarBreak failed");
 			}
 
+			if (!TestAffineEncode())
+			{
+				Print("TestAffineEncode failed");
+			}
+			if (!TestAffineDecode())
+			{
+				Print("TestAffineDecode failed");
+			}
+			if (!TestAffineBreak())
+			{
+				Print("TestAffineBreak failed");
+			}
+
 			return;
 		}
 
@@ -50,6 +63,21 @@ namespace CipherBreaker
 		}
 
 		public bool TestCaesarBreak()
+		{
+			return true;
+		}
+
+		public bool TestAffineEncode()
+		{
+			return true;
+		}
+
+		public bool TestAffineDecode()
+		{
+			return true;
+		}
+
+		public bool TestAffineBreak()
 		{
 			return true;
 		}
