@@ -22,6 +22,19 @@ namespace CipherBreaker
 			InitializeComponent();
 
 			Print("Debug!");
+			
+			if(!TestCaesarEncode())
+			{
+				Print("TestCaesarEncode failed");
+			}
+			if (!TestCaesarDecode())
+			{
+				Print("TestCaesarDecode failed");
+			}
+			if (!TestCaesarBreak())
+			{
+				Print("TestCaesarBreak failed");
+			}
 
 			return;
 		}
