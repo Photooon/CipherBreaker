@@ -132,7 +132,40 @@ namespace CipherBreaker
 
 		public override (string, double) Break(string cipher = null)
 		{
-			throw new NotImplementedException();
+			if (cipher == null)
+			{
+				cipher = this.Cipher;
+			}
+
+			string plain = cipher;
+			double maxProb = FrequencyAnalyst.Analyze(cipher);
+
+			for (int i = 0; i < LetterSetSize; i++)
+			{
+				for(int j = 0; j < LetterSetSize; j++)
+				{
+					if (NumberTheory.Gcd(i, LetterSetSize) == 1)
+					{
+						string a = i.ToString();
+						string b = j.ToString();
+						string ab = a + "," + b;
+						(string str, bool ok) result = Decode(cipher, ab);
+						if (result.ok)
+						{
+							double prob = FrequencyAnalyst.Analyze(result.str);
+							if (prob > maxProb)
+							{
+								plain = result.str;
+								maxProb = prob;
+							}
+						}
+					}
+				}
+			}
+
+			this.Plain = plain;
+			return (plain, Math.Pow(Math.E, maxProb));
+			//throw new NotImplementedException();
 		}
 		public override bool Save(string fileName)
 		{
