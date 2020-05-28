@@ -15,26 +15,14 @@
             <RowDefinition Height="50"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Content="Cipher Breaker" FontSize="24" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
         <ListBox Grid.Row="1" x:Name="TaskListBox" Padding="0,5,0,5" FontSize="24" FontWeight="Bold"/>
-        <Line X1="0" Y1="50" X2="1200" Y2="50" Fill="Black" Stroke="Black" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
-        <ListBox Grid.Column="1" Grid.Row="1">
-        </ListBox>
-        <Grid Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="20*"/>
-                <ColumnDefinition Width="20*"/>
-                <ColumnDefinition Width="20*"/>
-                <ColumnDefinition Width="20*"/>
-                <ColumnDefinition Width="20*"/>
-            </Grid.ColumnDefinitions>
-            <Button Content="新建任务" VerticalAlignment="Center" Height="50" BorderThickness="0,0,0,0" FontWeight="Bold" FontSize="24"/>
-            <Button Content="继续任务" VerticalAlignment="Center" Height="50" Grid.Column="1" BorderThickness="0,0,0,0" FontWeight="Bold" FontSize="24"/>
-            <Button Content="工具用法" VerticalAlignment="Center" Height="50" Grid.Column="2" BorderThickness="0,0,0,0" FontWeight="Bold" FontSize="24"/>
-            <Button Content="加密算法介绍" VerticalAlignment="Center" Height="50" Grid.Column="3" BorderThickness="0,0,0,0" FontWeight="Bold" FontSize="24"/>
-            <Button Content="设置" VerticalAlignment="Center" Height="50" Grid.Column="4" BorderThickness="0,0,0,0" FontWeight="Bold" FontSize="24"/>
-        </Grid>
-        <Label Content="Cipher Breaker" HorizontalAlignment="Center" VerticalAlignment="Center" Width="250" Height="50" FontSize="24" FontWeight="Bold" HorizontalContentAlignment="Center" Padding="5,10,5,5"/>
-        <Grid/>
-
+        <TabControl TabStripPlacement="Top" Grid.Column="1">
+            <TabItem Header="新建任务" Height="50" FontSize="24" FontWeight="Bold" Width="180"/>
+            <TabItem Header="继续任务" Height="50" FontSize="24" FontWeight="Bold" Width="180"/>
+            <TabItem Header="工具用法" Height="50" FontSize="24" FontWeight="Bold" Width="180"/>
+            <TabItem Header="加密算法介绍" Height="50" FontSize="24" FontWeight="Bold" Width="180"/>
+            <TabItem Header="设置" Height="50" FontSize="24" FontWeight="Bold" Width="180"/>
+        </TabControl>
     </Grid>
 </Window>
