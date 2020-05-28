@@ -35,7 +35,18 @@ namespace CipherBreaker
 			{
 				Print("TestCaesarBreak failed");
 			}
-
+			if (!TestRailFenceEncode())
+			{
+				Print("TestRailFenceEncode failed");
+			}
+			if (!TestRailFenceDecode())
+			{
+				Print("TestRailFenceDecode failed");
+			}
+			if (!TestRailFenceBreak())
+			{
+				Print("TestRailFenceBreak failed");
+			}
 			return;
 		}
 
@@ -61,6 +72,30 @@ namespace CipherBreaker
 			(var plain, var prob) = caesar.Break();
 			Print(caesar.Cipher, caesar.Key, plain, prob);
 			return plain == "hello world";
+		}
+
+		public bool TestRailFenceEncode()
+		{
+			RailFence railFence = new RailFence(plain: "one two three four", key: "4");
+			(var cipher, _) = railFence.Encode();
+			Print(railFence.Plain, railFence.Key, cipher);
+			return cipher == "otteunwh reorf  eo";
+		}
+
+		public bool TestRailFenceDecode()
+		{
+			RailFence railFence = new RailFence(cipher: "otteunwh reorf  eo", key: "4");
+			(var plain, _) = railFence.Decode();
+			Print(railFence.Cipher, railFence.Key, plain);
+			return plain == "one two three four";
+		}
+
+		public bool TestRailFenceBreak()
+		{
+			RailFence railFence = new RailFence(cipher : "otteunwh reorf  eo");
+			(var plain, var prob) = railFence.Break();
+			Print(railFence.Cipher, railFence.Key, plain, prob);
+			return plain == "one two three four";
 		}
 
 		private void Print(params object[] objs)
