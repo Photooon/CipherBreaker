@@ -59,7 +59,7 @@ namespace CipherBreaker
 			string[] ab = key.Split(',');   //"a,b"，根据逗号分割字符串key，第一个数为乘数，第二个数为加数0
 			int aInt = int.Parse(ab[0]);
 			int bInt = int.Parse(ab[1]);
-			string cipher = "";
+			string cipher = "";  
 			foreach (char p in plain)
 			{
 				int c = p;
