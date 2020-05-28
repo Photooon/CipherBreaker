@@ -99,6 +99,11 @@ namespace CipherBreaker
 			return schemeCount[type];
 		}
 
-		public new abstract string ToString();
+		public override abstract string ToString();
+
+		public static Scheme ChooseScheme(string plain)
+		{
+			return new RailFence();
+		}
 	}
 }
