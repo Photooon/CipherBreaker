@@ -113,15 +113,15 @@ namespace CipherBreaker
 		
 		public bool TestAffineEncode()
 		{
-			Affine affine = new Affine(plain: "HELLO hello", key: "2,1");
+			Affine affine = new Affine(plain: "HELLO hello", key: "3,1");
 			(var cipher, _) = affine.Encode();
 			Print(affine.Plain, affine.Key, cipher);
-			return cipher == "PJXXD pjxxd";
+			return cipher == "WNIIR wniir";
 		}
 
 		public bool TestAffineDecode()
 		{
-			Affine affine = new Affine(cipher: "PJXXD pjxxd", key: "2,1");
+			Affine affine = new Affine(cipher: "WNIIR wniir", key: "3,1");
 			(var plain, _) = affine.Decode();
 			Print(affine.Cipher, affine.Key, plain);
 			return plain == "HELLO hello";
@@ -129,10 +129,10 @@ namespace CipherBreaker
 
 		public bool TestAffineBreak()
 		{
-			Affine affine = new Affine(cipher: "HELLO hello");
+			Affine affine = new Affine(cipher: "WNIIR wniir");
 			(var plain, var prob) = affine.Break();
 			Print(affine.Cipher, affine.Key, plain, prob);
-			return plain == "PJXXD pjxxd";
+			return plain == "HELLO hello";
 		}
 		
 		private void Print(params object[] objs)
