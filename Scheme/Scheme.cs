@@ -101,9 +101,9 @@ namespace CipherBreaker
 
 		public override abstract string ToString();
 
-		public static SchemeType ChooseScheme(string plain)
+		public static Scheme ChooseScheme(string plain)
 		{
-			return SchemeType.RailFence;
+			return new RailFence();
 		}
 	}
 }
