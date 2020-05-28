@@ -21,7 +21,7 @@ namespace CipherBreaker
 
 		public Affine(string plain = null, string cipher = null, string key = null) : base(plain, cipher, key)
 		{
-
+			Type = SchemeType.Affine;
 		}
 
 		~Affine()
