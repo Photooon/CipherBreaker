@@ -7,6 +7,6 @@ namespace CipherBreaker
 {
 	static class CommonData
 	{
-		public static ObservableCollection<Task> tasks = new ObservableCollection<Task>();
+		public static ObservableCollection<Task> Tasks = new ObservableCollection<Task>();
 	}
 }

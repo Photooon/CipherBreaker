@@ -23,27 +23,53 @@ namespace CipherBreaker
 
 			Print("Debug!");
 
+			if (!TestCaesarEncode())
+			{
+				Print("TestCaesarEncode failed");
+			}
+			if (!TestCaesarDecode())
+			{
+				Print("TestCaesarDecode failed");
+			}
+			if (!TestCaesarBreak())
+			{
+				Print("TestCaesarBreak failed");
+			}
+
 			return;
 		}
 
 		public bool TestCaesarEncode()
 		{
-			return true;
+			Caesar caesar = new Caesar(plain: "hello world", key: "2");
+			(var cipher, _) = caesar.Encode();
+			Print(caesar.Plain, caesar.Key, cipher);
+			return cipher == "jgnnq yqtnf";
 		}
 
 		public bool TestCaesarDecode()
 		{
-			return true;
+			Caesar caesar = new Caesar(cipher: "jgnnq yqtnf", key: "2");
+			(var plain, _) = caesar.Decode();
+			Print(caesar.Cipher, caesar.Key, plain);
+			return plain == "hello world";
 		}
 
 		public bool TestCaesarBreak()
 		{
-			return true;
+			Caesar caesar = new Caesar(cipher: "jgnnq yqtnf");
+			(var plain, var prob) = caesar.Break();
+			Print(caesar.Cipher, caesar.Key, plain, prob);
+			return plain == "hello world";
 		}
 
-		private void Print(object obj)
+		private void Print(params object[] objs)
 		{
-			DebugInfo.Content += "\n" + obj.ToString();
+			DebugInfo.Content += "\n";
+			foreach (object obj in objs)
+			{
+				DebugInfo.Content += obj.ToString() + " ";
+			}
 		}
 
 		private void ClearDebugInfo(object sender, RoutedEventArgs e)
