@@ -35,6 +35,30 @@ namespace CipherBreaker
 			{
 				Print("TestCaesarBreak failed");
 			}
+			if (!TestRailFenceEncode())
+			{
+				Print("TestRailFenceEncode failed");
+			}
+			if (!TestRailFenceDecode())
+			{
+				Print("TestRailFenceDecode failed");
+			}
+			if (!TestRailFenceBreak())
+			{
+				Print("TestRailFenceBreak failed");
+			}
+			if (!TestAffineEncode())
+			{
+				Print("TestAffineEncode failed");
+			}
+			if (!TestAffineDecode())
+			{
+				Print("TestAffineDecode failed");
+			}
+			if (!TestAffineBreak())
+			{
+				Print("TestAffineBreak failed");
+			}
 
 			return;
 		}
@@ -63,6 +87,54 @@ namespace CipherBreaker
 			return plain == "hello world";
 		}
 
+		public bool TestRailFenceEncode()
+		{
+			RailFence railFence = new RailFence(plain: "one two three four", key: "4");
+			(var cipher, _) = railFence.Encode();
+			Print(railFence.Plain, railFence.Key, cipher);
+			return cipher == "otteunwh reorf  eo";
+		}
+
+		public bool TestRailFenceDecode()
+		{
+			RailFence railFence = new RailFence(cipher: "otteunwh reorf  eo", key: "4");
+			(var plain, _) = railFence.Decode();
+			Print(railFence.Cipher, railFence.Key, plain);
+			return plain == "one two three four";
+		}
+
+		public bool TestRailFenceBreak()
+		{
+			RailFence railFence = new RailFence(cipher : "otteunwh reorf  eo");
+			(var plain, var prob) = railFence.Break();
+			Print(railFence.Cipher, railFence.Key, plain, prob);
+			return plain == "one two three four";
+		}
+		
+		public bool TestAffineEncode()
+		{
+			Affine affine = new Affine(plain: "HELLO hello", key: "2,1");
+			(var cipher, _) = affine.Encode();
+			Print(affine.Plain, affine.Key, cipher);
+			return cipher == "PJXXD pjxxd";
+		}
+
+		public bool TestAffineDecode()
+		{
+			Affine affine = new Affine(cipher: "PJXXD pjxxd", key: "2,1");
+			(var plain, _) = affine.Decode();
+			Print(affine.Cipher, affine.Key, plain);
+			return plain == "HELLO hello";
+		}
+
+		public bool TestAffineBreak()
+		{
+			Affine affine = new Affine(cipher: "HELLO hello");
+			(var plain, var prob) = affine.Break();
+			Print(affine.Cipher, affine.Key, plain, prob);
+			return plain == "PJXXD pjxxd";
+		}
+		
 		private void Print(params object[] objs)
 		{
 			DebugInfo.Content += "\n";

@@ -4,6 +4,8 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Windows.Markup;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace CipherBreaker
 {
@@ -17,6 +19,9 @@ namespace CipherBreaker
 		Context(Scheme scheme)
 		{
 			this.scheme = scheme;
+			this.BestKey = "";
+			this.BestProb = 0.0;
+			this.Ctx = new Dictionary<string, object>();
 		}
 
 		public object Get(string key)

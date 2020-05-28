@@ -14,7 +14,8 @@ namespace CipherBreaker
 		Substitution,
 		Transposition,
 		RailFence,
-		Columnar
+		Columnar,
+		Affine
 	}
 
 	enum SchemeState
