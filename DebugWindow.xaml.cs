@@ -35,20 +35,18 @@ namespace CipherBreaker
 			{
 				Print("TestCaesarBreak failed");
 			}
-
-			if (!TestAffineEncode())
+			if (!TestRailFenceEncode())
 			{
-				Print("TestAffineEncode failed");
+				Print("TestRailFenceEncode failed");
 			}
-			if (!TestAffineDecode())
+			if (!TestRailFenceDecode())
 			{
-				Print("TestAffineDecode failed");
+				Print("TestRailFenceDecode failed");
 			}
-			if (!TestAffineBreak())
+			if (!TestRailFenceBreak())
 			{
-				Print("TestAffineBreak failed");
+				Print("TestRailFenceBreak failed");
 			}
-
 			return;
 		}
 
@@ -76,28 +74,28 @@ namespace CipherBreaker
 			return plain == "hello world";
 		}
 
-		public bool TestAffineEncode()
+		public bool TestRailFenceEncode()
 		{
-			Affine affine = new Affine(plain: "HELLO hello", key: "2,1");
-			(var cipher, _) = affine.Encode();
-			Print(affine.Plain, affine.Key, cipher);
-			return cipher == "PJXXD pjxxd";
+			RailFence railFence = new RailFence(plain: "one two three four", key: "4");
+			(var cipher, _) = railFence.Encode();
+			Print(railFence.Plain, railFence.Key, cipher);
+			return cipher == "otteunwh reorf  eo";
 		}
 
-		public bool TestAffineDecode()
+		public bool TestRailFenceDecode()
 		{
-			Affine affine = new Affine(cipher: "PJXXD pjxxd", key: "2,1");
-			(var plain, _) = affine.Decode();
-			Print(affine.Cipher, affine.Key, plain);
-			return plain == "HELLO hello";
+			RailFence railFence = new RailFence(cipher: "otteunwh reorf  eo", key: "4");
+			(var plain, _) = railFence.Decode();
+			Print(railFence.Cipher, railFence.Key, plain);
+			return plain == "one two three four";
 		}
 
-		public bool TestAffineBreak()
+		public bool TestRailFenceBreak()
 		{
-			Affine affine = new Affine(cipher: "HELLO hello");
-			(var plain, var prob) = affine.Break();
-			Print(affine.Cipher, affine.Key, plain, prob);
-			return plain == "PJXXD pjxxd";
+			RailFence railFence = new RailFence(cipher : "otteunwh reorf  eo");
+			(var plain, var prob) = railFence.Break();
+			Print(railFence.Cipher, railFence.Key, plain, prob);
+			return plain == "one two three four";
 		}
 
 		private void Print(params object[] objs)
