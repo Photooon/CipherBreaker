@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using CipherBreaker.Store;
@@ -33,8 +34,19 @@ namespace CipherBreaker
 				(var word, var freq) = (wordList[i], frequencyList[i]);
 				if (word.Length >= 4)
 				{
-					freqs[0][word] = freq;
-					totalCounts[0] += freq;
+					for (int j = 0; j < word.Length - 4; j++)
+					{
+						string sub = word.Substring(j, 4);
+						if (freqs[0].ContainsKey(sub))
+						{
+							freqs[0][sub] += freq;
+						}
+						else
+						{
+							freqs[0][sub] = freq;
+						}
+						totalCounts[0] += freq;
+					}
 				}
 				else
 				{
@@ -87,6 +99,8 @@ namespace CipherBreaker
 			{
 				Init();
 			}
+
+			str = Regex.Replace(str, @"\s", "");
 
 			var strList = str.Split(' ');
 
