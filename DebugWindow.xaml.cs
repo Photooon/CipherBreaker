@@ -36,6 +36,19 @@ namespace CipherBreaker
 				Print("TestCaesarBreak failed");
 			}
 
+			if (!TestAffineEncode())
+			{
+				Print("TestAffineEncode failed");
+			}
+			if (!TestAffineDecode())
+			{
+				Print("TestAffineDecode failed");
+			}
+			if (!TestAffineBreak())
+			{
+				Print("TestAffineBreak failed");
+			}
+
 			return;
 		}
 
@@ -61,6 +74,30 @@ namespace CipherBreaker
 			(var plain, var prob) = caesar.Break();
 			Print(caesar.Cipher, caesar.Key, plain, prob);
 			return plain == "hello world";
+		}
+
+		public bool TestAffineEncode()
+		{
+			Affine affine = new Affine(plain: "HELLO hello", key: "2,1");
+			(var cipher, _) = affine.Encode();
+			Print(affine.Plain, affine.Key, cipher);
+			return cipher == "PJXXD pjxxd";
+		}
+
+		public bool TestAffineDecode()
+		{
+			Affine affine = new Affine(cipher: "PJXXD pjxxd", key: "2,1");
+			(var plain, _) = affine.Decode();
+			Print(affine.Cipher, affine.Key, plain);
+			return plain == "HELLO hello";
+		}
+
+		public bool TestAffineBreak()
+		{
+			Affine affine = new Affine(cipher: "HELLO hello");
+			(var plain, var prob) = affine.Break();
+			Print(affine.Cipher, affine.Key, plain, prob);
+			return plain == "PJXXD pjxxd";
 		}
 
 		private void Print(params object[] objs)
