@@ -47,7 +47,7 @@ namespace CipherBreaker
 			{
 				Print("TestRailFenceBreak failed");
 			}
-			/*if (!TestAffineEncode())
+			if (!TestAffineEncode())
 			{
 				Print("TestAffineEncode failed");
 			}
@@ -58,7 +58,7 @@ namespace CipherBreaker
 			if (!TestAffineBreak())
 			{
 				Print("TestAffineBreak failed");
-			}*/
+			}
 
 			return;
 		}
@@ -110,7 +110,7 @@ namespace CipherBreaker
 			Print(railFence.Cipher, railFence.Key, plain, prob);
 			return plain == "one two three four";
 		}
-		/*
+		
 		public bool TestAffineEncode()
 		{
 			Affine affine = new Affine(plain: "HELLO hello", key: "2,1");
@@ -134,7 +134,7 @@ namespace CipherBreaker
 			Print(affine.Cipher, affine.Key, plain, prob);
 			return plain == "PJXXD pjxxd";
 		}
-		*/
+		
 		private void Print(params object[] objs)
 		{
 			DebugInfo.Content += "\n";
