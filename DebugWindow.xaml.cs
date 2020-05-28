@@ -21,25 +21,20 @@ namespace CipherBreaker
 		{
 			InitializeComponent();
 
-			Scheme s = new RailFence();
+			Print("Debug!");
 
-
-			RailFence scheme = s as RailFence;
-			/*StringBuilder key = new StringBuilder();
-			for(int i = 25;i>=0;i--)
+			if (!TestCaesarEncode())
 			{
-				key.Append(i.ToString());
-				if (i > 0)
-					key.Append(',');
+				Print("TestCaesarEncode failed");
 			}
-			Substitution sub = new Substitution("hello", key: key.ToString());
-			sub.Encode();
-			sub.Decode();*/
-
-			/*Affine affine = new Affine("Hello", "", "3,1");
-			affine.Encode();
-			Affine affines = new Affine("", "Wniir", "3,1");
-			affines.Decode();*/
+			if (!TestCaesarDecode())
+			{
+				Print("TestCaesarDecode failed");
+			}
+			if (!TestCaesarBreak())
+			{
+				Print("TestCaesarBreak failed");
+			}
 
 			/*RailFence railFence = new RailFence("onetwothreefour", "", "4");
 			railFence.Encode();
@@ -48,6 +43,44 @@ namespace CipherBreaker
 
 
 			return;
+		}
+
+		public bool TestCaesarEncode()
+		{
+			Caesar caesar = new Caesar(plain: "hello world", key: "2");
+			(var cipher, _) = caesar.Encode();
+			Print(caesar.Plain, caesar.Key, cipher);
+			return cipher == "jgnnq yqtnf";
+		}
+
+		public bool TestCaesarDecode()
+		{
+			Caesar caesar = new Caesar(cipher: "jgnnq yqtnf", key: "2");
+			(var plain, _) = caesar.Decode();
+			Print(caesar.Cipher, caesar.Key, plain);
+			return plain == "hello world";
+		}
+
+		public bool TestCaesarBreak()
+		{
+			Caesar caesar = new Caesar(cipher: "jgnnq yqtnf");
+			(var plain, var prob) = caesar.Break();
+			Print(caesar.Cipher, caesar.Key, plain, prob);
+			return plain == "hello world";
+		}
+
+		private void Print(params object[] objs)
+		{
+			DebugInfo.Content += "\n";
+			foreach (object obj in objs)
+			{
+				DebugInfo.Content += obj.ToString() + " ";
+			}
+		}
+
+		private void ClearDebugInfo(object sender, RoutedEventArgs e)
+		{
+			DebugInfo.Content = "";
 		}
 	}
 }

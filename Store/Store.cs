@@ -58,5 +58,37 @@ namespace CipherBreaker.Store
 			command.CommandText = $"delete from {WordFrequencyTableName} where word={word}";
 			command.ExecuteNonQuery();
 		}
+
+		public void InsertOptRecord(OperationRecord record)
+		{
+			var command = CreateCommand();
+			command.CommandText = $"insert into {OperationRecordTableName}" +
+				$" values(null,{(int)record.Type},{record.OriginText},{record.Key},{record.ResultText},{DateTime.Now.ToString()})";
+			command.ExecuteNonQuery();
+		}
+
+		public string QueryOptRecord(string originText,string key)
+		{
+			var command = CreateCommand();
+			command.CommandText = $"select result_text from {OperationRecordTableName} where origin_text={originText} and key={key}";
+			return (string)command.ExecuteScalar();
+		}
+
+		public List<OperationRecord> QueryAllOptRecord()
+		{
+			var command = CreateCommand();
+			command.CommandText = $"select * from {OperationRecordTableName}";
+			var reader = command.ExecuteReader();
+
+			List<OperationRecord> optRecordList = new List<OperationRecord>();
+			while (reader.Read())
+			{
+				optRecordList.Add(new OperationRecord(reader.GetInt32(1), reader.GetString(2), reader.GetString(3), reader.GetString(4),
+					reader.GetString(5)));
+			}
+			reader.Close();
+
+			return optRecordList;
+		}
 	}
 }
