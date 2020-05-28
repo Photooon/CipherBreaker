@@ -45,7 +45,9 @@ namespace CipherBreaker
             
             for (int i = 0; i < plain.Length; i++)
             {
+  
                 cipherBucket[i % keyInt]+=plain[i];
+
             } 
             
             for(int k=0;k<keyInt;k++)
