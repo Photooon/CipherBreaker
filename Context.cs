@@ -21,7 +21,7 @@ namespace CipherBreaker
 			this.scheme = scheme;
 			this.BestKey = "";
 			this.BestProb = 0.0;
-			this.Ctx = new Dictionary<string, object>();
+			this.ctx = new Dictionary<string, object>();
 		}
 
 		public object Get(string key)

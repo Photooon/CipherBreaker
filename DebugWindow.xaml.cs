@@ -35,6 +35,7 @@ namespace CipherBreaker
 			{
 				Print("TestCaesarBreak failed");
 			}
+
 			if (!TestRailFenceEncode())
 			{
 				Print("TestRailFenceEncode failed");
@@ -47,6 +48,7 @@ namespace CipherBreaker
 			{
 				Print("TestRailFenceBreak failed");
 			}
+
 			if (!TestAffineEncode())
 			{
 				Print("TestAffineEncode failed");
