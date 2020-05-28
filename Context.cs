@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Windows.Markup;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -12,24 +14,37 @@ namespace CipherBreaker
 		private Scheme scheme;
 		public double BestProb;
 		public string BestKey;
-		private Dictionary<string, object> Ctx;
+		private Dictionary<string, object> ctx;
 
 		Context(Scheme scheme)
 		{
 			this.scheme = scheme;
 			this.BestKey = "";
 			this.BestProb = 0.0;
-			this.Ctx = new Dictionary<string, object>();
+			this.ctx = new Dictionary<string, object>();
 		}
-		
-		public object Get (string key)
+
+		public object Get(string key)
 		{
-			return Ctx[key];
+			return ctx.GetValueOrDefault(key);
 		}
-		public void Set (string key,object value)
+
+		public void Set(string key,object value)
 		{
-			Ctx[key] = value;
+			ctx[key] = value;
 		}
-		
 	}
+
+	//class ContextJsonConvert : JsonConverter<Context>
+	//{
+	//	public override Context Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+	//	{
+			
+	//	}
+
+	//	public override void Write(Utf8JsonWriter writer, Context value, JsonSerializerOptions options)
+	//	{
+	//		writer.WriteString("");
+	//	}
+	//}
 }

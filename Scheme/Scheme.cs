@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Collections.Concurrent;
+using System.Configuration;
+using System.Net;
 
 namespace CipherBreaker
 {

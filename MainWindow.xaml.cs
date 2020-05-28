@@ -27,15 +27,17 @@ namespace CipherBreaker
 			DebugWindow debugWindow = new DebugWindow();
 			debugWindow.Show();
 
+			TaskListBox.ItemsSource = CommonData.Tasks;
+
 			Task task1 = new Task();
 			task1.Name = "first";
 			Task task2 = new Task();
 			task2.Name = "second";
 			Task task3 = new Task();
 			task3.Name = "third";
-			this.TaskListBox.Items.Add(task1);
-			this.TaskListBox.Items.Add(task2);
-			this.TaskListBox.Items.Add(task3);
+			CommonData.Tasks.Add(task1);
+			CommonData.Tasks.Add(task2);
+			CommonData.Tasks.Add(task3);
 		}
 	}
 }
