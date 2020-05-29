@@ -66,7 +66,6 @@ namespace CipherBreaker
 
 		private void DetailButton_Click(object sender, RoutedEventArgs e)
 		{
-
 		}
 	}
 }
