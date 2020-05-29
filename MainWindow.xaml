@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CipherBreaker"
         mc:Ignorable="d"
-        Title="CipherBreaker" Height="800" Width="1200">
+        Title="CipherBreaker" Height="768" Width="1024" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"/>
@@ -15,14 +15,23 @@
             <RowDefinition Height="50"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" Content="Cipher Breaker" FontSize="24" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <ListBox Grid.Row="1" x:Name="TaskListBox" Padding="0,5,0,5" FontSize="24" FontWeight="Bold"/>
-        <TabControl TabStripPlacement="Top" Grid.Column="1">
-            <TabItem Header="新建任务" Height="50" FontSize="24" FontWeight="Bold" Width="180"/>
-            <TabItem Header="继续任务" Height="50" FontSize="24" FontWeight="Bold" Width="180"/>
-            <TabItem Header="工具用法" Height="50" FontSize="24" FontWeight="Bold" Width="180"/>
-            <TabItem Header="加密算法介绍" Height="50" FontSize="24" FontWeight="Bold" Width="180"/>
-            <TabItem Header="设置" Height="50" FontSize="24" FontWeight="Bold" Width="180"/>
-        </TabControl>
+        <Label Grid.Row="0" Grid.Column="0" Content="Cipher Breaker" FontSize="24" FontWeight="Bold" 
+               VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <ListBox Grid.Row="1" x:Name="TaskListBox" FontSize="24" FontWeight="Bold" HorizontalContentAlignment="Center"
+                 SelectionChanged="TaskListBox_SelectionChanged">
+        </ListBox>
+        <StackPanel Orientation="Horizontal" Grid.Column="1">
+            <Button x:Name="NewTaskButton" Content="新建任务" FontSize="24" FontWeight="Bold" Width="180"
+                    Background="White" Click="NewTaskButton_Click"/>
+            <Button x:Name="GuideButton" Content="使用手册" FontSize="24" FontWeight="Bold" Width="180"
+                    Background="White" Click="GuideButton_Click"/>
+            <Button x:Name="AlgorithmButton" Content="算法介绍" FontSize="24" FontWeight="Bold" Width="180"
+                    Background="White" Click="AlgorithmButton_Click"/>
+            <Button x:Name="OptionButton" Content="相关设置" FontSize="24" FontWeight="Bold" Width="180"
+                    Background="White" Click="OptionButton_Click"/>
+        </StackPanel>
+        <Button Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,20,20"
+                Name="DetailButton" Click="DetailButton_Click" Content="详情>>>>" FontSize="24" FontWeight="Bold"
+                IsEnabled="False" Visibility="Hidden"/>
     </Grid>
 </Window>

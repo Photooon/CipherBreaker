@@ -29,6 +29,44 @@ namespace CipherBreaker
 			this.TaskListBox.ItemsSource = CommonData.Tasks;
 			Task task1 = new Task();
 			task1.Name = "first";
+			CommonData.Tasks.Add(task1);
+			Task task2 = new Task();
+			task2.Name = "second";
+			CommonData.Tasks.Add(task2);
+		}
+		private void NewTaskButton_Click(object sender, RoutedEventArgs e)
+		{
+			NewTaskWindow newTaskWindow = new NewTaskWindow();
+			newTaskWindow.Show();
+		}
+
+		private void GuideButton_Click(object sender, RoutedEventArgs e)
+		{
+			GuideWindow guideWindow = new GuideWindow();
+			guideWindow.Show();
+		}
+
+		private void AlgorithmButton_Click(object sender, RoutedEventArgs e)
+		{
+			AlgorithmWindow algorithmWindow = new AlgorithmWindow();
+			algorithmWindow.Show();
+		}
+
+		private void OptionButton_Click(object sender, RoutedEventArgs e)
+		{
+			OptionWindow optionWindow = new OptionWindow();
+			optionWindow.Show();
+		}
+
+		private void TaskListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			DetailButton.Visibility = Visibility.Visible;
+			DetailButton.IsEnabled = true;
+		}
+
+		private void DetailButton_Click(object sender, RoutedEventArgs e)
+		{
+
 		}
 	}
 }
