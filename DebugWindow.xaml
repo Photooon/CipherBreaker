@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CipherBreaker"
         mc:Ignorable="d"
-        Title="DebugWindow" Height="720" Width="1280">
+        Title="DebugWindow" Height="720" Width="1280" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
 	<Grid>
 		<Grid.Background>
 			<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

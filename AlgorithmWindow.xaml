@@ -1,0 +1,25 @@
+﻿<Window x:Class="CipherBreaker.AlgorithmWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CipherBreaker"
+        mc:Ignorable="d"
+        Title="AlgorithmWindow" Height="432" Width="779" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+    <Grid>
+        <TabControl TabStripPlacement="Top">
+            <TabItem Header="凯撒算法" IsSelected="True" FontSize="24" Width="190" FontWeight="Bold">
+                
+            </TabItem>
+            <TabItem Header="置换算法" FontSize="24" Width="190" FontWeight="Bold">
+
+            </TabItem>
+            <TabItem Header="栅栏算法" FontSize="24" Width="190" FontWeight="Bold">
+
+            </TabItem>
+            <TabItem Header="仿射算法" FontSize="24" Width="190" FontWeight="Bold">
+
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
