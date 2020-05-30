@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Collections.Concurrent;
+using System.Configuration;
+using System.Net;
 
 namespace CipherBreaker
 {
@@ -12,7 +14,8 @@ namespace CipherBreaker
 		Substitution,
 		Transposition,
 		RailFence,
-		Columnar
+		Columnar,
+		Affine
 	}
 
 	enum SchemeState
@@ -96,6 +99,11 @@ namespace CipherBreaker
 			return schemeCount[type];
 		}
 
-		public new abstract string ToString();
+		public override abstract string ToString();
+
+		public static Scheme ChooseScheme(string plain)
+		{
+			return new RailFence();
+		}
 	}
 }

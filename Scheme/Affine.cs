@@ -21,7 +21,7 @@ namespace CipherBreaker
 
 		public Affine(string plain = null, string cipher = null, string key = null) : base(plain, cipher, key)
 		{
-
+			Type = SchemeType.Affine;
 		}
 
 		~Affine()
@@ -59,7 +59,7 @@ namespace CipherBreaker
 			string[] ab = key.Split(',');   //"a,b"，根据逗号分割字符串key，第一个数为乘数，第二个数为加数0
 			int aInt = int.Parse(ab[0]);
 			int bInt = int.Parse(ab[1]);
-			string cipher = "";
+			string cipher = "";  
 			foreach (char p in plain)
 			{
 				int c = p;
@@ -132,7 +132,40 @@ namespace CipherBreaker
 
 		public override (string, double) Break(string cipher = null)
 		{
-			throw new NotImplementedException();
+			if (cipher == null)
+			{
+				cipher = this.Cipher;
+			}
+
+			string plain = cipher;
+			double maxProb = FrequencyAnalyst.Analyze(cipher);
+
+			for (int i = 0; i < LetterSetSize; i++)
+			{
+				if (NumberTheory.Gcd(i, LetterSetSize) == 1)
+				{
+					for (int j = 0; j < LetterSetSize; j++)
+					{
+						string a = i.ToString();
+						string b = j.ToString();
+						string ab = a + "," + b;
+						(string str, bool ok) result = Decode(cipher, ab);
+						if (result.ok)
+						{
+							double prob = FrequencyAnalyst.Analyze(result.str);
+							if (prob > maxProb)
+							{
+								plain = result.str;
+								maxProb = prob;
+							}
+						}
+					}
+				}
+			}
+
+			this.Plain = plain;
+			return (plain, Math.Pow(Math.E, maxProb));
+			//throw new NotImplementedException();
 		}
 		public override bool Save(string fileName)
 		{
