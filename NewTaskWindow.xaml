@@ -36,7 +36,7 @@
                                 Margin="10,0,0,0" Width="90"/>
                     </StackPanel>
                     <Button x:Name="EncodeButton" Content="创建任务" FontSize="24" FontWeight="Bold"
-                            Margin="100,50,100,0"/>
+                            Margin="100,50,100,0" Click="EncodeButton_Click"/>
                 </StackPanel>
             </TabItem>
             <TabItem Header="解密" FontSize="24" Width="250" FontWeight="Bold">
@@ -63,7 +63,7 @@
                         <TextBox x:Name="DecodeKey" Width="300"/>
                     </StackPanel>
                     <Button x:Name="DecodeButton" Content="创建任务" FontSize="24" FontWeight="Bold"
-                            Margin="100,50,100,0"/>
+                            Margin="100,50,100,0" Click="DecodeButton_Click"/>
                 </StackPanel>
             </TabItem>
             <TabItem Header="破解" IsSelected="True" FontSize="24" Width="250" FontWeight="Bold">

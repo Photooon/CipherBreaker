@@ -21,5 +21,17 @@ namespace CipherBreaker
         {
             InitializeComponent();
         }
+
+        private void EncodeButton_Click(object sender, RoutedEventArgs e)
+        {
+            Task task = new Task();//测试用
+            task.Name = EncodeTitle.Text.ToString();
+            CommonData.Tasks.Add(task);
+        }
+
+        private void DecodeButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
