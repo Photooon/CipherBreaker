@@ -176,5 +176,11 @@ namespace CipherBreaker
 		{
 			throw new NotImplementedException();
 		}
+
+		public override string GenerateKey()
+		{
+			Random rand = new Random();
+			return rand.Next(Scheme.LetterSetSize).ToString();
+		}
 	}
 }
