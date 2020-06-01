@@ -24,9 +24,28 @@ namespace CipherBreaker
 
         private void EncodeButton_Click(object sender, RoutedEventArgs e)
         {
-            Task task = new Task();//测试用
+            Task task = new Task();
+            OperateWindow operateWindow = new OperateWindow(task);
             task.Name = EncodeTitle.Text.ToString();
-            CommonData.Tasks.Add(task);
+            task.OriginText = Plain.Text;
+            task.ResultText = null;
+            if (EncodeScheme.SelectedIndex == 0) { task.type = SchemeType.Caesar; }
+            else if (EncodeScheme.SelectedIndex == 1) { task.type = SchemeType.Substitution; }
+            else if (EncodeScheme.SelectedIndex == 2) { task.type = SchemeType.RailFence; }
+            else if (EncodeScheme.SelectedIndex == 3) { task.type = SchemeType.Affine; }
+            task.Date = DateTime.Now;
+            task.Key = EncodeKey.Text;
+
+            
+            operateWindow.TaskTitle.Content = "任务名："+task.Name;
+            operateWindow.OptType.Content = "操作：" + task.OptType;
+            operateWindow.SchemeType.Content = "算法：" + task.type.ToString();
+            operateWindow.Key.Content = "密钥：" + task.Key;
+            operateWindow.Text.Text = "明文：" + task.OriginText;
+            operateWindow.Date.Content = "创建时间：" + task.Date.ToString();
+            operateWindow.Show();
+            
+            //CommonData.Tasks.Add(task);
         }
 
         private void DecodeButton_Click(object sender, RoutedEventArgs e)

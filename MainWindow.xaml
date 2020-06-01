@@ -17,9 +17,12 @@
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Grid.Column="0" Content="Cipher Breaker" FontSize="24" FontWeight="Bold" 
                VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <ListBox Grid.Row="1" x:Name="TaskListBox" FontSize="24" FontWeight="Bold" HorizontalContentAlignment="Center"
+        <StackPanel Orientation="Vertical" Grid.Row="1">
+            <Label Content="任务列表" Grid.Row="1" FontSize="24" FontWeight="Bold" Height="40"/>
+            <ListBox Grid.Row="1" x:Name="TaskListBox" FontSize="24" FontWeight="Bold" HorizontalContentAlignment="Center"
                  SelectionChanged="TaskListBox_SelectionChanged">
-        </ListBox>
+            </ListBox>
+        </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Column="1">
             <Button x:Name="NewTaskButton" Content="新建任务" FontSize="24" FontWeight="Bold" Width="180"
                     Background="White" Click="NewTaskButton_Click"/>
@@ -30,8 +33,27 @@
             <Button x:Name="OptionButton" Content="相关设置" FontSize="24" FontWeight="Bold" Width="180"
                     Background="White" Click="OptionButton_Click"/>
         </StackPanel>
-        <Button Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,20,20"
-                Name="DetailButton" Click="DetailButton_Click" Content="详情>>>>" FontSize="24" FontWeight="Bold"
-                IsEnabled="False" Visibility="Hidden"/>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="300"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="1">
+                <Label Content="基本信息：" HorizontalContentAlignment="Left" FontSize="24" FontWeight="Bold"/>
+                <Label Name="TaskTitle" FontSize="24" FontWeight="Bold" Height="50"/>
+                <Label Name="SchemeType" FontSize="24" FontWeight="Bold" Height="50"/>
+                <Label Name="Algorithm" FontSize="24" FontWeight="Bold" Height="50"/>
+                <Label Name="Key" FontSize="24" FontWeight="Bold" Height="50"/>
+                <TextBlock x:Name="Text" FontSize="24" FontWeight="Bold" Height="50" TextWrapping="Wrap"/>
+                <Label Name="Date" FontSize="24" FontWeight="Bold" Height="50"/>
+                <Label Content="操作:" HorizontalContentAlignment="Left" FontSize="24" FontWeight="Bold"/>
+                <Button x:Name="StopButton" Content="停  止" FontSize="24" FontWeight="Bold" Height="50"/>
+                <Button x:Name="GoOnButton" Content="继  续" FontSize="24" FontWeight="Bold" Height="50"/>
+                <Button x:Name="SaveButton" Content="保  存" FontSize="24" FontWeight="Bold" Height="50"/>
+                <Button x:Name="DeleteButton" Content="删  除" FontSize="24" FontWeight="Bold" Height="50"/>
+                <TextBlock x:Name="Result" FontSize="24" FontWeight="Bold" Height="50" TextWrapping="Wrap" Margin="0,30,0,0"/>
+            </StackPanel>
+            <Label Content="进度：" HorizontalContentAlignment="Left" FontSize="24" FontWeight="Bold"/>
+        </Grid>
     </Grid>
 </Window>

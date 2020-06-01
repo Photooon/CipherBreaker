@@ -60,8 +60,8 @@ namespace CipherBreaker
 
 		private void TaskListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			DetailButton.Visibility = Visibility.Visible;
-			DetailButton.IsEnabled = true;
+			//DetailButton.Visibility = Visibility.Visible;
+			//DetailButton.IsEnabled = true;
 		}
 
 		private void DetailButton_Click(object sender, RoutedEventArgs e)

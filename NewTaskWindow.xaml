@@ -20,13 +20,13 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Height="40">
                         <Label Content="算法：" FontSize="24" FontWeight="Bold" Width="100"/>
-                        <ComboBox Name="EncodeAlgorithm" Width="200">
+                        <ComboBox Name="EncodeScheme" Width="200">
                             <ComboBoxItem IsSelected="True">凯撒算法</ComboBoxItem>
                             <ComboBoxItem>置换算法</ComboBoxItem>
                             <ComboBoxItem>栅栏算法</ComboBoxItem>
                             <ComboBoxItem>仿射算法</ComboBoxItem>
                         </ComboBox>
-                        <Button x:Name="EncodeAlgorithmDefault" Content="自动生成" FontSize="20" FontWeight="Bold"
+                        <Button x:Name="EncodeSchemeDefault" Content="自动生成" FontSize="20" FontWeight="Bold"
                                 Margin="10,0,0,0" Width="90"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Height="40">
