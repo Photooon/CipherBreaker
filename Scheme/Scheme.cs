@@ -32,7 +32,7 @@ namespace CipherBreaker
 	{
 		protected string name;
 
-		protected const int LetterSetSize = 26;
+		public const int LetterSetSize = 26;
 
 		protected static Dictionary<SchemeType, int> schemeCount = new Dictionary<SchemeType, int>();
 
