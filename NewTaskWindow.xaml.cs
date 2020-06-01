@@ -25,17 +25,18 @@ namespace CipherBreaker
         private void EncodeButton_Click(object sender, RoutedEventArgs e)
         {
             Task task = new Task();
-            OperateWindow operateWindow = new OperateWindow(task);
-            task.Name = EncodeTitle.Text.ToString();
+            
+            task.Name = EncodeTitle.Text;
             task.OriginText = Plain.Text;
             task.ResultText = null;
+            task.OptType = OperationType.Encode;
             if (EncodeScheme.SelectedIndex == 0) { task.type = SchemeType.Caesar; }
             else if (EncodeScheme.SelectedIndex == 1) { task.type = SchemeType.Substitution; }
             else if (EncodeScheme.SelectedIndex == 2) { task.type = SchemeType.RailFence; }
             else if (EncodeScheme.SelectedIndex == 3) { task.type = SchemeType.Affine; }
             task.Date = DateTime.Now;
             task.Key = EncodeKey.Text;
-
+            OperateWindow operateWindow = new OperateWindow(task);
             
             operateWindow.TaskTitle.Content = "任务名："+task.Name;
             operateWindow.OptType.Content = "操作：" + task.OptType;
@@ -50,7 +51,39 @@ namespace CipherBreaker
 
         private void DecodeButton_Click(object sender, RoutedEventArgs e)
         {
+            Task task = new Task();
 
+            task.Name = DecodeTitle.Text;
+            task.ResultText = Cipher.Text;
+            task.OriginText = null;
+            task.OptType = OperationType.Decode;
+            if (DecodeScheme.SelectedIndex == 0) { task.type=SchemeType.Caesar;}
+            else if (DecodeScheme.SelectedIndex == 1) { task.type = SchemeType.Substitution; }
+            else if (DecodeScheme.SelectedIndex == 2) { task.type = SchemeType.RailFence; }
+            else if (DecodeScheme.SelectedIndex == 3) { task.type = SchemeType.Affine; }
+            task.Date = DateTime.Now;
+            task.Key = DecodeKey.Text;
+            OperateWindow operateWindow = new OperateWindow(task);
+
+            operateWindow.TaskTitle.Content = "任务名：" + task.Name;
+            operateWindow.OptType.Content = "操作：" + task.OptType;
+            operateWindow.SchemeType.Content = "算法：" + task.type.ToString();
+            operateWindow.Key.Content = "密钥：" + task.Key;
+            operateWindow.Text.Text = "密文：" + task.OriginText;
+            operateWindow.Date.Content = "创建时间：" + task.Date.ToString();
+            operateWindow.Show();
+        }
+
+        private void BreakButton_Click(object sender, RoutedEventArgs e)
+        {
+            Task task = new Task();
+
+            task.Name = BreakTitle.Text;
+            task.OriginText = BreakPlain.Text;
+            task.ResultText = null;
+            task.OptType = OperationType.Break;
+            task.Date = DateTime.Now;
+            OperateWindow operateWindow = new OperateWindow(task);
         }
     }
 }

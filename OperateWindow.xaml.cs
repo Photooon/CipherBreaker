@@ -27,20 +27,25 @@ namespace CipherBreaker
 
         private Task task;
         private Scheme scheme;
-
+        
         private void NewStartButton_Click(object sender, RoutedEventArgs e)
         {
-            bool bl;
-            ResultText.Text = scheme.Type.ToString();
-            ResultText.Text = scheme.Plain;
-            //if (task.OptType == OperationType.Encode)
-            //{
-            //    (ResultText.Text, bl) = scheme.Encode(scheme.Plain, task.Key);
+            bool ok;
+            if(task.OptType==OperationType.Encode)
+            {
+                (ResultText.Text, ok) = scheme.Encode(scheme.Plain, task.Key);
+                ResultText.Text = "密文：" + ResultText.Text;
+            }
+            else if(task.OptType==OperationType.Decode)
+            {
+                (ResultText.Text, ok) = scheme.Decode(scheme.Plain, task.Key);
+                ResultText.Text = "明文：" + ResultText.Text;
+            }
+            else if(task.OptType==OperationType.Break)
+            {
 
-            //}
-            //else
-            //    ResultText.Text = "sbhhh";
-
+            }
+            NewStartButton.IsEnabled = false;
         }
 
         private void NewStopButton_Click(object sender, RoutedEventArgs e)
