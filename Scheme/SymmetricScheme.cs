@@ -15,6 +15,8 @@ namespace CipherBreaker
 		}
 		public virtual string Key { get => key; set => key = value; }
 		protected abstract bool keyIsValid(string key = null);
+
+		public abstract string GenerateKey();
 		public override abstract (string, double) Break(string cipher = null);
 
 		public override abstract (string, bool) Decode(string cipher = null, string key = null);

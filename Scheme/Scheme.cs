@@ -123,4 +123,5 @@ namespace CipherBreaker
 			return new RailFence(plain, cipher, key);
 		}
 	}
+
 }

@@ -155,5 +155,10 @@ namespace CipherBreaker
         {
             throw new NotImplementedException();
         }
+
+        public override string GenerateKey()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
