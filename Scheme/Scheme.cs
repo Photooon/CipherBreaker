@@ -101,9 +101,9 @@ namespace CipherBreaker
 
 		public override abstract string ToString();
 
-		public static Scheme ChooseScheme(string plain)
+		public static Scheme ChooseScheme(string plain,string cipher,string key)
 		{
-			return new RailFence();
+			return new RailFence(plain,cipher,key);
 		}
 
 		public static Scheme NewScheme(SchemeType type, string plain = null, string cipher = null, string key = null)
