@@ -142,6 +142,7 @@ namespace CipherBreaker
         {
             throw new NotImplementedException();
         }
+
         public override bool Save(string fileName)
         {
             throw new NotImplementedException();

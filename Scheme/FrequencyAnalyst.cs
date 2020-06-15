@@ -102,37 +102,32 @@ namespace CipherBreaker
 
 			str = Regex.Replace(str, @"\s", "");
 
-			var strList = str.Split(' ');
-
-			foreach (string s in strList)
+			if (str.Length >= 4)
 			{
-				if (s.Length >= 4)
+				for (int i = 0; i < str.Length - 4; i++)
 				{
-					for (int i = 0; i < str.Length - 4; i++)
-					{
-						string quad = str.Substring(i, 4).ToUpper();
-						long frequency = freqs[0].GetValueOrDefault(quad);
-						if (frequency == 0)
-						{
-							prob += Math.Log(1.0 / totalCounts[0] / 2.0);
-						}
-						else
-						{
-							prob += Math.Log((double)frequency / totalCounts[0]);
-						}
-					}
-				}
-				else
-				{
-					long frequency = freqs[s.Length].GetValueOrDefault(s);
+					string quad = str.Substring(i, 4).ToUpper();
+					long frequency = freqs[0].GetValueOrDefault(quad);
 					if (frequency == 0)
 					{
-						prob += Math.Log(1.0 / totalCounts[s.Length] / 2.0);
+						prob += Math.Log(1.0 / totalCounts[0] / 2.0);
 					}
 					else
 					{
-						prob += Math.Log((double)frequency / totalCounts[s.Length]);
+						prob += Math.Log((double)frequency / totalCounts[0]);
 					}
+				}
+			}
+			else
+			{
+				long frequency = freqs[str.Length].GetValueOrDefault(str);
+				if (frequency == 0)
+				{
+					prob += Math.Log(1.0 / totalCounts[str.Length] / 2.0);
+				}
+				else
+				{
+					prob += Math.Log((double)frequency / totalCounts[str.Length]);
 				}
 			}
 
