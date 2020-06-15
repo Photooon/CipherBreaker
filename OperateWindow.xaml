@@ -1,0 +1,35 @@
+﻿<Window x:Class="CipherBreaker.OperateWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CipherBreaker"
+        mc:Ignorable="d"
+        Title="OperateWindow" Height="768" Width="1024" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="350"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel>
+            <Label Content="基本信息：" HorizontalContentAlignment="Left" FontSize="24" FontWeight="Bold"/>
+            <Label Name="TaskTitle" FontSize="24" FontWeight="Bold" Height="50"/>
+            <Label Name="OptType" FontSize="24" FontWeight="Bold" Height="50"/>
+            <Label Name="SchemeType" FontSize="24" FontWeight="Bold" Height="50"/>
+            <Label Name="Key" FontSize="24" FontWeight="Bold" Height="50"/>
+            <ScrollViewer FontSize="24" FontWeight="Bold" Height="50">
+                <TextBlock x:Name="Text" FontSize="24" FontWeight="Bold" TextWrapping="Wrap"/>
+            </ScrollViewer>
+            <Label Name="Date" FontSize="24" FontWeight="Bold" Height="50"/>
+            <Label Content="操作:" HorizontalContentAlignment="Left" FontSize="24" FontWeight="Bold"/>
+            <Button x:Name="NewStartButton" Content="开  始" FontSize="24" FontWeight="Bold" Height="50" Click="NewStartButton_Click"/>
+            <Button x:Name="NewStopButton" Content="停  止" FontSize="24" FontWeight="Bold" Height="50" Click="NewStopButton_Click"/>
+            <Button x:Name="NewGoOnButton" Content="继  续" FontSize="24" FontWeight="Bold" Height="50" Click="NewGoOnButton_Click"/>
+            <Button x:Name="NewSaveButton" Content="保  存" FontSize="24" FontWeight="Bold" Height="50" Click="NewSaveButton_Click"/>
+            <ScrollViewer FontSize="24" FontWeight="Bold" Height="50" Margin="0,30,0,0">
+                <TextBlock x:Name="ResultText" FontSize="24" FontWeight="Bold" TextWrapping="Wrap"/>
+            </ScrollViewer>
+        </StackPanel>
+        <Label Grid.Column="1" Content="进度：" HorizontalContentAlignment="Left" FontSize="24" FontWeight="Bold"/>
+    </Grid>
+</Window>

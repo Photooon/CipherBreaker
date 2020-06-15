@@ -7,7 +7,7 @@ using System.Net;
 
 namespace CipherBreaker
 {
-	enum SchemeType
+	public enum SchemeType
 	{
 		Caesar,
 		Vigenere,
@@ -106,7 +106,7 @@ namespace CipherBreaker
 			return new RailFence();
 		}
 
-		public static Scheme NewScheme(SchemeType type,string plain=null,string cipher=null,string key=null)
+		public static Scheme NewScheme(SchemeType type, string plain = null, string cipher = null, string key = null)
 		{
 			switch (type)
 			{

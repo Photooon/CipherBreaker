@@ -20,13 +20,13 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Height="40">
                         <Label Content="算法：" FontSize="24" FontWeight="Bold" Width="100"/>
-                        <ComboBox Name="EncodeAlgorithm" Width="200">
+                        <ComboBox Name="EncodeScheme" Width="200">
                             <ComboBoxItem IsSelected="True">凯撒算法</ComboBoxItem>
                             <ComboBoxItem>置换算法</ComboBoxItem>
                             <ComboBoxItem>栅栏算法</ComboBoxItem>
                             <ComboBoxItem>仿射算法</ComboBoxItem>
                         </ComboBox>
-                        <Button x:Name="EncodeAlgorithmDefault" Content="自动生成" FontSize="20" FontWeight="Bold"
+                        <Button x:Name="EncodeSchemeDefault" Content="自动生成" FontSize="20" FontWeight="Bold"
                                 Margin="10,0,0,0" Width="90"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Height="40">
@@ -36,7 +36,7 @@
                                 Margin="10,0,0,0" Width="90"/>
                     </StackPanel>
                     <Button x:Name="EncodeButton" Content="创建任务" FontSize="24" FontWeight="Bold"
-                            Margin="100,50,100,0"/>
+                            Margin="100,50,100,0" Click="EncodeButton_Click"/>
                 </StackPanel>
             </TabItem>
             <TabItem Header="解密" FontSize="24" Width="250" FontWeight="Bold">
@@ -51,7 +51,7 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Height="40">
                         <Label Content="算法：" FontSize="24" FontWeight="Bold" Width="100"/>
-                        <ComboBox Name="DecodeAlgorithm" Width="300">
+                        <ComboBox Name="DecodeScheme" Width="300">
                             <ComboBoxItem IsSelected="True">凯撒算法</ComboBoxItem>
                             <ComboBoxItem>置换算法</ComboBoxItem>
                             <ComboBoxItem>栅栏算法</ComboBoxItem>
@@ -63,7 +63,7 @@
                         <TextBox x:Name="DecodeKey" Width="300"/>
                     </StackPanel>
                     <Button x:Name="DecodeButton" Content="创建任务" FontSize="24" FontWeight="Bold"
-                            Margin="100,50,100,0"/>
+                            Margin="100,50,100,0" Click="DecodeButton_Click"/>
                 </StackPanel>
             </TabItem>
             <TabItem Header="破解" IsSelected="True" FontSize="24" Width="250" FontWeight="Bold">
@@ -77,7 +77,7 @@
                         <TextBox x:Name="BreakPlain" Width="300" TextWrapping="Wrap"/>
                     </StackPanel>
                     <Button x:Name="BreakButton" Content="创建任务" FontSize="24" FontWeight="Bold"
-                            Margin="100,50,100,0"/>
+                            Margin="100,50,100,0" Click="BreakButton_Click"/>
                 </StackPanel>
             </TabItem>
         </TabControl>
