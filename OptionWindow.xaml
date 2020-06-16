@@ -5,8 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CipherBreaker"
         mc:Ignorable="d"
-        Title="OptionWindow" Height="450" Width="800">
+        Title="OptionWindow" Height="420" Width="470">
     <Grid>
-        
+        <Label HorizontalAlignment="Left" Margin="149,189,0,0" VerticalAlignment="Top"/>
+        <Label Content="开机自启动" HorizontalAlignment="Left" Margin="112,84,0,0" VerticalAlignment="Top" FontSize="14" Height="28" Width="80"/>
+        <Label Content="是否使用服务端服务" HorizontalAlignment="Left" Margin="112,140,0,0" VerticalAlignment="Top" FontSize="14" Height="28" Width="136"/>
+        <Label Content="剪切板加密快捷键" HorizontalAlignment="Left" Margin="112,201,0,0" VerticalAlignment="Top" FontSize="14" Height="28" Width="122"/>
+        <Image HorizontalAlignment="Left" Margin="65,83,0,0" VerticalAlignment="Top" Width="30" Height="30" Source="/assets/开机.png"/>
+        <Image HorizontalAlignment="Left" Height="30" Margin="65,139,0,0" VerticalAlignment="Top" Width="30" Source="/assets/服务器.png"/>
+        <Image HorizontalAlignment="Left" Height="30" Margin="65,199,0,0" VerticalAlignment="Top" Width="30" Source="/assets/剪切板.png"/>
+        <Image HorizontalAlignment="Left" Height="30" Margin="65,264,0,0" VerticalAlignment="Top" Width="30" Source="/assets/默认应用.png"/>
+        <TextBox HorizontalAlignment="Left" Margin="260,205,0,0" Text="Ctrl+E" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Height="24" TextAlignment="Center" FontSize="14"/>
+        <Label Content="设置" HorizontalAlignment="Left" Margin="22,22,0,0" VerticalAlignment="Top" FontSize="24" Height="40" Width="58"/>
+        <Label Content="默认算法：" HorizontalAlignment="Left" Margin="112,264,0,0" VerticalAlignment="Top" FontSize="14" Height="28" Width="80"/>
+        <Label Content="加密：" HorizontalAlignment="Left" Margin="192,264,0,0" VerticalAlignment="Top" FontSize="14" Height="28" Width="46"/>
+        <Label Content="解密：" HorizontalAlignment="Left" Margin="192,302,0,0" VerticalAlignment="Top" FontSize="14" Height="28" Width="46"/>
+        <Label Content="破解：" HorizontalAlignment="Left" Margin="192,339,0,0" VerticalAlignment="Top" FontSize="14" Height="28" Width="46"/>
+        <ListBox Margin="260,269,116,111" SelectedIndex="0" IsSynchronizedWithCurrentItem="True" Width="94" Height="25"/>
+        <ListBox Margin="260,305,116,75" SelectedIndex="0" IsSynchronizedWithCurrentItem="True" Width="94" Height="25"/>
+        <ListBox Margin="260,339,116,41" SelectedIndex="0" IsSynchronizedWithCurrentItem="True" Width="94" Height="25"/>
+
     </Grid>
 </Window>
