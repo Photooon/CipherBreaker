@@ -183,7 +183,17 @@ namespace CipherBreaker
 
 		public override string GenerateKey()
 		{
-			throw new NotImplementedException();
+			Random rand = new Random();
+			int a = rand.Next(Scheme.LetterSetSize);
+			while (NumberTheory.Gcd(a, Scheme.LetterSetSize) != 1)
+			{
+				a = rand.Next(Scheme.LetterSetSize);
+			}
+			string aString = Convert.ToString(a);
+			string bString = rand.Next(Scheme.LetterSetSize).ToString();
+			string key = aString + "," + bString;
+			
+			return key;
 		}
 	}
 }

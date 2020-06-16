@@ -36,16 +36,27 @@ namespace CipherBreaker
             else if (EncodeScheme.SelectedIndex == 3) { task.type = SchemeType.Affine; }
             task.Date = DateTime.Now;
             task.Key = EncodeKey.Text;
-            OperateWindow operateWindow = new OperateWindow(task);
-            
-            operateWindow.TaskTitle.Content = "任务名："+task.Name;
-            operateWindow.OptType.Content = "操作：" + task.OptType;
-            operateWindow.SchemeType.Content = "算法：" + task.type.ToString();
-            operateWindow.Key.Content = "密钥：" + task.Key;
-            operateWindow.Text.Text = "明文：" + task.OriginText;
-            operateWindow.Date.Content = "创建时间：" + task.Date.ToString();
-            operateWindow.Show();
-            
+
+            EncodePage encodePage = new EncodePage(task);
+            encodePage.TaskTitle.Content += task.ToString();
+            encodePage.SchemeType.Content += task.type.ToString();
+            encodePage.Key.Content += task.Key;
+            encodePage.Text.Text += "\n" + task.OriginText;
+            encodePage.Date.Text += "\n" + task.Date.ToString();
+            //MainWindow.ContentControl.Content = new Frame() { Content = encodePage };//在主窗体中创建新页
+            CommonData.Tasks.Add(task);
+
+
+            //OperateWindow operateWindow = new OperateWindow(task);
+
+            //operateWindow.TaskTitle.Content = "任务名："+task.Name;
+            //operateWindow.OptType.Content = "操作：" + task.OptType;
+            //operateWindow.SchemeType.Content = "算法：" + task.type.ToString();
+            //operateWindow.Key.Content = "密钥：" + task.Key;
+            //operateWindow.Text.Text = "明文：" + task.OriginText;
+            //operateWindow.Date.Content = "创建时间：" + task.Date.ToString();
+            //operateWindow.Show();
+
             //CommonData.Tasks.Add(task);
         }
 
@@ -84,6 +95,17 @@ namespace CipherBreaker
             task.OptType = OperationType.Break;
             task.Date = DateTime.Now;
             OperateWindow operateWindow = new OperateWindow(task);
+
+            operateWindow.TaskTitle.Content = "任务名：" + task.Name;
+            operateWindow.OptType.Content = "操作：" + task.OptType;
+            //operateWindow.SchemeType.Content = "算法：" + task.type.ToString();
+            //operateWindow.Key.Content = "密钥：" + task.Key;
+            //operateWindow.Text.Text = "密文：" + task.OriginText;
+            operateWindow.SchemeType.IsEnabled = false;
+            operateWindow.Key.IsEnabled = false;
+            operateWindow.Text.IsEnabled = false;
+            operateWindow.Date.Content = "创建时间：" + task.Date.ToString();
+            operateWindow.Show();
         }
     }
 }
