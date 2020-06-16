@@ -20,7 +20,7 @@ namespace CipherBreaker
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		public MainWindow()
+		public MainWindow()//一条注释
 		{
 			InitializeComponent();
 
