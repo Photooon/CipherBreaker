@@ -8,45 +8,6 @@ namespace CipherBreaker
 {
 	class Substitution : SymmetricScheme
 	{
-		private int[] permutation;
-		private bool permutationIsValid;
-		private bool calPermutation()
-		{
-			string[] perString = key.Split(',');
-			if (perString.Length != Scheme.LetterSetSize)
-				return false;
-
-			for (int i = 0; i < Scheme.LetterSetSize; i++)
-			{
-				//permutation[i] = (int)(perString[i] - 'a');
-				if (!int.TryParse(perString[i], out permutation[i]))
-				{
-					return false;
-				}
-			}
-
-			return true;
-		}
-
-		public static int[] CalPermutation(string key)
-		{
-			string[] perString = key.Split(',');
-			if (perString.Length != Scheme.LetterSetSize)
-				return null;
-
-			int[] per = new int[Scheme.LetterSetSize];
-
-			for (int i = 0; i < Scheme.LetterSetSize; i++)
-			{
-				if (!int.TryParse(perString[i], out per[i]))
-				{
-					return null;
-				}
-			}
-
-			return per;
-		}
-
 		protected override bool keyIsValid(string key = null)
 		{
 			if (key == null)
@@ -55,9 +16,6 @@ namespace CipherBreaker
 			bool[] isMarked = new bool[Scheme.LetterSetSize];
 			foreach (char c in key)
 			{
-				if (c == ',')
-					continue;
-
 				if (isMarked[c - 'a'])
 				{
 					return false;
@@ -70,7 +28,6 @@ namespace CipherBreaker
 		public Substitution(string plain = null, string cipher = null, string key = null) : base(plain, cipher, key)
 		{
 			this.Type = SchemeType.Substitution;
-			permutation = new int[Scheme.LetterSetSize];
 			if (key == null)
 			{
 				this.Key = key = this.GenerateKey();
