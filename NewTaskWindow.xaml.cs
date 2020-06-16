@@ -90,9 +90,10 @@ namespace CipherBreaker
             this.Close();
         }
 
-        private void KeyDefault_Click(object sender, RoutedEventArgs e)
+        private void EncodeGenerateKey(object sender, RoutedEventArgs e)
         {
-            
+            EncodeKey.Text = (Scheme.NewScheme(GetSchemeTypeBySelectedIndex(EncodeScheme.SelectedIndex)) 
+                as SymmetricScheme).GenerateKey();
         }
     }
 }
