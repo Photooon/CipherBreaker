@@ -14,13 +14,13 @@
         <StackPanel>
             <Label Content="基本信息：" HorizontalContentAlignment="Left" FontSize="24" FontWeight="Bold"/>
             <Label Name="TaskTitle" FontSize="24" FontWeight="Bold" Height="50"/>
+            <Label Name="Date" FontSize="24" FontWeight="Bold" Height="50"/>
             <Label Name="OptType" FontSize="24" FontWeight="Bold" Height="50"/>
             <Label Name="SchemeType" FontSize="24" FontWeight="Bold" Height="50"/>
             <Label Name="Key" FontSize="24" FontWeight="Bold" Height="50"/>
             <ScrollViewer FontSize="24" FontWeight="Bold" Height="50">
                 <TextBlock x:Name="Text" FontSize="24" FontWeight="Bold" TextWrapping="Wrap"/>
             </ScrollViewer>
-            <Label Name="Date" FontSize="24" FontWeight="Bold" Height="50"/>
             <Label Content="操作:" HorizontalContentAlignment="Left" FontSize="24" FontWeight="Bold"/>
             <Button x:Name="NewStartButton" Content="开  始" FontSize="24" FontWeight="Bold" Height="50" Click="NewStartButton_Click"/>
             <Button x:Name="NewStopButton" Content="停  止" FontSize="24" FontWeight="Bold" Height="50" Click="NewStopButton_Click"/>

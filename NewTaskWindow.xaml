@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="NewTaskWindow" Height="432" Width="779" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Grid>
-        <TabControl TabStripPlacement="Top">
-            <TabItem Header="加密" IsSelected="True" FontSize="24" Width="250" FontWeight="Bold">
+        <TabControl TabStripPlacement="Top" >
+            <TabItem Header="加密" IsSelected="True" FontSize="24" Width="260" FontWeight="Bold" Height="50">
                 <StackPanel Orientation="Vertical" Width="400" Height="280">
                     <StackPanel Orientation="Horizontal" Height="40">
                         <Label Content="任务名：" FontSize="24" FontWeight="Bold" Width="100"/>
