@@ -54,7 +54,7 @@ namespace CipherBreaker
 		}
 		private void NewTaskButton_Click(object sender, RoutedEventArgs e)
 		{
-			NewTaskWindow newTaskWindow = new NewTaskWindow();
+			NewTaskWindow newTaskWindow = new NewTaskWindow(this);
 			newTaskWindow.Show();
 		}
 

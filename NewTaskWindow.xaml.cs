@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,9 +18,32 @@ namespace CipherBreaker
     /// </summary>
     public partial class NewTaskWindow : Window
     {
+        private MainWindow mainWindow;
         public NewTaskWindow()
         {
             InitializeComponent();
+        }
+
+        public NewTaskWindow(MainWindow mainWindow)
+        {
+            InitializeComponent();
+            this.mainWindow = mainWindow;
+        }
+
+        private SchemeType GetSchemeTypeBySelectedIndex(int index)
+        {
+            switch(index)
+            {
+                case 0:
+                    return SchemeType.Caesar;
+                case 1:
+                    return SchemeType.Substitution;
+                case 2:
+                    return SchemeType.RailFence;
+                case 3:
+                    return SchemeType.Affine;
+            }
+            return SchemeType.RailFence;
         }
 
         private void EncodeButton_Click(object sender, RoutedEventArgs e)
@@ -30,13 +54,10 @@ namespace CipherBreaker
             task.OriginText = Plain.Text;
             task.ResultText = null;
             task.OptType = OperationType.Encode;
-            if (EncodeScheme.SelectedIndex == 0) { task.type = SchemeType.Caesar; }
-            else if (EncodeScheme.SelectedIndex == 1) { task.type = SchemeType.Substitution; }
-            else if (EncodeScheme.SelectedIndex == 2) { task.type = SchemeType.RailFence; }
-            else if (EncodeScheme.SelectedIndex == 3) { task.type = SchemeType.Affine; }
+            task.type = GetSchemeTypeBySelectedIndex(EncodeScheme.SelectedIndex);
             task.Date = DateTime.Now;
             task.Key = EncodeKey.Text;
-
+             
             EncodePage encodePage = new EncodePage(task);
             encodePage.TaskTitle.Content += task.ToString();
             encodePage.SchemeType.Content += task.type.ToString();
@@ -45,6 +66,9 @@ namespace CipherBreaker
             encodePage.Date.Text += "\n" + task.Date.ToString();
             //MainWindow.ContentControl.Content = new Frame() { Content = encodePage };//在主窗体中创建新页
             CommonData.Tasks.Add(task);
+            this.mainWindow.TaskListBox.SelectedIndex = mainWindow.TaskListBox.Items.Count - 1;
+            this.Close();
+            
 
 
             //OperateWindow operateWindow = new OperateWindow(task);
@@ -106,6 +130,11 @@ namespace CipherBreaker
             operateWindow.Text.IsEnabled = false;
             operateWindow.Date.Content = "创建时间：" + task.Date.ToString();
             operateWindow.Show();
+        }
+
+        private void KeyDefault_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }
