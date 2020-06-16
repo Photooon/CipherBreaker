@@ -28,16 +28,23 @@ namespace CipherBreaker
                 fs.Read(buff, 0, Convert.ToInt32(fs.Length));
                 fs.Close();
 
-
-                string strTemp;
-                strTemp = System.Text.Encoding.Default.GetString(buff);
+                char[] str = new char[fi.Length];
+                for(int i = 0; i < fi.Length; i++)
+                {
+                    str[i] = (char)buff[i];
+                }
+                string strTemp = new string(str);
 
                 Scheme railFence = Scheme.ChooseScheme(plain: strTemp, cipher: null, key: "4");
                 (var cipher, _) = railFence.Encode();
-                //RailFence railFence = new RailFence(plain: strTemp, key: "4");
-                //(var cipher, _) = railFence.Encode();
-                byte[] cipherByte = System.Text.Encoding.Default.GetBytes(cipher);
 
+
+                byte[] cipherByte = new byte[fi.Length];
+                char[] cipherChar = cipher.ToCharArray();
+                for(int i = 0; i < fi.Length; i++)
+                {
+                    cipherByte[i] = (byte)cipherChar[i];
+                }
 
                 if (File.Exists(savepath))
                 {
@@ -72,16 +79,22 @@ namespace CipherBreaker
                 fs.Read(buff, 0, Convert.ToInt32(fs.Length));
                 fs.Close();
 
+                char[] str = new char[fi.Length];
+                for (int i = 0; i < fi.Length; i++)
+                {
+                    str[i] = (char)buff[i];
+                }
+                string strTemp = new string(str);
 
-                string strTemp;
-                strTemp = System.Text.Encoding.Default.GetString(buff);
                 Scheme railFence = Scheme.ChooseScheme(plain: null, cipher: strTemp, key: "4");
                 (var plain, _) = railFence.Decode();
-                //RailFence railFence = new RailFence(cipher: strTemp, key: "4");
-                //(var plain, _) = railFence.Decode();
-                byte[] cipherByte = System.Text.Encoding.Default.GetBytes(plain);
 
-
+                byte[] plainByte = new byte[fi.Length];
+                char[] plainChar = plain.ToCharArray();
+                for (int i = 0; i < fi.Length; i++)
+                {
+                    plainByte[i] = (byte)plainChar[i];
+                }
 
                 if (File.Exists(savepath))
                 {
@@ -90,7 +103,7 @@ namespace CipherBreaker
 
                 FileStream decodersave = new FileStream(savepath, FileMode.CreateNew);
                 BinaryWriter bw = new BinaryWriter(decodersave);
-                bw.Write(cipherByte, 0, cipherByte.Length);
+                bw.Write(plainByte, 0, plainByte.Length);
                 bw.Close();
                 decodersave.Close();
             }
