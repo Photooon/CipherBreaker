@@ -73,7 +73,7 @@
                         <TextBox x:Name="BreakTitle" Width="300"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Height="40">
-                        <Label Content="明文：" FontSize="24" FontWeight="Bold" Width="100"/>
+                        <Label Content="密文：" FontSize="24" FontWeight="Bold" Width="100"/>
                         <TextBox x:Name="BreakPlain" Width="300" TextWrapping="Wrap"/>
                     </StackPanel>
                     <Button x:Name="BreakButton" Content="创建任务" FontSize="24" FontWeight="Bold"
