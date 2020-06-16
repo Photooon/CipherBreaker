@@ -195,10 +195,20 @@ namespace CipherBreaker
 			filescheme.Bytes2File("outEncoding.txt", "outDecoding.txt");
 			Print("txt文件解密完成");
 
-			/*filescheme.File2Bytes("test.docx", "outEncoding.docx");
+			filescheme.File2Bytes("test.docx", "outEncoding.docx");
 			Print("docx文件加密完成");
 			filescheme.Bytes2File("outEncoding.docx", "outDecoding.docx");
-			Print("docx文件解密完成");*/
+			Print("docx文件解密完成");
+
+			filescheme.File2Bytes("test.md", "outEncoding.md");
+			Print("md文件加密完成");
+			filescheme.Bytes2File("outEncoding.md", "outDecoding.md");
+			Print("md文件解密完成");
+
+			filescheme.File2Bytes("文本材料.docx", "文本材料加密.docx");
+			Print("文本材料.docx加密完成");
+			filescheme.Bytes2File("文本材料加密.docx", "文本材料解密.docx");
+			Print("文本材料加密.docx解密完成");
 			return true;
 		}
 
