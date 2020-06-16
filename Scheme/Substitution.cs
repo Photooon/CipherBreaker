@@ -119,11 +119,6 @@ namespace CipherBreaker
 			if (keyIsValid())
 			{
 				StringBuilder plain = new StringBuilder();
-				int[] reverseKey = new int[Scheme.LetterSetSize];
-				for (int i = 0; i < Scheme.LetterSetSize; i++)
-				{
-					reverseKey[this.permutation[i]] = i;
-				}
 
 				for (int i = 0; i < this.Cipher.Length; i++)
 				{
