@@ -74,7 +74,15 @@ namespace CipherBreaker
 				Print("TestFileScheme failed");
 			}
 
-			if(!TestSubstitutionBreak())
+			if(!TestSubstitutionEncode())
+			{
+				Print("TestSubstitutionEncode failed");
+			}
+			if (!TestSubstitutionDecode())
+			{
+				Print("TestSubstitutionDecode failed");
+			}
+			if (!TestSubstitutionBreak())
 			{
 				Print("TestSubstitutionBreak failed");
 			}

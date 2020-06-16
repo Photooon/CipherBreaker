@@ -18,6 +18,7 @@ namespace CipherBreaker
 
 			for (int i = 0; i < Scheme.LetterSetSize; i++)
 			{
+				//permutation[i] = (int)(perString[i] - 'a');
 				if (!int.TryParse(perString[i], out permutation[i]))
 				{
 					return false;
@@ -48,9 +49,22 @@ namespace CipherBreaker
 
 		protected override bool keyIsValid(string key = null)
 		{
-			if (permutationIsValid)
-				return true;
-			return calPermutation();
+			if (key == null)
+				key = this.Key;
+
+			bool[] isMarked = new bool[Scheme.LetterSetSize];
+			foreach (char c in key)
+			{
+				if (c == ',')
+					continue;
+
+				if (isMarked[c - 'a'])
+				{
+					return false;
+				}
+				isMarked[c - 'a'] = true;
+			}
+			return true;
 		}
 
 		public Substitution(string plain = null, string cipher = null, string key = null) : base(plain, cipher, key)
@@ -61,7 +75,7 @@ namespace CipherBreaker
 			{
 				this.Key = key = this.GenerateKey();
 			}
-			calPermutation();
+			//calPermutation();
 		}
 
 		~Substitution()
@@ -77,7 +91,7 @@ namespace CipherBreaker
 			}
 			set
 			{
-				if (value.Split(',').Length == Scheme.LetterSetSize)
+				if (value.Length == Scheme.LetterSetSize)
 				{
 					value = value.ToLower();
 					bool[] isMarked = new bool[Scheme.LetterSetSize];
@@ -117,12 +131,18 @@ namespace CipherBreaker
 					{
 						char bottom = char.IsLower(this.Plain[i]) ? 'a' : 'A';
 						int index = this.Plain[i] - bottom;
-						char subLetter = (char)(bottom + permutation[index]);
-						cipher.Append(subLetter);
+						if(char.IsLower(this.Plain[i]))
+						{
+							cipher.Append(key[index]);
+						}
+						else
+						{
+							cipher.Append(char.ToUpper(key[index]));
+						}
 					}
 				}
 				this.Cipher = cipher.ToString();
-				return (cipher.ToString(), true);
+				return (this.Cipher, true);
 			}
 
 			return ("", false);
@@ -133,6 +153,10 @@ namespace CipherBreaker
 			if (cipher != null)
 			{
 				this.Cipher = cipher;
+			}
+			if(decodeKey!=null)
+			{
+				this.Key = decodeKey;
 			}
 
 			if (keyIsValid())
@@ -150,12 +174,18 @@ namespace CipherBreaker
 					{
 						char bottom = char.IsLower(this.Cipher[i]) ? 'a' : 'A';
 						int index = this.Cipher[i] - bottom;
-						char subLetter = (char)(bottom + reverseKey[index]);
-						plain.Append(subLetter);
+						if (char.IsLower(this.Cipher[i]))
+						{
+							plain.Append(key[index]);
+						}
+						else
+						{
+							plain.Append(char.ToUpper(key[index]));
+						}
 					}
 				}
 				this.Plain = plain.ToString();
-				return (plain.ToString(), true);
+				return (this.Plain, true);
 			}
 
 			return ("", false);
@@ -192,10 +222,10 @@ namespace CipherBreaker
 
 		public override string GenerateKey()
 		{
-			char[] key = new char[Scheme.LetterSetSize];
+			StringBuilder key = new StringBuilder();
 
 			for (int i = 0; i < Scheme.LetterSetSize; i++)
-				key[i] = (char)(i + 'a');
+				key.Append((char)(i + 'a'));
 
 			Random rand = new Random();
 
@@ -205,7 +235,7 @@ namespace CipherBreaker
 				(key[i], key[j]) = (key[j], key[i]);
 			}
 
-			return string.Join(',', key);
+			return key.ToString();
 		}
 	}
 }

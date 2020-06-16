@@ -10,10 +10,10 @@ namespace CipherBreaker
 	{
 		protected class Individual : IEquatable<Individual>,IComparable
 		{
-			public int[] key;
+			public string key;
 			public double fitness;
 
-			public Individual(int[] key,IGA iga)
+			public Individual(string key,IGA iga)
 			{
 				this.key = key;
 				this.fitness = FrequencyAnalyst.Analyze(iga.Decode(key));
@@ -32,7 +32,7 @@ namespace CipherBreaker
 			public bool Equals(Individual other)
 			{
 				return other != null &&
-					   EqualityComparer<int[]>.Default.Equals(this.key, other.key);
+					   EqualityComparer<string>.Default.Equals(this.key, other.key);
 			}
 
 			public static bool operator ==(Individual left, Individual right)
@@ -62,7 +62,7 @@ namespace CipherBreaker
 		}
 
 		// 计算相似度
-		private int CalSimilarity(int[] key1, int[] key2)
+		private int CalSimilarity(string key1, string key2)
 		{
 			int count = 0;
 			for (int i = 0; i < Scheme.LetterSetSize; i++)
@@ -89,9 +89,9 @@ namespace CipherBreaker
 
 		private List<Individual> CalMutation(Individual id)
 		{
-			int[] tmp = id.key.Clone() as int[];
+			StringBuilder tmp = new StringBuilder(id.key.Clone() as string);
 
-			double fatherFitness = FrequencyAnalyst.Analyze(Decode(tmp));
+			double fatherFitness = FrequencyAnalyst.Analyze(Decode(tmp.ToString()));
 
 			List<Individual> kids = new List<Individual>();
 
@@ -102,15 +102,15 @@ namespace CipherBreaker
 				{
 					(tmp[i], tmp[j]) = (tmp[j], tmp[i]);
 					double r = rand.NextDouble();
-					double newFitness = FrequencyAnalyst.Analyze(Decode(tmp));
+					double newFitness = FrequencyAnalyst.Analyze(Decode(tmp.ToString()));
 
 					if (newFitness > fatherFitness)
 					{
-						kids.Add(new Individual(tmp.Clone() as int[],this));
+						kids.Add(new Individual(tmp.ToString(),this));
 					}
 					else if (r <= MutationProb)
 					{
-						kids.Add(new Individual(tmp.Clone() as int[], this));
+						kids.Add(new Individual(tmp.ToString(), this));
 					}
 
 					(tmp[i], tmp[j]) = (tmp[j], tmp[i]);
@@ -123,16 +123,16 @@ namespace CipherBreaker
 		public (string, double) Break(string cipher)
 		{
 			List<Individual> group = new List<Individual>();
-			Substitution sub = new Substitution();
+			sub.Cipher = cipher;
 			for (int i = 0; i < InitNum; i++)
 			{
-				group.Add(new Individual(CommonData.String2intArray(sub.GenerateKey()),this));
+				group.Add(new Individual(sub.GenerateKey(),this));
 			}
 
 			int cnt = 0, T = 0;
 			double last = double.MinValue;
 
-			while (cnt < 5 && T < 10)
+			while (cnt < 5 && T < 15)
 			{
 				T++;
 
@@ -167,6 +167,10 @@ namespace CipherBreaker
 					last = group[0].fitness;
 					cnt = 1;
 				}
+				else
+				{
+					cnt++;
+				}
 
 				// 计算浓度与基于适应度排名的线性概率
 				var concentrations = CalConcentration(group);
@@ -197,9 +201,9 @@ namespace CipherBreaker
 			return (Decode(group[0].key), group[0].fitness);
 		}
 
-		private string Decode(int[] key)
+		private string Decode(string key)
 		{
-			(var plain, _) = sub.Decode(decodeKey: string.Join(',', key));
+			(var plain, _) = sub.Decode(decodeKey: key);
 			return plain;
 		}
 	}
