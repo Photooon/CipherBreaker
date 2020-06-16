@@ -62,6 +62,11 @@ namespace CipherBreaker
 				Print("TestAffineBreak failed");
 			}
 
+			if(!TestSubstitutionBreak())
+			{
+				Print("TestSubstitutionBreak failed");
+			}
+
 			return;
 		}
 
@@ -136,7 +141,32 @@ namespace CipherBreaker
 			Print(affine.Cipher, affine.Key, plain, prob);
 			return plain == "HELLO hello";
 		}
-		
+
+		public bool TestSubstitutionEncode()
+		{
+			Substitution sub = new Substitution(plain: "the international collegiate programming contest is an annual competitive programming competition among the universities of the world");
+			sub.Key = sub.GenerateKey();
+			(var cipher, _) = sub.Encode();
+			Print(sub.Plain, sub.Key, cipher);
+			return cipher == "WNIIR wniir";
+		}
+
+		public bool TestSubstitutionDecode()
+		{
+			Substitution sub = new Substitution(cipher: "OFPNWOPZWRONSWRLQSLLPINROPHZSIZRBBNWIQSWOPKONKRWRWWYRLQSBHPONONUPHZSIZRBBNWIQSBHPONONSWRBSWIOFPYWNUPZKNONPKSGOFPDSZLE");
+			(var plain, _) = sub.Decode();
+			Print(sub.Cipher, sub.Key, plain);
+			return plain == "HELLO hello";
+		}
+
+		public bool TestSubstitutionBreak()
+		{
+			Substitution sub = new Substitution(cipher: "OFPNWOPZWRONSWRLQSLLPINROPHZSIZRBBNWIQSWOPKONKRWRWWYRLQSBHPONONUPHZSIZRBBNWIQSBHPONONSWRBSWIOFPYWNUPZKNONPKSGOFPDSZLE");
+			(var plain, var prob) = sub.Break();
+			Print(sub.Cipher, sub.Key, plain, prob);
+			return plain == "the international collegiate programming contest is an annual competitive programming competition among the universities of the world";
+		}
+
 		private void Print(params object[] objs)
 		{
 			DebugInfo.Content += "\n";
