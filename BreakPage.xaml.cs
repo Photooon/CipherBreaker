@@ -27,20 +27,30 @@ namespace CipherBreaker
 
         private Task task;
         private Scheme scheme;
-
-        private void StopButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
+        private bool flag = true;
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
-            (Result.Text, _) = scheme.Break(scheme.Plain);
+            if (flag)
+            {
+                StartButton.Content = "暂  停";
+                (Result.Text, _) = scheme.Break(scheme.Plain);
+                StartButton.Content = "开  始";
+            }
+            else
+            {
+                StartButton.Content = "开  始";
+                flag = true;
+            }
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void CopyButton_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetDataObject(Result.Text, true);
         }
     }
 }
