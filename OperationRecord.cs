@@ -2,7 +2,7 @@
 
 namespace CipherBreaker
 {
-	enum OperationType : int
+	public enum OperationType : int
 	{
 		Encode = 0,
 		Decode = 1,

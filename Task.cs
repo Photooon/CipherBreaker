@@ -4,11 +4,11 @@ using System.Text;
 
 namespace CipherBreaker
 {
-	class Task
+	public class Task
 	{
 		private long id;
-		private SchemeType type;
-
+		public SchemeType type;
+		public DateTime Date;
 		public string Name;
 		public OperationType OptType;
 		public string OriginText;
