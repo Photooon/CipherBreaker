@@ -20,7 +20,7 @@ namespace CipherBreaker
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		public MainWindow()
+		public MainWindow()//一条注释
 		{
 			InitializeComponent();
 
@@ -54,7 +54,7 @@ namespace CipherBreaker
 		}
 		private void NewTaskButton_Click(object sender, RoutedEventArgs e)
 		{
-			NewTaskWindow newTaskWindow = new NewTaskWindow();
+			NewTaskWindow newTaskWindow = new NewTaskWindow(this);
 			newTaskWindow.Show();
 		}
 
@@ -66,6 +66,10 @@ namespace CipherBreaker
 
 		private void TaskListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
+			if(TaskListBox.SelectedItem==null)
+			{
+				return;
+			}
 			Task task = TaskListBox.SelectedItem as Task;
 			if(task.OptType==OperationType.Encode)
 			{
@@ -74,8 +78,8 @@ namespace CipherBreaker
 				encodePage.TaskTitle.Content += task.ToString();
 				encodePage.SchemeType.Content += task.type.ToString();
 				encodePage.Key.Content += task.Key;
-				encodePage.Text.Text += "\n" + task.OriginText;
-				encodePage.Date.Text += "\n" + task.Date.ToString();
+				encodePage.Text.Text += task.OriginText;
+				encodePage.Date.Text += task.Date.ToString();
 			}
 			else if(task.OptType==OperationType.Decode)
 			{
@@ -84,18 +88,25 @@ namespace CipherBreaker
 				decodePage.TaskTitle.Content += task.ToString();
 				decodePage.SchemeType.Content += task.type.ToString();
 				decodePage.Key.Content += task.Key;
-				decodePage.Text.Text += "\n" + task.ResultText;
-				decodePage.Date.Text += "\n" + task.Date.ToString();
+				decodePage.Text.Text += task.ResultText;
+				decodePage.Date.Text += task.Date.ToString();
 			}
 			else if(task.OptType==OperationType.Break)
 			{
 				BreakPage breakPage = new BreakPage(task);
 				ContentControl.Content = new Frame() { Content = breakPage };
 				breakPage.TaskTitle.Content += task.ToString();
-				breakPage.Text.Text += "\n" + task.OriginText;
-				breakPage.Date.Text += "\n" + task.Date.ToString();
+				breakPage.Text.Text += task.OriginText;
+				breakPage.Date.Text += task.Date.ToString();
 			}
 		}
 
+		private void RemoveItem(object sender, RoutedEventArgs e)
+		{
+			if(TaskListBox.SelectedIndex!=-1)
+			{
+				CommonData.Tasks.RemoveAt(TaskListBox.SelectedIndex);
+			}
+		}
 	}
 }
