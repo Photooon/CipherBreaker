@@ -48,6 +48,10 @@ namespace CipherBreaker
 			{
 				Print("TestRailFenceBreak failed");
 			}
+			if (!TestRailFenceBreak())
+			{
+				Print("TestRailFenceBreak failed");
+			}
 
 			if (!TestAffineEncode())
 			{
@@ -60,6 +64,14 @@ namespace CipherBreaker
 			if (!TestAffineBreak())
 			{
 				Print("TestAffineBreak failed");
+			}
+			if (!TestAffineGenerateKey())
+			{
+				Print("TestAffineGenerateKey failed");
+			}
+			if (!TestFileScheme())
+			{
+				Print("TestFileScheme failed");
 			}
 
 			return;
@@ -136,7 +148,31 @@ namespace CipherBreaker
 			Print(affine.Cipher, affine.Key, plain, prob);
 			return plain == "HELLO hello";
 		}
-		
+		public bool TestFileScheme()
+		{
+			FileScheme filescheme = new FileScheme();
+			filescheme.File2Bytes("test.txt", "outEncoding.txt");
+			Print("txt文件加密完成");
+			filescheme.Bytes2File("outEncoding.txt", "outDecoding.txt");
+			Print("txt文件解密完成");
+
+			/*filescheme.File2Bytes("test.docx", "outEncoding.docx");
+			Print("docx文件加密完成");
+			filescheme.Bytes2File("outEncoding.docx", "outDecoding.docx");
+			Print("docx文件解密完成");*/
+			return true;
+		}
+
+		public bool TestAffineGenerateKey()
+		{
+			Affine affine = new Affine();
+			string KeyGenerated = affine.GenerateKey();
+			Print(KeyGenerated);
+			return true;
+		}
+
+
+
 		private void Print(params object[] objs)
 		{
 			DebugInfo.Content += "\n";
