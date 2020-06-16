@@ -66,6 +66,10 @@ namespace CipherBreaker
 
 		private void TaskListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
+			if(TaskListBox.SelectedItem==null)
+			{
+				return;
+			}
 			Task task = TaskListBox.SelectedItem as Task;
 			if(task.OptType==OperationType.Encode)
 			{
@@ -97,5 +101,12 @@ namespace CipherBreaker
 			}
 		}
 
+		private void RemoveItem(object sender, RoutedEventArgs e)
+		{
+			if(TaskListBox.SelectedIndex!=-1)
+			{
+				CommonData.Tasks.RemoveAt(TaskListBox.SelectedIndex);
+			}
+		}
 	}
 }
