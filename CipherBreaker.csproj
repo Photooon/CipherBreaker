@@ -41,4 +41,8 @@
     <Resource Include="assets\默认应用.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Resource\" />
+  </ItemGroup>
+
 </Project>
