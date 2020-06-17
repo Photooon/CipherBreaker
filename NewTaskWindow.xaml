@@ -74,10 +74,21 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Height="40">
                         <Label Content="密文：" FontSize="24" FontWeight="Bold" Width="100"/>
-                        <TextBox x:Name="BreakPlain" Width="300" TextWrapping="Wrap"/>
+                        <TextBox x:Name="BreakCipher" Width="300" TextWrapping="Wrap"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Height="40">
+                        <Label Content="算法：" FontSize="24" FontWeight="Bold" Width="100"/>
+                        <ComboBox Name="BreakScheme" Width="200">
+                            <ComboBoxItem IsSelected="True">凯撒算法</ComboBoxItem>
+                            <ComboBoxItem>置换算法</ComboBoxItem>
+                            <ComboBoxItem>栅栏算法</ComboBoxItem>
+                            <ComboBoxItem>仿射算法</ComboBoxItem>
+                        </ComboBox>
+                        <Button x:Name="BreakSchemeDefault"  Content="自动生成" FontSize="20" FontWeight="Bold"
+                                Margin="10,0,0,0" Width="90"/>
                     </StackPanel>
                     <Button x:Name="BreakButton" Content="创建任务" FontSize="24" FontWeight="Bold"
-                            Margin="100,50,100,0" Click="BreakButton_Click"/>
+                            Margin="100,40,100,0" Click="BreakButton_Click"/>
                 </StackPanel>
             </TabItem>
         </TabControl>
