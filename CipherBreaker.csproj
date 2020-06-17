@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="assets\logo.png" />
+    <None Remove="assets\notify.png" />
     <None Remove="assets\剪切板.png" />
     <None Remove="assets\开机.png" />
     <None Remove="assets\服务器.png" />
@@ -29,6 +31,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="assets\logo.png" />
+    <Resource Include="assets\notify.png" />
     <Resource Include="assets\剪切板.png" />
     <Resource Include="assets\开机.png" />
     <Resource Include="assets\服务器.png" />
