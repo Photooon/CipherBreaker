@@ -70,8 +70,7 @@ namespace CipherBreaker
 
 		private void OptionButton_Click(object sender, RoutedEventArgs e)
 		{
-			OptionWindow optionWindow = new OptionWindow();
-			optionWindow.Show();
+			
 		}
 
 		private void TaskListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -85,29 +84,30 @@ namespace CipherBreaker
 			{
 				EncodePage encodePage = new EncodePage(task);
 				ContentControl.Content = new Frame() { Content = encodePage };
-				encodePage.TaskTitle.Content += task.ToString();
-				encodePage.SchemeType.Content += task.type.ToString();
-				encodePage.Key.Content += task.Key;
-				encodePage.Text.Text += task.OriginText;
-				encodePage.Date.Text += task.Date.ToString();
+				encodePage.TaskTitle.Content = task.ToString();
+				encodePage.SchemeType.Content = task.type.ToString();
+				encodePage.Key.Content = task.Key;
+				encodePage.Text.Text = task.OriginText;
+				encodePage.Date.Text = task.Date.ToString();
 			}
 			else if (task.OptType == OperationType.Decode)
 			{
 				DecodePage decodePage = new DecodePage(task);
 				ContentControl.Content = new Frame() { Content = decodePage };
-				decodePage.TaskTitle.Content += task.ToString();
-				decodePage.SchemeType.Content += task.type.ToString();
-				decodePage.Key.Content += task.Key;
-				decodePage.Text.Text += task.ResultText;
-				decodePage.Date.Text += task.Date.ToString();
+				decodePage.TaskTitle.Content = task.ToString();
+				decodePage.SchemeType.Content = task.type.ToString();
+				decodePage.Key.Content = task.Key;
+				decodePage.Text.Text = task.ResultText;
+				decodePage.Date.Text = task.Date.ToString();
 			}
 			else if (task.OptType == OperationType.Break)
 			{
 				BreakPage breakPage = new BreakPage(task);
 				ContentControl.Content = new Frame() { Content = breakPage };
-				breakPage.TaskTitle.Content += task.ToString();
-				breakPage.Text.Text += task.OriginText;
-				breakPage.Date.Text += task.Date.ToString();
+				breakPage.TaskTitle.Content = task.ToString();
+				breakPage.SchemeType.Content = task.type.ToString();
+				breakPage.Text.Text = task.ResultText;
+				breakPage.Date.Text = task.Date.ToString();
 			}
 		}
 
@@ -117,6 +117,18 @@ namespace CipherBreaker
 			{
 				CommonData.Tasks.RemoveAt(TaskListBox.SelectedIndex);
 			}
+		}
+
+		private void Settings_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+		{
+			OptionWindow optionWindow = new OptionWindow();
+			optionWindow.Show();
+		}
+
+		private void NewTask_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+		{
+			NewTaskWindow newTaskWindow = new NewTaskWindow(this);
+			newTaskWindow.Show();
 		}
 	}
 }
