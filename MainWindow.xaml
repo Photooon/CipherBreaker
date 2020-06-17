@@ -37,10 +37,10 @@
             <Button x:Name="NewTaskButton" Content="新建任务" FontSize="24" FontWeight="Bold" Width="150"
                     Background="White" Click="NewTaskButton_Click"/>-->
             <!--<Border BorderBrush="Black" BorderThickness="1">-->
-                <Image x:Name="Settings" Width="50" MouseLeftButtonDown="Settings_MouseLeftButtonDown" Source="/assets/setting.png"/>
+                <Image x:Name="Settings" Width="50" MouseLeftButtonDown="Settings_MouseLeftButtonDown" Source="setting.png"/>
             <!--</Border>-->
             <!--<Border BorderBrush="Black" BorderThickness="1">-->
-                <Image x:Name="NewTask" Width="50" MouseLeftButtonDown="NewTask_MouseLeftButtonDown" Source="/assets/plus.png"/>
+                <Image x:Name="NewTask" Width="50" MouseLeftButtonDown="NewTask_MouseLeftButtonDown" Source="plus.png"/>
             <!--</Border>-->
         </StackPanel>
         <!--<Grid Grid.Row="1" Grid.Column="1">
