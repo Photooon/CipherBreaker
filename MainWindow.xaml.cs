@@ -36,17 +36,17 @@ namespace CipherBreaker
 			}
 			dbClient.Close();
 
-			DebugWindow debugWindow = new DebugWindow();
+			//DebugWindow debugWindow = new DebugWindow();
 			//debugWindow.Show();
 
-			Task testTask = new Task();
-			testTask.Name = "test";                                       //测试用
-			testTask.type = SchemeType.Caesar;
-			testTask.OptType = OperationType.Encode;                        //测试用
-			testTask.OriginText = "jmpwfzpv";      //测试用
-			testTask.Key = "2";
-			testTask.Date = DateTime.Now;                                  //测试用
-			CommonData.Tasks.Add(testTask);
+			//Task testTask = new Task();
+			//testTask.Name = "test";                                       //测试用
+			//testTask.type = SchemeType.Caesar;
+			//testTask.OptType = OperationType.Encode;                        //测试用
+			//testTask.OriginText = "jmpwfzpv";      //测试用
+			//testTask.Key = "2";
+			//testTask.Date = DateTime.Now;                                  //测试用
+			//CommonData.Tasks.Add(testTask);
 		}
 
 		private void Window_Closed(object sender, EventArgs e)

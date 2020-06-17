@@ -81,9 +81,9 @@ namespace CipherBreaker.Store
 			var reader = command.ExecuteReader();
 
 			List<Task> optRecordList = new List<Task>();
-			Task task = new Task();
 			while (reader.Read())
 			{
+				Task task = new Task();
 				task.Name = reader.GetString(0);
 				task.type = (SchemeType)reader.GetInt32(1);
 				task.OptType = (OperationType)reader.GetInt32(2);
