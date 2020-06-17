@@ -25,6 +25,10 @@
                         <Label Name="OptType" FontSize="24" FontWeight="Bold" Height="50" Content="类型:"/>
                         <Label Content="  破解" FontSize="24" Height="50"/>
                     </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="方案:" FontSize="24" FontWeight="Bold" Height="50"/>
+                        <Label Name="SchemeType" FontSize="24" Height="50"/>
+                    </StackPanel>
                     <Label Content="明文:" FontSize="24" FontWeight="Bold"/>
                     <ScrollViewer VerticalScrollBarVisibility="Auto" Height="130" Padding="10,0,10,0">
                         <TextBlock x:Name="Text" FontSize="24" TextWrapping="Wrap"/>
@@ -35,12 +39,12 @@
                     </ScrollViewer>
                 </StackPanel>
             </Border>
-            <Label Content="操作:" HorizontalContentAlignment="Left" FontSize="24" FontWeight="Bold" Margin="0,30,0,0"/>
+            <Label Content="操作:" HorizontalContentAlignment="Left" FontSize="24" FontWeight="Bold" Margin="0,20,0,0"/>
             <Border Background="Black" BorderThickness="1">
                 <StackPanel Orientation="Vertical">
-                    <Button x:Name="StartButton" Content="开  始" FontSize="24" FontWeight="Bold" Height="50" Click="StartButton_Click"/>
-                    <Button x:Name="DeleteButton" Content="删  除" FontSize="24" FontWeight="Bold" Height="50" Click="DeleteButton_Click"/>
-                    <Button x:Name="CopyButton" Content="复  制" FontSize="24" FontWeight="Bold" Height="50" Click="CopyButton_Click"/>
+                    <Button x:Name="StartButton" Content="开  始" FontSize="24" FontWeight="Bold" Height="40" Click="StartButton_Click"/>
+                    <Button x:Name="DeleteButton" Content="删  除" FontSize="24" FontWeight="Bold" Height="40" Click="DeleteButton_Click"/>
+                    <Button x:Name="CopyButton" Content="复  制" FontSize="24" FontWeight="Bold" Height="40" Click="CopyButton_Click"/>
                 </StackPanel>
             </Border>
         </StackPanel>
