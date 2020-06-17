@@ -10,6 +10,8 @@
   <ItemGroup>
     <None Remove="assets\logo.png" />
     <None Remove="assets\notify.png" />
+    <None Remove="assets\plus.png" />
+    <None Remove="assets\setting.png" />
     <None Remove="assets\剪切板.png" />
     <None Remove="assets\开机.png" />
     <None Remove="assets\服务器.png" />
@@ -35,13 +37,13 @@
   <ItemGroup>
     <Resource Include="assets\logo.png" />
     <Resource Include="assets\notify.png" />
+    <Resource Include="assets\plus.png" />
+    <Resource Include="assets\setting.png" />
     <Resource Include="assets\开机.png" />
     <Resource Include="assets\服务器.png" />
     <Resource Include="assets\滑动开关-关闭.png" />
     <Resource Include="assets\滑动开关-开启.png" />
     <Resource Include="assets\默认应用.png" />
-    <Resource Include="plus.png" />
-    <Resource Include="setting.png" />
   </ItemGroup>
 
   <ItemGroup>

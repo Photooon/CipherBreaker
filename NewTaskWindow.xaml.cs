@@ -85,6 +85,7 @@ namespace CipherBreaker
 			task.OriginText = null;
 			task.ResultText = BreakCipher.Text;
 			task.OptType = OperationType.Break;
+			task.type = GetSchemeTypeBySelectedIndex(BreakScheme.SelectedIndex);
 			task.Date = DateTime.Now;
 
 			CommonData.AddAndSelect(task, mainWindow.TaskListBox);
