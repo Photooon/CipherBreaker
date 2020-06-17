@@ -17,6 +17,7 @@ namespace CipherBreaker
 	/// </summary>
 	public partial class DebugWindow : Window
 	{
+		
 		public DebugWindow()
 		{
 			InitializeComponent();
@@ -113,7 +114,7 @@ namespace CipherBreaker
 			Print(caesar.Cipher, caesar.Key, plain, prob);
 			return plain == "hello world";
 		}
-
+		
 		public bool TestRailFenceEncode()
 		{
 			RailFence railFence = new RailFence(plain: "one two three four", key: "4");

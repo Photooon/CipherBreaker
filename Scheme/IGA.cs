@@ -153,6 +153,9 @@ namespace CipherBreaker
 				group.Sort();
 				group.Reverse();
 
+				// 破解中间结果
+				sub.ProcessLog.Enqueue(Decode(group[0].key));
+
 				// 控制个体数量
 				if(group.Count>Cap)
 				{
@@ -197,6 +200,8 @@ namespace CipherBreaker
 
 			group.Sort();
 			group.Reverse();
+			sub.ProcessLog.Enqueue(Decode(group[0].key));
+			sub.ProcessLog.Enqueue("");
 
 			return (Decode(group[0].key), group[0].fitness);
 		}

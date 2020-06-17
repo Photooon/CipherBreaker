@@ -29,7 +29,7 @@
                         <Label Content="方案:" FontSize="24" FontWeight="Bold" Height="50"/>
                         <Label Name="SchemeType" FontSize="24" Height="50"/>
                     </StackPanel>
-                    <Label Content="明文:" FontSize="24" FontWeight="Bold"/>
+                    <Label Content="明文:" FontSize="24" FontWeight="Bold"/
                     <ScrollViewer VerticalScrollBarVisibility="Auto" Height="130" Padding="10,0,10,0">
                         <TextBlock x:Name="Text" FontSize="24" TextWrapping="Wrap"/>
                     </ScrollViewer>
@@ -49,7 +49,7 @@
             </Border>
         </StackPanel>
         <StackPanel Grid.Column="1" Margin="10,0,10,10">
-            <Label Content="密文:" HorizontalContentAlignment="Left" FontSize="24" FontWeight="Bold"/>
+            <Label Content="明文:" HorizontalContentAlignment="Left" FontSize="24" FontWeight="Bold"/>
             <Border BorderBrush="Black" BorderThickness="1">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Height="150">
                     <TextBlock x:Name="Result" FontSize="24" TextWrapping="Wrap"/>
