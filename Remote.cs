@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-using System.Windows.Media.Animation;
+using System.Reflection.Metadata.Ecma335;
 using Newtonsoft.Json;
 
 namespace CipherBreaker
@@ -35,19 +31,54 @@ namespace CipherBreaker
             return result;
         }
 
-        public static string Encrypt(string method, string plain, string key)
+        private static string getMethodStr(SchemeType st)
         {
-            return SendTo(String.Format(encryptUrl, method, plain, key));       //这里返回的可能是错误信息（如密钥不正确等），也可能是结果
+            string methodStr;
+
+            switch (st)
+            {
+                case SchemeType.Caesar:
+                    methodStr = "caesar";
+                    break;
+                case SchemeType.Affine:
+                    methodStr = "affine";
+                    break;
+                case SchemeType.Columnar:
+                    methodStr = "columnar";
+                    break;
+                case SchemeType.RailFence:
+                    methodStr = "railfence";
+                    break;
+                case SchemeType.Substitution:
+                    methodStr = "substitution";
+                    break;
+                case SchemeType.Transposition:
+                    methodStr = "transposition";
+                    break;
+                case SchemeType.Vigenere:
+                    methodStr = "vigenere";
+                    break;
+                default:
+                    methodStr = "";
+                    break;
+            }
+
+            return methodStr;
         }
 
-        public static string Decrypt(string method, string plain, string key)
+        public static string Encrypt(SchemeType method, string plain, string key)
         {
-            return SendTo(String.Format(decryptUrl, method, plain, key));
+            return SendTo(String.Format(encryptUrl, getMethodStr(method), plain, key));       //这里返回的可能是错误信息（如密钥不正确等），也可能是结果
         }
 
-        public static string Break(string method, string plain, string key)
+        public static string Decrypt(SchemeType method, string plain, string key)
         {
-            return SendTo(String.Format(breakUrl, method, plain));
+            return SendTo(String.Format(decryptUrl, getMethodStr(method), plain, key));
+        }
+
+        public static string Break(SchemeType method, string plain, string key)
+        {
+            return SendTo(String.Format(breakUrl, getMethodStr(method), plain));
         }
     }
 }

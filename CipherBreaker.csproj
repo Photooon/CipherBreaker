@@ -8,12 +8,33 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="assets\剪切板.png" />
+    <None Remove="assets\开机.png" />
+    <None Remove="assets\服务器.png" />
+    <None Remove="assets\滑动开关-关闭.png" />
+    <None Remove="assets\滑动开关-开启.png" />
+    <None Remove="assets\默认应用.png" />
+    <None Remove="Resource\开机.png" />
+    <None Remove="剪切板.png" />
+    <None Remove="开机.png" />
+    <None Remove="服务器.png" />
+    <None Remove="滑动开关-关闭.png" />
     <None Remove="滑动开关-开启.png" />
+    <None Remove="默认应用.png" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.Sqlite" Version="3.1.4" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="assets\剪切板.png" />
+    <Resource Include="assets\开机.png" />
+    <Resource Include="assets\服务器.png" />
+    <Resource Include="assets\滑动开关-关闭.png" />
+    <Resource Include="assets\滑动开关-开启.png" />
+    <Resource Include="assets\默认应用.png" />
   </ItemGroup>
 
 </Project>
