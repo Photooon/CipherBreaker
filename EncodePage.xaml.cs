@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -34,6 +35,7 @@ namespace CipherBreaker
             {
                 StartButton.Content = "暂  停";
                 (Result.Text, _) = scheme.Encode(scheme.Plain, task.Key);
+                this.ProgressBar.Value = ProgressBar.Maximum;
                 StartButton.Content = "开  始";
             }
             else
