@@ -36,8 +36,8 @@ TODO...
 - [洪敏](https://github.com/hm333z)
 - [廖宇阳](https://github.com/lyy1240056777)
 - [岑洋](https://github.com/yah01)
-- [邹龙威]()
+- [邹龙威](https://github.com/Photooon)
 - [龚如晗](https://github.com/sssssssssssssssssa)
 
 ## 分工情况
-TODO...
+TODO..y

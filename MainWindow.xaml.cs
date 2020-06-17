@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Diagnostics;
+using System.IO;
 
 namespace CipherBreaker
 {
@@ -23,6 +25,27 @@ namespace CipherBreaker
 		public MainWindow()//一条注释
 		{
 			InitializeComponent();
+
+			/*右键快捷加密解密部分*/
+			var args = Environment.GetCommandLineArgs();
+			if (args.Length > 2)
+			{
+				string originPath = args[2];	//获取加密文件路径
+
+				FileScheme fileScheme = new FileScheme();
+
+				if (args[1] == "encrypt")		//加密文件
+                {
+					fileScheme.File2Bytes(originPath, originPath += ".cb");
+				}
+				else if (args[1] == "decrypt" && originPath.Contains(".cb"))	 //解密文件，且检查是否为加密过的文件
+                {
+					int index = originPath.IndexOf(".cb");
+					fileScheme.Bytes2File(originPath, originPath.Remove(index, 3));
+				}
+			}
+
+			//TODO: 读取或创建setting文件
 
 			DebugWindow debugWindow = new DebugWindow();
 			debugWindow.Show();
