@@ -15,21 +15,35 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition Height="200"/>
+            <RowDefinition Height="120"/>
         </Grid.RowDefinitions>
         <StackPanel Margin="10,0,10,10">
             <Label Content="基本信息：" HorizontalContentAlignment="Left" FontSize="24" FontWeight="Bold"/>
             <Border BorderThickness="1" BorderBrush="Black">
                 <StackPanel Orientation="Vertical">
-                    <Label Name="TaskTitle" FontSize="24" FontWeight="Bold" Height="50" Content="任务名:"/>
-                    <Label Name="OptType" FontSize="24" FontWeight="Bold" Height="50" Content="类型:  解密"/>
-                    <Label Name="SchemeType" FontSize="24" FontWeight="Bold" Height="50" Content="方案:"/>
-                    <Label Name="Key" FontSize="24" FontWeight="Bold" Height="50" Content="密钥:"/>
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" Height="130">
-                        <TextBlock x:Name="Text" FontSize="24" FontWeight="Bold" TextWrapping="Wrap" Text=" 密文:"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Label FontSize="24" FontWeight="Bold" Height="50" Content="任务名:"/>
+                        <Label Name="TaskTitle" FontSize="24" Height="50"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Name="OptType" FontSize="24" FontWeight="Bold" Height="50" Content="类型:"/>
+                        <Label FontSize="24" Content="解密"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label  FontSize="24" FontWeight="Bold" Height="50" Content="方案:"/>
+                        <Label Name="SchemeType" FontSize="24" Height="50"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label  FontSize="24" FontWeight="Bold" Height="50" Content="密钥:"/>
+                        <Label Name="Key" FontSize="24" Height="50"/>
+                    </StackPanel>
+                    <Label Content="密文:" FontSize="24" FontWeight="Bold"/>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Height="130" Padding="10,0,10,0">
+                        <TextBlock x:Name="Text" FontSize="24" TextWrapping="Wrap"/>
                     </ScrollViewer>
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" Height="60">
-                        <TextBlock x:Name="Date" FontSize="24" FontWeight="Bold" TextWrapping="Wrap" Text=" 创建时间:"/>
+                    <Label Content="创建时间:" FontSize="24" FontWeight="Bold"/>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Height="50" Padding="10,0,10,0">
+                        <TextBlock x:Name="Date" FontSize="24" TextWrapping="Wrap" Text=""/>
                     </ScrollViewer>
                 </StackPanel>
             </Border>
@@ -38,15 +52,15 @@
             <Label Content="操作:" HorizontalContentAlignment="Left" FontSize="24" FontWeight="Bold" Width="100"/>
             <Button x:Name="StartButton" Content="开  始" FontSize="24" FontWeight="Bold" Height="40"
                     Width="170" Click="StartButton_Click" VerticalAlignment="Top"/>
-            <Button x:Name="StopButton" Content="暂  停" FontSize="24" FontWeight="Bold" Height="40" 
-                    Width="170" Click="StopButton_Click" VerticalAlignment="Top"/>
             <Button x:Name="DeleteButton" Content="删  除" FontSize="24" FontWeight="Bold" Height="40" 
                     Width="170" Click="DeleteButton_Click" VerticalAlignment="Top"/>
+            <Button x:Name="CopyButton" Content="复  制" FontSize="24" FontWeight="Bold" Height="40" 
+                    Width="170" Click="CopyButton_Click" VerticalAlignment="Top"/>
         </StackPanel>
         <StackPanel Grid.Column="1" Margin="10,0,10,10">
             <Label Content="明文:" HorizontalContentAlignment="Left" FontSize="24" FontWeight="Bold"/>
             <Border BorderBrush="Black" BorderThickness="1">
-                <ScrollViewer VerticalScrollBarVisibility="Auto" Height="150">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Height="150" Padding="10,0,10,0">
                     <TextBlock x:Name="Result" FontSize="24" FontWeight="Bold" TextWrapping="Wrap"/>
                 </ScrollViewer>
             </Border>
