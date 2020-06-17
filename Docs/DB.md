@@ -14,10 +14,11 @@ create table word_frequency (
 );
 ```
 
-## 操作记录表
+## 任务表
 存储用户的操作记录（加密、解密、破解），记忆化查询：
-- id：自增id
-- type：操作类型（加密、解密、破解）
+- name：任务名
+- type：加密算法
+- opt_type：操作类型（加密、解密、破解）
 - origin_text：初始文本
 - key：密钥（操作类型为破解时，密钥为空）
 - result_text：结果文本
@@ -25,12 +26,13 @@ create table word_frequency (
 
 ### 建表
 ```sql
-create table word_frequency (
-    id integer primary key autoincrement,
+create table task (
+    name text not null,
     type integer not null,
+    opt_type integer not null,
     origin_text text not null,
     key text,
     result_text text,
-    time date not null
+    time integer not null
 )
 ```

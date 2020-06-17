@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CipherBreaker.Store;
+using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,36 +25,42 @@ namespace CipherBreaker
 		public MainWindow()
 		{
 			InitializeComponent();
+			this.TaskListBox.ItemsSource = CommonData.Tasks;
 
+			SqliteClient dbClient = new SqliteClient(CommonData.DbSource);
+			dbClient.Open();
+			var taskList = dbClient.QueryAllTask();
+			foreach(var task in taskList)
+			{
+				CommonData.Tasks.Add(task);
+			}
+			dbClient.Close();
 
 			DebugWindow debugWindow = new DebugWindow();
-			debugWindow.Show();
-			this.TaskListBox.ItemsSource = CommonData.Tasks;
-			Task task1 = new Task();
-			task1.Name = "first";                                    //测试用
-			task1.OptType = OperationType.Decode;                    //测试用
-			task1.type = SchemeType.Caesar;                          //测试用
-			task1.Key = "3";                                         //测试用
-			task1.ResultText = "dddtttttttttttttttttttttttttttttt";  //测试用
-			task1.Date = DateTime.Now;                               //测试用
-			CommonData.Tasks.Add(task1);
+			//debugWindow.Show();
 
-			Task task2 = new Task();
-			task2.Name = "second";                                                 //测试用
-			task2.OptType = OperationType.Encode;                                  //测试用
-			task2.type = SchemeType.Caesar;                                        //测试用
-			task2.Key = "5";                                                       //测试用
-			task2.OriginText = "iiiiiiiiiiiizzzzzzzzzzzzzoooooooonnnnnnnnneeeeee"; //测试用
-			task2.Date = DateTime.Now;                                             //测试用
-			CommonData.Tasks.Add(task2);
-
-			Task task3 = new Task();
-			task3.Name = "third";                                       //测试用
-			task3.OptType = OperationType.Break;                        //测试用
-			task3.OriginText = "jmpwfzpv";      //测试用
-			task3.Date = DateTime.Now;                                  //测试用
-			CommonData.Tasks.Add(task3);
+			Task testTask = new Task();
+			testTask.Name = "test";                                       //测试用
+			testTask.type = SchemeType.Caesar;
+			testTask.OptType = OperationType.Encode;                        //测试用
+			testTask.OriginText = "jmpwfzpv";      //测试用
+			testTask.Key = "2";
+			testTask.Date = DateTime.Now;                                  //测试用
+			CommonData.Tasks.Add(testTask);
 		}
+
+		private void Window_Closed(object sender, EventArgs e)
+		{
+			SqliteClient dbClient = new SqliteClient(CommonData.DbSource);
+			dbClient.Open();
+			dbClient.ClearTask();
+			foreach(var task in CommonData.Tasks)
+			{
+				dbClient.InsertTask(task);
+			}
+			dbClient.Close();
+		}
+
 		private void NewTaskButton_Click(object sender, RoutedEventArgs e)
 		{
 			
