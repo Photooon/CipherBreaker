@@ -33,7 +33,7 @@
                         <Label Content="密钥：" FontSize="24" FontWeight="Bold" Width="100"/>
                         <TextBox x:Name="EncodeKey" Width="200"/>
                         <Button x:Name="KeyDefault" Content="自动生成" FontSize="20" FontWeight="Bold"
-                                Margin="10,0,0,0" Width="90"/>
+                                Margin="10,0,0,0" Width="90" Click="EncodeGenerateKey"/>
                     </StackPanel>
                     <Button x:Name="EncodeButton" Content="创建任务" FontSize="24" FontWeight="Bold"
                             Margin="100,50,100,0" Click="EncodeButton_Click"/>
@@ -73,7 +73,7 @@
                         <TextBox x:Name="BreakTitle" Width="300"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Height="40">
-                        <Label Content="明文：" FontSize="24" FontWeight="Bold" Width="100"/>
+                        <Label Content="密文：" FontSize="24" FontWeight="Bold" Width="100"/>
                         <TextBox x:Name="BreakPlain" Width="300" TextWrapping="Wrap"/>
                     </StackPanel>
                     <Button x:Name="BreakButton" Content="创建任务" FontSize="24" FontWeight="Bold"

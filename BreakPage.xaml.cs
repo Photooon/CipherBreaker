@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -27,20 +28,44 @@ namespace CipherBreaker
 
         private Task task;
         private Scheme scheme;
-
-        private void StopButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
+        private bool isStarted = true;
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
-            (Result.Text, _) = scheme.Break(scheme.Plain);
+            if (isStarted)
+            {
+                StartButton.Content = "暂  停";
+                StartButton.Content = "开  始";
+            }
+            else
+            {
+                StartButton.Content = "开  始";
+                Scheme.AsyncBreak caller = new Scheme.AsyncBreak(scheme.Break);
+                caller.BeginInvoke(scheme.Plain, null, null);
+                PrintCurrentResult();
+                isStarted = true;
+            }
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void CopyButton_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetDataObject(Result.Text, true);
+        }
+
+        private async void PrintCurrentResult()
+        {
+            string log = "";
+            while(!scheme.ProcessLog.IsEmpty)
+            {
+                scheme.ProcessLog.TryDequeue(out log);
+                if (log == "")
+                    break;
+                Result.Text = log;
+            }
         }
     }
 }

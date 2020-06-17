@@ -74,6 +74,7 @@ namespace CipherBreaker
 				if (result.ok)
 				{
 					double prob = FrequencyAnalyst.Analyze(result.str);
+					ProcessLog.Enqueue(result.str);
 					if (prob > maxProb)
 					{
 						plain = result.str;
@@ -82,6 +83,8 @@ namespace CipherBreaker
 				}
 			}
 			this.Plain = plain;
+			ProcessLog.Enqueue(plain);
+			ProcessLog.Enqueue("");
 			return (plain, Math.Pow(Math.E, maxProb));
 		}
 
@@ -162,7 +165,8 @@ namespace CipherBreaker
 		public override string GenerateKey()
 		{
 			Random rand = new Random();
-			return (rand.Next(Cipher.Length)+1).ToString();
+			int key = rand.Next(Cipher.Length) + 1;
+			return key.ToString();
 		}
 
 	}

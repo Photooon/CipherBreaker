@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,100 +13,100 @@ using System.Windows.Shapes;
 
 namespace CipherBreaker
 {
-    /// <summary>
-    /// NewTaskWindow.xaml 的交互逻辑
-    /// </summary>
-    public partial class NewTaskWindow : Window
-    {
-        public NewTaskWindow()
-        {
-            InitializeComponent();
-        }
+	/// <summary>
+	/// NewTaskWindow.xaml 的交互逻辑
+	/// </summary>
+	public partial class NewTaskWindow : Window
+	{
+		private MainWindow mainWindow;
+		public NewTaskWindow()
+		{
+			InitializeComponent();
+		}
 
-        private void EncodeButton_Click(object sender, RoutedEventArgs e)
-        {
-            Task task = new Task();
-            
-            task.Name = EncodeTitle.Text;
-            task.OriginText = Plain.Text;
-            task.ResultText = null;
-            task.OptType = OperationType.Encode;
-            if (EncodeScheme.SelectedIndex == 0) { task.type = SchemeType.Caesar; }
-            else if (EncodeScheme.SelectedIndex == 1) { task.type = SchemeType.Substitution; }
-            else if (EncodeScheme.SelectedIndex == 2) { task.type = SchemeType.RailFence; }
-            else if (EncodeScheme.SelectedIndex == 3) { task.type = SchemeType.Affine; }
-            task.Date = DateTime.Now;
-            task.Key = EncodeKey.Text;
+		public NewTaskWindow(MainWindow mainWindow)
+		{
+			InitializeComponent();
+			this.mainWindow = mainWindow;
+		}
 
-            EncodePage encodePage = new EncodePage(task);
-            encodePage.TaskTitle.Content += task.ToString();
-            encodePage.SchemeType.Content += task.type.ToString();
-            encodePage.Key.Content += task.Key;
-            encodePage.Text.Text += "\n" + task.OriginText;
-            encodePage.Date.Text += "\n" + task.Date.ToString();
-            //MainWindow.ContentControl.Content = new Frame() { Content = encodePage };//在主窗体中创建新页
-            CommonData.Tasks.Add(task);
+		private SchemeType GetSchemeTypeBySelectedIndex(int index)
+		{
+			switch (index)
+			{
+				case 0:
+					return SchemeType.Caesar;
+				case 1:
+					return SchemeType.Substitution;
+				case 2:
+					return SchemeType.RailFence;
+				case 3:
+					return SchemeType.Affine;
+			}
+			return SchemeType.RailFence;
+		}
 
+		private void EncodeButton_Click(object sender, RoutedEventArgs e)
+		{
+			Task task = new Task();
 
-            //OperateWindow operateWindow = new OperateWindow(task);
+			task.Name = EncodeTitle.Text;
+			task.OriginText = Plain.Text;
+			task.ResultText = null;
+			task.OptType = OperationType.Encode;
+			task.type = GetSchemeTypeBySelectedIndex(EncodeScheme.SelectedIndex);
+			task.Date = DateTime.Now;
+			task.Key = EncodeKey.Text;
+			CommonData.AddAndSelect(task, mainWindow.TaskListBox);
+			this.Close();
+		}
 
-            //operateWindow.TaskTitle.Content = "任务名："+task.Name;
-            //operateWindow.OptType.Content = "操作：" + task.OptType;
-            //operateWindow.SchemeType.Content = "算法：" + task.type.ToString();
-            //operateWindow.Key.Content = "密钥：" + task.Key;
-            //operateWindow.Text.Text = "明文：" + task.OriginText;
-            //operateWindow.Date.Content = "创建时间：" + task.Date.ToString();
-            //operateWindow.Show();
+		private void DecodeButton_Click(object sender, RoutedEventArgs e)
+		{
+			Task task = new Task();
+			task.Name = DecodeTitle.Text;
+			task.ResultText = Cipher.Text;
+			task.OriginText = null;
+			task.OptType = OperationType.Decode;
+			task.type = GetSchemeTypeBySelectedIndex(DecodeScheme.SelectedIndex);
+			task.Date = DateTime.Now;
+			task.Key = DecodeKey.Text;
 
-            //CommonData.Tasks.Add(task);
-        }
+			CommonData.AddAndSelect(task, mainWindow.TaskListBox);
+			this.Close();
+		}
 
-        private void DecodeButton_Click(object sender, RoutedEventArgs e)
-        {
-            Task task = new Task();
+		private void BreakButton_Click(object sender, RoutedEventArgs e)
+		{
+			Task task = new Task();
 
-            task.Name = DecodeTitle.Text;
-            task.ResultText = Cipher.Text;
-            task.OriginText = null;
-            task.OptType = OperationType.Decode;
-            if (DecodeScheme.SelectedIndex == 0) { task.type=SchemeType.Caesar;}
-            else if (DecodeScheme.SelectedIndex == 1) { task.type = SchemeType.Substitution; }
-            else if (DecodeScheme.SelectedIndex == 2) { task.type = SchemeType.RailFence; }
-            else if (DecodeScheme.SelectedIndex == 3) { task.type = SchemeType.Affine; }
-            task.Date = DateTime.Now;
-            task.Key = DecodeKey.Text;
-            OperateWindow operateWindow = new OperateWindow(task);
+			task.Name = BreakTitle.Text;
+			task.OriginText = BreakPlain.Text;
+			task.ResultText = null;
+			task.OptType = OperationType.Break;
+			task.Date = DateTime.Now;
 
-            operateWindow.TaskTitle.Content = "任务名：" + task.Name;
-            operateWindow.OptType.Content = "操作：" + task.OptType;
-            operateWindow.SchemeType.Content = "算法：" + task.type.ToString();
-            operateWindow.Key.Content = "密钥：" + task.Key;
-            operateWindow.Text.Text = "密文：" + task.OriginText;
-            operateWindow.Date.Content = "创建时间：" + task.Date.ToString();
-            operateWindow.Show();
-        }
+			CommonData.AddAndSelect(task, mainWindow.TaskListBox);
+			this.Close();
+		}
 
-        private void BreakButton_Click(object sender, RoutedEventArgs e)
-        {
-            Task task = new Task();
-
-            task.Name = BreakTitle.Text;
-            task.OriginText = BreakPlain.Text;
-            task.ResultText = null;
-            task.OptType = OperationType.Break;
-            task.Date = DateTime.Now;
-            OperateWindow operateWindow = new OperateWindow(task);
-
-            operateWindow.TaskTitle.Content = "任务名：" + task.Name;
-            operateWindow.OptType.Content = "操作：" + task.OptType;
-            //operateWindow.SchemeType.Content = "算法：" + task.type.ToString();
-            //operateWindow.Key.Content = "密钥：" + task.Key;
-            //operateWindow.Text.Text = "密文：" + task.OriginText;
-            operateWindow.SchemeType.IsEnabled = false;
-            operateWindow.Key.IsEnabled = false;
-            operateWindow.Text.IsEnabled = false;
-            operateWindow.Date.Content = "创建时间：" + task.Date.ToString();
-            operateWindow.Show();
-        }
-    }
+		private void EncodeGenerateKey(object sender, RoutedEventArgs e)
+		{
+			var type = GetSchemeTypeBySelectedIndex(EncodeScheme.SelectedIndex);
+			if (type == SchemeType.RailFence)
+			{
+				Random rand = new Random();
+				if (Plain.Text.Length == 0)
+				{
+					MessageBox.Show("明文不能为空");
+					return;
+				}
+				EncodeKey.Text = (rand.Next(Plain.Text.Length) + 1).ToString();
+			}
+			else
+			{
+				EncodeKey.Text = (Scheme.NewScheme(type) as SymmetricScheme).GenerateKey();
+			}
+		}
+	}
 }
