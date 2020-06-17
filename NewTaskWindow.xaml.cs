@@ -108,5 +108,10 @@ namespace CipherBreaker
 				EncodeKey.Text = (Scheme.NewScheme(type) as SymmetricScheme).GenerateKey();
 			}
 		}
+
+		private void ChooseFileButton_Click(object sender, MouseButtonEventArgs e)
+		{
+			
+		}
 	}
 }
