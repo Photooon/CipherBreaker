@@ -29,8 +29,8 @@
                         <Label Content="方案:" FontSize="24" FontWeight="Bold" Height="50"/>
                         <Label Name="SchemeType" FontSize="24" Height="50"/>
                     </StackPanel>
-                    <Label Content="明文:" FontSize="24" FontWeight="Bold"/
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" Height="130" Padding="10,0,10,0">
+					<Label Content="密文:" FontSize="24" FontWeight="Bold"/>
+					<ScrollViewer VerticalScrollBarVisibility="Auto" Height="130" Padding="10,0,10,0">
                         <TextBlock x:Name="Text" FontSize="24" TextWrapping="Wrap"/>
                     </ScrollViewer>
                     <Label Content="创建时间:" FontSize="24" FontWeight="Bold"/>
