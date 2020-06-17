@@ -74,7 +74,7 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Height="40">
                         <Label Content="密文：" FontSize="24" FontWeight="Bold" Width="100"/>
-                        <TextBox x:Name="BreakPlain" Width="300" TextWrapping="Wrap"/>
+                        <TextBox x:Name="BreakCipher" Width="300" TextWrapping="Wrap"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Height="40">
                         <Label Content="算法：" FontSize="24" FontWeight="Bold" Width="100"/>

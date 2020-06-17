@@ -33,7 +33,7 @@ namespace CipherBreaker
             if (flag)
             {
                 StartButton.Content = "暂  停";
-                (Result.Text, _) = scheme.Break(scheme.Plain);
+                (Result.Text, _) = scheme.Break(scheme.Cipher);
                 StartButton.Content = "开  始";
             }
             else

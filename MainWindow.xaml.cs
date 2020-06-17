@@ -48,7 +48,7 @@ namespace CipherBreaker
 			Task task3 = new Task();
 			task3.Name = "third";                                       //测试用
 			task3.OptType = OperationType.Break;						//测试用
-			task3.OriginText = "jmpwfzpv";  	//测试用
+			task3.ResultText = "jmpwfzpv";  	//测试用
 			task3.Date = DateTime.Now;									//测试用
 			CommonData.Tasks.Add(task3);
 		}
@@ -95,7 +95,7 @@ namespace CipherBreaker
 				ContentControl.Content = new Frame() { Content = breakPage };
 				breakPage.TaskTitle.Content = task.ToString();
 				breakPage.SchemeType.Content = task.type.ToString();
-				breakPage.Text.Text = task.OriginText;
+				breakPage.Text.Text = task.ResultText;
 				breakPage.Date.Text = task.Date.ToString();
 			}
 		}

@@ -34,8 +34,12 @@
                     Background="White" Click="OptionButton_Click"/>
             <Button x:Name="NewTaskButton" Content="新建任务" FontSize="24" FontWeight="Bold" Width="150"
                     Background="White" Click="NewTaskButton_Click"/>-->
-            <Image x:Name="Settings" Width="50" MouseLeftButtonDown="Settings_MouseLeftButtonDown"/>
-            <Image x:Name="NewTask" Width="50" MouseLeftButtonDown="NewTask_MouseLeftButtonDown"/>
+            <Border BorderBrush="Black" BorderThickness="1">
+                <Image x:Name="Settings" Width="50" MouseLeftButtonDown="Settings_MouseLeftButtonDown"/>
+            </Border>
+            <Border BorderBrush="Black" BorderThickness="1">
+                <Image x:Name="NewTask" Width="50" MouseLeftButtonDown="NewTask_MouseLeftButtonDown"/>
+            </Border>
         </StackPanel>
         <!--<Grid Grid.Row="1" Grid.Column="1">
             <Grid.ColumnDefinitions>
