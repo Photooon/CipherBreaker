@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 
 namespace CipherBreaker
 {
@@ -20,8 +21,39 @@ namespace CipherBreaker
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		public MainWindow()//一条注释
+		private void AddFileContextMenuItem(string itemName, string associatedProgramFullPath)
 		{
+			//创建项：shell 
+			RegistryKey shellKey = Registry.ClassesRoot.OpenSubKey(@"*\shell", true);
+			if (shellKey == null)
+			{
+				shellKey = Registry.ClassesRoot.CreateSubKey(@"*\shell");
+			}
+
+
+			//创建项：右键显示的菜单名称
+			RegistryKey rightCommondKey = shellKey.CreateSubKey(itemName);
+			RegistryKey associatedProgramKey = rightCommondKey.CreateSubKey("command");
+
+
+			//创建默认值：关联的程序
+			associatedProgramKey.SetValue(string.Empty, associatedProgramFullPath);
+
+
+			//刷新到磁盘并释放资源
+			associatedProgramKey.Close();
+			rightCommondKey.Close();
+			shellKey.Close();
+
+			FileScheme fileScheme = new FileScheme();
+			fileScheme.File2Bytes(@associatedProgramFullPath, @associatedProgramFullPath);
+			fileScheme.Bytes2File(@associatedProgramFullPath, @associatedProgramFullPath);
+		}
+
+		public MainWindow()
+		{
+			AddFileContextMenuItem("加密", @"C:\Users\hongmin\Documents\GitHub\CipherBreaker\bin\Debug\netcoreapp3.0\CipherBreaker.exe %1");
+			AddFileContextMenuItem("解密", @"C:\Users\hongmin\Documents\GitHub\CipherBreaker\bin\Debug\netcoreapp3.0\CipherBreaker.exe %1");
 			InitializeComponent();
 
 
