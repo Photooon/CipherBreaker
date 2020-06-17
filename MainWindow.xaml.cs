@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CipherBreaker.Store;
+using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,9 +24,19 @@ namespace CipherBreaker
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		public MainWindow()//一条注释
+		public MainWindow()
 		{
 			InitializeComponent();
+			this.TaskListBox.ItemsSource = CommonData.Tasks;
+
+			SqliteClient dbClient = new SqliteClient(CommonData.DbSource);
+			dbClient.Open();
+			var taskList = dbClient.QueryAllTask();
+			foreach(var task in taskList)
+			{
+				CommonData.Tasks.Add(task);
+			}
+			dbClient.Close();
 
 			/*右键快捷加密解密部分*/
 			var args = Environment.GetCommandLineArgs();
@@ -48,88 +60,98 @@ namespace CipherBreaker
 			//TODO: 读取或创建setting文件
 
 			DebugWindow debugWindow = new DebugWindow();
-			debugWindow.Show();
-			this.TaskListBox.ItemsSource = CommonData.Tasks;
-			Task task1 = new Task();
-			task1.Name = "first";                                    //测试用
-			task1.OptType = OperationType.Decode;					 //测试用
-			task1.type = SchemeType.Caesar;							 //测试用
-			task1.Key = "3";										 //测试用
-			task1.ResultText = "dddtttttttttttttttttttttttttttttt";	 //测试用
-			task1.Date = DateTime.Now;								 //测试用
-			CommonData.Tasks.Add(task1);
+			//debugWindow.Show();
 
-			Task task2 = new Task();
-			task2.Name = "second";                                                 //测试用
-			task2.OptType = OperationType.Encode;								   //测试用
-			task2.type = SchemeType.Caesar;										   //测试用
-			task2.Key = "5";													   //测试用
-			task2.OriginText = "iiiiiiiiiiiizzzzzzzzzzzzzoooooooonnnnnnnnneeeeee"; //测试用
-			task2.Date = DateTime.Now;											   //测试用
-			CommonData.Tasks.Add(task2);
-
-			Task task3 = new Task();
-			task3.Name = "third";                                       //测试用
-			task3.OptType = OperationType.Break;						//测试用
-			task3.OriginText = "jmpwfzpv";  	//测试用
-			task3.Date = DateTime.Now;									//测试用
-			CommonData.Tasks.Add(task3);
+			Task testTask = new Task();
+			testTask.Name = "test";                                       //测试用
+			testTask.type = SchemeType.Caesar;
+			testTask.OptType = OperationType.Encode;                        //测试用
+			testTask.OriginText = "jmpwfzpv";      //测试用
+			testTask.Key = "2";
+			testTask.Date = DateTime.Now;                                  //测试用
+			CommonData.Tasks.Add(testTask);
 		}
+
+		private void Window_Closed(object sender, EventArgs e)
+		{
+			SqliteClient dbClient = new SqliteClient(CommonData.DbSource);
+			dbClient.Open();
+			dbClient.ClearTask();
+			foreach(var task in CommonData.Tasks)
+			{
+				dbClient.InsertTask(task);
+			}
+			dbClient.Close();
+		}
+
 		private void NewTaskButton_Click(object sender, RoutedEventArgs e)
 		{
+			
 			NewTaskWindow newTaskWindow = new NewTaskWindow(this);
 			newTaskWindow.Show();
 		}
 
 		private void OptionButton_Click(object sender, RoutedEventArgs e)
 		{
-			OptionWindow optionWindow = new OptionWindow();
-			optionWindow.Show();
+			
 		}
 
 		private void TaskListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			if(TaskListBox.SelectedItem==null)
+			if (TaskListBox.SelectedItem == null)
 			{
 				return;
 			}
 			Task task = TaskListBox.SelectedItem as Task;
-			if(task.OptType==OperationType.Encode)
+			if (task.OptType == OperationType.Encode)
 			{
 				EncodePage encodePage = new EncodePage(task);
 				ContentControl.Content = new Frame() { Content = encodePage };
-				encodePage.TaskTitle.Content += task.ToString();
-				encodePage.SchemeType.Content += task.type.ToString();
-				encodePage.Key.Content += task.Key;
-				encodePage.Text.Text += task.OriginText;
-				encodePage.Date.Text += task.Date.ToString();
+				encodePage.TaskTitle.Content = task.ToString();
+				encodePage.SchemeType.Content = task.type.ToString();
+				encodePage.Key.Content = task.Key;
+				encodePage.Text.Text = task.OriginText;
+				encodePage.Date.Text = task.Date.ToString();
 			}
-			else if(task.OptType==OperationType.Decode)
+			else if (task.OptType == OperationType.Decode)
 			{
 				DecodePage decodePage = new DecodePage(task);
 				ContentControl.Content = new Frame() { Content = decodePage };
-				decodePage.TaskTitle.Content += task.ToString();
-				decodePage.SchemeType.Content += task.type.ToString();
-				decodePage.Key.Content += task.Key;
-				decodePage.Text.Text += task.ResultText;
-				decodePage.Date.Text += task.Date.ToString();
+				decodePage.TaskTitle.Content = task.ToString();
+				decodePage.SchemeType.Content = task.type.ToString();
+				decodePage.Key.Content = task.Key;
+				decodePage.Text.Text = task.ResultText;
+				decodePage.Date.Text = task.Date.ToString();
 			}
-			else if(task.OptType==OperationType.Break)
+			else if (task.OptType == OperationType.Break)
 			{
 				BreakPage breakPage = new BreakPage(task);
 				ContentControl.Content = new Frame() { Content = breakPage };
-				breakPage.TaskTitle.Content += task.ToString();
-				breakPage.Text.Text += task.OriginText;
-				breakPage.Date.Text += task.Date.ToString();
+				breakPage.TaskTitle.Content = task.ToString();
+				breakPage.SchemeType.Content = task.type.ToString();
+				breakPage.Text.Text = task.ResultText;
+				breakPage.Date.Text = task.Date.ToString();
 			}
 		}
 
 		private void RemoveItem(object sender, RoutedEventArgs e)
 		{
-			if(TaskListBox.SelectedIndex!=-1)
+			if (TaskListBox.SelectedIndex != -1)
 			{
 				CommonData.Tasks.RemoveAt(TaskListBox.SelectedIndex);
 			}
+		}
+
+		private void Settings_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+		{
+			OptionWindow optionWindow = new OptionWindow();
+			optionWindow.Show();
+		}
+
+		private void NewTask_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+		{
+			NewTaskWindow newTaskWindow = new NewTaskWindow(this);
+			newTaskWindow.Show();
 		}
 	}
 }

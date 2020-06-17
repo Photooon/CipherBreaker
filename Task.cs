@@ -6,7 +6,6 @@ namespace CipherBreaker
 {
 	public class Task
 	{
-		private long id;
 		public SchemeType type;
 		public DateTime Date;
 		public string Name;

@@ -74,6 +74,7 @@ namespace CipherBreaker
 				if (result.ok)
 				{
 					double prob = FrequencyAnalyst.Analyze(result.str);
+					ProcessLog.Enqueue(result.str);
 					if (prob > maxProb)
 					{
 						plain = result.str;
@@ -82,6 +83,8 @@ namespace CipherBreaker
 				}
 			}
 			this.Plain = plain;
+			ProcessLog.Enqueue(plain);
+			ProcessLog.Enqueue("");
 			return (plain, Math.Pow(Math.E, maxProb));
 		}
 

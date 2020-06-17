@@ -8,6 +8,7 @@ namespace CipherBreaker
 {
 	static class CommonData
 	{
+		public static string DbSource = "Data Source=cipher_breaker.db";
 		public static ObservableCollection<Task> Tasks = new ObservableCollection<Task>();
 		public static void AddAndSelect(Task task,ListBox taskList)
 		{

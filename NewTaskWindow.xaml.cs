@@ -81,8 +81,8 @@ namespace CipherBreaker
 			Task task = new Task();
 
 			task.Name = BreakTitle.Text;
-			task.OriginText = BreakPlain.Text;
-			task.ResultText = null;
+			task.OriginText = null;
+			task.ResultText = BreakCipher.Text;
 			task.OptType = OperationType.Break;
 			task.Date = DateTime.Now;
 
@@ -107,6 +107,11 @@ namespace CipherBreaker
 			{
 				EncodeKey.Text = (Scheme.NewScheme(type) as SymmetricScheme).GenerateKey();
 			}
+		}
+
+		private void ChooseFileButton_Click(object sender, MouseButtonEventArgs e)
+		{
+			
 		}
 	}
 }

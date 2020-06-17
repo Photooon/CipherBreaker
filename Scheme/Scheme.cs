@@ -37,14 +37,14 @@ namespace CipherBreaker
 		protected static Dictionary<SchemeType, int> schemeCount = new Dictionary<SchemeType, int>();
 
 		protected SchemeState state;
-		protected ConcurrentQueue<string> processLog;
+		public ConcurrentQueue<string> ProcessLog;
 
 		public Scheme(string plain = null, string cipher = null)
 		{
 			this.state = SchemeState.Ready;
 			this.Plain = plain;
 			this.Cipher = cipher;
-			processLog = new ConcurrentQueue<string>();
+			ProcessLog = new ConcurrentQueue<string>();
 			this.ShouldOutput = false;
 		}
 
@@ -75,6 +75,8 @@ namespace CipherBreaker
 		public abstract (string, bool) Encode(string plain = null, string encodeKey = null);
 		public abstract (string, bool) Decode(string cipher = null, string decodeKey = null);
 		public abstract (string, double) Break(string cipher = null);
+
+		public delegate (string, double) AsyncBreak(string cipher = null);
 
 		public SchemeState End()
 		{
