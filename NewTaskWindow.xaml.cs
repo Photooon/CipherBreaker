@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Text;
@@ -111,7 +112,13 @@ namespace CipherBreaker
 
 		private void ChooseFileButton_Click(object sender, MouseButtonEventArgs e)
 		{
-			
+			OpenFileDialog fileDialog = new OpenFileDialog();
+			if (fileDialog.ShowDialog() == DialogResult.HasValue)
+			{
+				FileScheme fileScheme = new FileScheme();
+				fileScheme.File2Bytes(fileDialog.FileName, fileDialog.FileName + ".cb");
+			}
+			this.Close();
 		}
 	}
 }
