@@ -9,7 +9,7 @@ namespace CipherBreaker.Store
 	class SqliteClient : SqliteConnection
 	{
 		const string WordFrequencyTableName = "word_frequency";
-		const string OperationRecordTableName = "operation_record";
+		const string TaskTableName = "task";
 
 		public SqliteClient(string connectionString) : base(connectionString) { }
 
@@ -59,36 +59,50 @@ namespace CipherBreaker.Store
 			command.ExecuteNonQuery();
 		}
 
-		public void InsertOptRecord(OperationRecord record)
+		public void InsertTask(Task task)
 		{
 			var command = CreateCommand();
-			command.CommandText = $"insert into {OperationRecordTableName}" +
-				$" values(null,{(int)record.Type},{record.OriginText},{record.Key},{record.ResultText},{DateTime.Now.ToString()})";
+			command.CommandText = $"insert into {TaskTableName}" +
+				$" values('{task.Name}',{(int)task.type},{(int)task.OptType},'{task.OriginText}','{task.Key}','{task.ResultText}',{task.Date.Ticks})";
 			command.ExecuteNonQuery();
 		}
 
-		public string QueryOptRecord(string originText,string key)
+		public string QueryTask(string originText,string key)
 		{
 			var command = CreateCommand();
-			command.CommandText = $"select result_text from {OperationRecordTableName} where origin_text={originText} and key={key}";
+			command.CommandText = $"select result_text from {TaskTableName} where origin_text={originText} and key={key}";
 			return (string)command.ExecuteScalar();
 		}
 
-		public List<OperationRecord> QueryAllOptRecord()
+		public List<Task> QueryAllTask()
 		{
 			var command = CreateCommand();
-			command.CommandText = $"select * from {OperationRecordTableName}";
+			command.CommandText = $"select * from {TaskTableName}";
 			var reader = command.ExecuteReader();
 
-			List<OperationRecord> optRecordList = new List<OperationRecord>();
+			List<Task> optRecordList = new List<Task>();
+			Task task = new Task();
 			while (reader.Read())
 			{
-				optRecordList.Add(new OperationRecord(reader.GetInt32(1), reader.GetString(2), reader.GetString(3), reader.GetString(4),
-					reader.GetString(5)));
+				task.Name = reader.GetString(0);
+				task.type = (SchemeType)reader.GetInt32(1);
+				task.OptType = (OperationType)reader.GetInt32(2);
+				task.OriginText = reader.GetString(3);
+				task.Key = reader.GetString(4);
+				task.ResultText = reader.GetString(5);
+				task.Date = new DateTime(reader.GetInt64(6));
+				optRecordList.Add(task);
 			}
 			reader.Close();
 
 			return optRecordList;
+		}
+
+		public void ClearTask()
+		{
+			var command = CreateCommand();
+			command.CommandText = $"delete from {TaskTableName}";
+			command.ExecuteNonQuery();
 		}
 	}
 }

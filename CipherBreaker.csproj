@@ -33,7 +33,6 @@
   <ItemGroup>
     <Resource Include="assets\logo.png" />
     <Resource Include="assets\notify.png" />
-    <Resource Include="assets\剪切板.png" />
     <Resource Include="assets\开机.png" />
     <Resource Include="assets\服务器.png" />
     <Resource Include="assets\滑动开关-关闭.png" />

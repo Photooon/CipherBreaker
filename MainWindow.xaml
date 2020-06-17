@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:CipherBreaker"
         mc:Ignorable="d"
 		Icon="/assets/logo.png"
+		Closed="Window_Closed"
         Title="CipherBreaker" Height="768" Width="1024" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Grid>
         <Grid.ColumnDefinitions>
