@@ -1,7 +1,9 @@
 ﻿using Microsoft.Data.Sqlite;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Media.TextFormatting;
 
 namespace CipherBreaker.Store
@@ -59,11 +61,19 @@ namespace CipherBreaker.Store
 			command.ExecuteNonQuery();
 		}
 
+		private string escape(string str)
+		{
+			if(str==null)
+			{
+				return str;
+			}
+			return str.Replace("'", "''").Replace("\"", "\"\"");
+		}
 		public void InsertTask(Task task)
 		{
 			var command = CreateCommand();
 			command.CommandText = $"insert into {TaskTableName}" +
-				$" values('{task.Name}',{(int)task.type},{(int)task.OptType},'{task.OriginText}','{task.Key}','{task.ResultText}',{task.Date.Ticks})";
+				$" values('{escape(task.Name)}',{(int)task.type},{(int)task.OptType},'{escape(task.OriginText)}','{task.Key}','{escape(task.ResultText)}',{task.Date.Ticks})";
 			command.ExecuteNonQuery();
 		}
 
