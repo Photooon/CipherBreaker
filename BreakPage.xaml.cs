@@ -62,6 +62,9 @@ namespace CipherBreaker
                 scheme.BreakAsync();
                 await PrintCurrentResultAsync();
                 task.ResultText = Result.Text;
+
+                isStarted = false;
+                StartButton.Content = "开  始";
             }
         }
 
