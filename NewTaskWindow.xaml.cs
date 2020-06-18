@@ -66,8 +66,8 @@ namespace CipherBreaker
 		{
 			Task task = new Task();
 			task.Name = DecodeTitle.Text;
-			task.ResultText = Cipher.Text;
-			task.OriginText = null;
+			task.OriginText = Cipher.Text;
+			task.ResultText = null;
 			task.OptType = OperationType.Decode;
 			task.type = GetSchemeTypeBySelectedIndex(DecodeScheme.SelectedIndex);
 			task.Date = DateTime.Now;
@@ -82,11 +82,12 @@ namespace CipherBreaker
 			Task task = new Task();
 
 			task.Name = BreakTitle.Text;
-			task.OriginText = null;
-			task.ResultText = BreakCipher.Text;
+			task.OriginText = BreakCipher.Text;
+			task.ResultText = null;
 			task.OptType = OperationType.Break;
 			task.type = GetSchemeTypeBySelectedIndex(BreakScheme.SelectedIndex);
 			task.Date = DateTime.Now;
+			task.Key = null;
 
 			CommonData.AddAndSelect(task, mainWindow.TaskListBox);
 			this.Close();

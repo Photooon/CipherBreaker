@@ -39,6 +39,7 @@ namespace CipherBreaker
 			dbClient.Close();
 
 			//DebugWindow debugWindow = new DebugWindow();
+
 			/*右键快捷加密解密部分*/
 			var args = Environment.GetCommandLineArgs();
 			if (args.Length > 2)
@@ -57,18 +58,6 @@ namespace CipherBreaker
 					fileScheme.Bytes2File(originPath, originPath.Remove(index, 3));
 				}
 			}
-
-			//TODO: 读取或创建setting文件
-			//debugWindow.Show();
-
-			//Task testTask = new Task();
-			//testTask.Name = "test";                                       //测试用
-			//testTask.type = SchemeType.Caesar;
-			//testTask.OptType = OperationType.Encode;                        //测试用
-			//testTask.OriginText = "jmpwfzpv";      //测试用
-			//testTask.Key = "2";
-			//testTask.Date = DateTime.Now;                                  //测试用
-			//CommonData.Tasks.Add(testTask);
 		}
 
 		private void Window_Closed(object sender, EventArgs e)
@@ -85,7 +74,6 @@ namespace CipherBreaker
 
 		private void NewTaskButton_Click(object sender, RoutedEventArgs e)
 		{
-			
 			NewTaskWindow newTaskWindow = new NewTaskWindow(this);
 			newTaskWindow.Show();
 		}
@@ -102,35 +90,24 @@ namespace CipherBreaker
 				return;
 			}
 			Task task = TaskListBox.SelectedItem as Task;
+
+			Page page = null;
 			if (task.OptType == OperationType.Encode)
 			{
-				EncodePage encodePage = new EncodePage(task);
-				ContentControl.Content = new Frame() { Content = encodePage };
-				encodePage.TaskTitle.Content = task.ToString();
-				encodePage.SchemeType.Content = task.type.ToString();
-				encodePage.Key.Content = task.Key;
-				encodePage.Text.Text = task.OriginText;
-				encodePage.Date.Text = task.Date.ToString();
+				page = new EncodePage(task);
+				//ContentControl.Content = new Frame() { Content = encodePage };
 			}
 			else if (task.OptType == OperationType.Decode)
 			{
-				DecodePage decodePage = new DecodePage(task);
-				ContentControl.Content = new Frame() { Content = decodePage };
-				decodePage.TaskTitle.Content = task.ToString();
-				decodePage.SchemeType.Content = task.type.ToString();
-				decodePage.Key.Content = task.Key;
-				decodePage.Text.Text = task.ResultText;
-				decodePage.Date.Text = task.Date.ToString();
+				page = new DecodePage(task);
+				//ContentControl.Content = new Frame() { Content = decodePage };
 			}
 			else if (task.OptType == OperationType.Break)
 			{
-				BreakPage breakPage = new BreakPage(task);
-				ContentControl.Content = new Frame() { Content = breakPage };
-				breakPage.TaskTitle.Content = task.ToString();
-				breakPage.SchemeType.Content = task.type.ToString();
-				breakPage.Text.Text = task.ResultText;
-				breakPage.Date.Text = task.Date.ToString();
+				page = new BreakPage(task);
+				//ContentControl.Content = new Frame() { Content = breakPage };
 			}
+			ContentControl.Content = new Frame() { Content = page };
 		}
 
 		private void RemoveItem(object sender, RoutedEventArgs e)

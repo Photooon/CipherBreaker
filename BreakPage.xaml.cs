@@ -23,24 +23,37 @@ namespace CipherBreaker
         {
             InitializeComponent();
             this.task = task;
-            this.scheme = Scheme.NewScheme(task.type, task.OriginText, task.ResultText, task.Key);
+            this.scheme = Scheme.NewScheme(task.type, task.ResultText, task.OriginText, task.Key);
+            this.TaskTitle.Content = task.ToString();
+            this.SchemeType.Content = task.type.ToString();
+            this.Text.Text = task.OriginText;
+            this.Date.Text = task.Date.ToString();
+            this.Result.Text = task.ResultText;
+            if (task.ResultText != null)
+            {
+                this.Result.Text = task.ResultText;
+                ProgressBar.Value = ProgressBar.Maximum;
+            }
+            else
+            {
+                this.Result.Text = "";
+                ProgressBar.Value = 0;
+            }
         }
 
         private Task task;
         private Scheme scheme;
-        private bool isStarted = true;
-        private void StartButton_Click(object sender, RoutedEventArgs e)
+        private bool isStarted = false;
+        private async void StartButton_Click(object sender, RoutedEventArgs e)
         {
             if (isStarted)
             {
                 StartButton.Content = "暂  停";
-                StartButton.Content = "开  始";
             }
             else
             {
                 StartButton.Content = "开  始";
-                Scheme.AsyncBreak caller = new Scheme.AsyncBreak(scheme.Break);
-                caller.BeginInvoke(scheme.Plain, null, null);
+                await scheme.BreakAsync();
                 PrintCurrentResult();
                 isStarted = true;
             }

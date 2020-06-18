@@ -21,9 +21,25 @@ namespace CipherBreaker
     {
         public EncodePage(Task task)
         {
-            this.task = task;
             InitializeComponent();
+            this.task = task;
             this.scheme = Scheme.NewScheme(task.type, task.OriginText, task.ResultText, task.Key);
+            this.TaskTitle.Content = task.ToString();
+            this.SchemeType.Content = task.type.ToString();
+            this.Key.Content = task.Key;
+            this.Text.Text = task.OriginText;
+            this.Date.Text = task.Date.ToString();
+            this.Result.Text = task.ResultText;
+            if (task.ResultText != null)
+            {
+                this.Result.Text = task.ResultText;
+                ProgressBar.Value = ProgressBar.Maximum;
+            }
+            else
+            {
+                this.Result.Text = "";
+                ProgressBar.Value = 0;
+            }
         }
 
         private Task task;
