@@ -9,6 +9,10 @@
       Title="BreakPage">
 
     <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="579*"/>
+            <RowDefinition Height="125*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300"/>
             <ColumnDefinition/>
@@ -16,21 +20,21 @@
         <StackPanel Margin="10,0,10,10">
             <Label Content="基本信息：" HorizontalContentAlignment="Left" FontSize="24" FontWeight="Bold"/>
             <Border BorderThickness="1" BorderBrush="Black">
-                <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Vertical" Height="460">
                     <StackPanel Orientation="Horizontal">
                         <Label  FontSize="24" FontWeight="Bold" Height="50" Content="任务名:"/>
                         <Label Name="TaskTitle" FontSize="24" Height="50"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label Name="OptType" FontSize="24" FontWeight="Bold" Height="50" Content="类型:"/>
-                        <Label Content="  破解" FontSize="24" Height="50"/>
+                        <Label Content="破解" FontSize="24" Height="50"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="方案:" FontSize="24" FontWeight="Bold" Height="50"/>
                         <Label Name="SchemeType" FontSize="24" Height="50"/>
                     </StackPanel>
-					<Label Content="密文:" FontSize="24" FontWeight="Bold"/>
-					<ScrollViewer VerticalScrollBarVisibility="Auto" Height="130" Padding="10,0,10,0">
+                    <Label Content="密文:" FontSize="24" FontWeight="Bold"/>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Height="130" Padding="10,0,10,0">
                         <TextBlock x:Name="Text" FontSize="24" TextWrapping="Wrap"/>
                     </ScrollViewer>
                     <Label Content="创建时间:" FontSize="24" FontWeight="Bold"/>
@@ -39,29 +43,24 @@
                     </ScrollViewer>
                 </StackPanel>
             </Border>
-            <Label Content="操作:" HorizontalContentAlignment="Left" FontSize="24" FontWeight="Bold" Margin="0,20,0,0"/>
             <Border Background="Black" BorderThickness="1">
-                <StackPanel Orientation="Vertical">
-                    <Button x:Name="StartButton" Content="开  始" FontSize="24" FontWeight="Bold" Height="40" Click="StartButton_Click"/>
-                    <Button x:Name="DeleteButton" Content="删  除" FontSize="24" FontWeight="Bold" Height="40" Click="DeleteButton_Click"/>
-                    <Button x:Name="CopyButton" Content="复  制" FontSize="24" FontWeight="Bold" Height="40" Click="CopyButton_Click"/>
-                </StackPanel>
+                <StackPanel Orientation="Vertical"/>
             </Border>
         </StackPanel>
         <StackPanel Grid.Column="1" Margin="10,0,10,10">
             <Label Content="明文:" HorizontalContentAlignment="Left" FontSize="24" FontWeight="Bold"/>
             <Border BorderBrush="Black" BorderThickness="1">
-                <ScrollViewer VerticalScrollBarVisibility="Auto" Height="150">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Height="198">
                     <TextBox x:Name="Result" FontSize="24" TextWrapping="Wrap" IsReadOnly="True" BorderThickness="0"/>
                 </ScrollViewer>
             </Border>
-            <Label Content="进度:" HorizontalContentAlignment="Left" FontSize="24" FontWeight="Bold" Margin="0,50,0,0"/>
+            <Label Content="进度:" HorizontalContentAlignment="Left" FontSize="24" FontWeight="Bold" Margin="0,70,0,0"/>
             <ProgressBar x:Name="ProgressBar" Height="30" Margin="0,10,0,0"/>
-            <Border BorderBrush="Black" BorderThickness="1" Margin="0,20,0,0">
-                <ScrollViewer VerticalScrollBarVisibility="Auto" Height="200">
-                    <TextBlock x:Name="Progress" FontSize="24" TextWrapping="Wrap"/>
-                </ScrollViewer>
-            </Border>
+            <StackPanel Height="100"/>
         </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="291,0,0,20" Grid.Row="1" Grid.ColumnSpan="2" Width="80" HorizontalAlignment="Left" VerticalAlignment="Center" Height="80">
+            <Image x:Name="StartButton" Source="/assets/开始-默认.png" MouseDown="StartButton_Click" MouseEnter="StartButton_Enter" Stretch="UniformToFill" MouseLeave="StartButton_Leave" MouseUp="StartButton_Up" Grid.Row="1" Width="80" Height="80" Grid.ColumnSpan="2"/>
+        </StackPanel>
+        <Image x:Name="DeleteButton" Source="/assets/垃圾桶-默认.png" Stretch="UniformToFill" MouseDown="DeleteButton_Click" MouseEnter="DeleteButton_Enter" MouseLeave="DeleteButton_Leave" Margin="280,33,20,27" Width="60" Height="60" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" Grid.Column="1"/>
     </Grid>
 </Page>

@@ -46,27 +46,6 @@ namespace CipherBreaker
         private Task task;
         private Scheme scheme;
         private bool isStarted = false;
-        private async void StartButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (isStarted)
-            {
-                isStarted = false;
-                StartButton.Content = "开  始";
-            }
-            else
-            {
-                isStarted = true;
-                StartButton.Content = "暂  停";
-
-                Result.Text = "初始化……";
-                scheme.BreakAsync();
-                await PrintCurrentResultAsync();
-                task.ResultText = Result.Text;
-
-                isStarted = false;
-                StartButton.Content = "开  始";
-            }
-        }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
@@ -99,6 +78,80 @@ namespace CipherBreaker
                 Result.Text = log;
             }
             return true;
+        }
+
+        private async void StartButton_Click(object sender, MouseButtonEventArgs e)
+        {
+            if (isStarted)
+            {
+                isStarted = false;
+                //StartButton.Content = "开  始";
+            }
+            else
+            {
+                isStarted = true;
+                //StartButton.Content = "暂  停";
+
+                Result.Text = "初始化……";
+                scheme.BreakAsync();
+                await PrintCurrentResultAsync();
+                task.ResultText = Result.Text;
+
+                isStarted = false;
+                //StartButton.Content = "开  始";
+            }
+        }
+
+        private void StartButton_Enter(object sender, MouseEventArgs e)
+        {
+            if (!isStarted)
+            {
+                BitmapImage bi = new BitmapImage();
+                bi.BeginInit();
+                bi.UriSource = new Uri(@"/assets/开始-悬停.png", UriKind.Relative);
+                bi.EndInit();
+                this.StartButton.Source = bi;
+            }
+        }
+
+        private void StartButton_Leave(object sender, MouseEventArgs e)
+        {
+            if (!isStarted)
+            {
+                BitmapImage bi = new BitmapImage();
+                bi.BeginInit();
+                bi.UriSource = new Uri(@"/assets/开始-默认.png", UriKind.Relative);
+                bi.EndInit();
+                this.StartButton.Source = bi;
+            }
+        }
+
+        private void StartButton_Up(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void DeleteButton_Click(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void DeleteButton_Enter(object sender, MouseEventArgs e)
+        {
+            BitmapImage bi = new BitmapImage();
+            bi.BeginInit();
+            bi.UriSource = new Uri(@"/assets/垃圾桶-悬停.png", UriKind.Relative);
+            bi.EndInit();
+            this.DeleteButton.Source = bi;
+        }
+
+        private void DeleteButton_Leave(object sender, MouseEventArgs e)
+        {
+            BitmapImage bi = new BitmapImage();
+            bi.BeginInit();
+            bi.UriSource = new Uri(@"/assets/垃圾桶-默认.png", UriKind.Relative);
+            bi.EndInit();
+            this.DeleteButton.Source = bi;
         }
     }
 }

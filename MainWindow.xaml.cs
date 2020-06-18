@@ -129,17 +129,17 @@ namespace CipherBreaker
 			if (task.OptType == OperationType.Encode)
 			{
 				page = new EncodePage(task);
-				(page as EncodePage).DeleteButton.Click += RemoveItem;
+				(page as EncodePage).DeleteButton.MouseDown += RemoveItem;
 			}
 			else if (task.OptType == OperationType.Decode)
 			{
 				page = new DecodePage(task);
-				(page as DecodePage).DeleteButton.Click += RemoveItem;
+				(page as DecodePage).DeleteButton.MouseDown += RemoveItem;
 			}
 			else if (task.OptType == OperationType.Break)
 			{
 				page = new BreakPage(task);
-				(page as BreakPage).DeleteButton.Click += RemoveItem;
+				(page as BreakPage).DeleteButton.MouseDown += RemoveItem;
 			}
 			ContentControl.Content = new Frame() { Content = page };
 		}
@@ -170,5 +170,41 @@ namespace CipherBreaker
 			CommonData.Tasks.Clear();
 			ContentControl.Content = null;
 		}
-	}
+
+        private void SettingBtnEnter(object sender, MouseEventArgs e)
+        {
+			BitmapImage bi = new BitmapImage();
+			bi.BeginInit();
+			bi.UriSource = new Uri(@"/assets/setting-hover.png", UriKind.Relative);
+			bi.EndInit();
+			this.Settings.Source = bi;
+		}
+
+        private void SettingBtnLeave(object sender, MouseEventArgs e)
+        {
+			BitmapImage bi = new BitmapImage();
+			bi.BeginInit();
+			bi.UriSource = new Uri(@"/assets/setting.png", UriKind.Relative);
+			bi.EndInit();
+			this.Settings.Source = bi;
+		}
+
+        private void NewTaskBtnEnter(object sender, MouseEventArgs e)
+        {
+			BitmapImage bi = new BitmapImage();
+			bi.BeginInit();
+			bi.UriSource = new Uri(@"/assets/plus-hover.png", UriKind.Relative);
+			bi.EndInit();
+			this.NewTask.Source = bi;
+		}
+
+        private void NewTaskBtnLeave(object sender, MouseEventArgs e)
+        {
+			BitmapImage bi = new BitmapImage();
+			bi.BeginInit();
+			bi.UriSource = new Uri(@"/assets/plus.png", UriKind.Relative);
+			bi.EndInit();
+			this.NewTask.Source = bi;
+		}
+    }
 }
