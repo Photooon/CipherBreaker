@@ -68,9 +68,9 @@ namespace CipherBreaker
             defaultDict = new Dictionary<string, SchemeType>()
             {
                 {"凯撒算法", SchemeType.Caesar},
-                {"仿射算法", SchemeType.Affine},
+                {"置换算法", SchemeType.Substitution},
                 {"栅栏算法", SchemeType.RailFence},
-                {"置换算法", SchemeType.Substitution}
+                {"仿射算法", SchemeType.Affine},
             };
 
             EncryptComboBox.ItemsSource = defaultDict;

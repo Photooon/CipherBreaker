@@ -30,6 +30,7 @@
 					<ContextMenu>
 						<MenuItem Header="新建任务" Click="NewTaskButton_Click"/>
 						<MenuItem Header="删除任务" Click="RemoveItem"/>
+						<MenuItem Header="清空任务" Click="ClearTask"/>
 					</ContextMenu>
 				</ListBox.ContextMenu>
 			</ListBox>
