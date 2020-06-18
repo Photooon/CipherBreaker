@@ -77,9 +77,12 @@ namespace CipherBreaker
 		public abstract (string, bool) Decode(string cipher = null, string decodeKey = null);
 		public abstract (string, double) Break(string cipher = null);
 
-		public Task<(string, double)> BreakAsync(string cipher = null)
+		public async void BreakAsync(string cipher = null)
 		{
-			return Break(cipher);
+			await System.Threading.Tasks.Task.Run(() =>
+			{
+				Break(cipher);
+			});
 		}
 
 		public SchemeState End()

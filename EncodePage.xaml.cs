@@ -30,7 +30,7 @@ namespace CipherBreaker
             this.Text.Text = task.OriginText;
             this.Date.Text = task.Date.ToString();
             this.Result.Text = task.ResultText;
-            if (task.ResultText != null)
+            if (task.ResultText != null && task.ResultText.Length > 0)
             {
                 this.Result.Text = task.ResultText;
                 ProgressBar.Value = ProgressBar.Maximum;

@@ -140,17 +140,17 @@ namespace CipherBreaker
 			if (task.OptType == OperationType.Encode)
 			{
 				page = new EncodePage(task);
-				//ContentControl.Content = new Frame() { Content = encodePage };
+				(page as EncodePage).DeleteButton.Click += RemoveItem;
 			}
 			else if (task.OptType == OperationType.Decode)
 			{
 				page = new DecodePage(task);
-				//ContentControl.Content = new Frame() { Content = decodePage };
+				(page as DecodePage).DeleteButton.Click += RemoveItem;
 			}
 			else if (task.OptType == OperationType.Break)
 			{
 				page = new BreakPage(task);
-				//ContentControl.Content = new Frame() { Content = breakPage };
+				(page as BreakPage).DeleteButton.Click += RemoveItem;
 			}
 			ContentControl.Content = new Frame() { Content = page };
 		}
