@@ -10,6 +10,8 @@ namespace CipherBreaker
 	{
 		public static string DbSource = "Data Source=cipher_breaker.db";
 		public static ObservableCollection<Task> Tasks = new ObservableCollection<Task>();
+		public static Settings settings = new Settings();
+
 		public static void AddAndSelect(Task task,ListBox taskList)
 		{
 			Tasks.Add(task);

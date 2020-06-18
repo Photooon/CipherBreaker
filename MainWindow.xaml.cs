@@ -14,8 +14,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Diagnostics;
 using System.IO;
+using System.Xml.Serialization;
+using System.Xml;
 
 namespace CipherBreaker
 {
@@ -27,6 +28,59 @@ namespace CipherBreaker
 		public MainWindow()
 		{
 			InitializeComponent();
+
+			//DebugWindow debugWindow = new DebugWindow();
+
+			/*右键快捷加密解密部分*/
+			var args = Environment.GetCommandLineArgs();
+			if (args.Length > 2)
+			{
+				string originPath = args[2];    //获取加密文件路径
+
+				FileScheme fileScheme = new FileScheme();
+
+				if (args[1] == "encrypt")       //加密文件
+				{
+					fileScheme.File2Bytes(originPath, originPath += ".cb");
+				}
+				else if (args[1] == "decrypt" && originPath.Contains(".cb"))     //解密文件，且检查是否为加密过的文件
+				{
+					int index = originPath.IndexOf(".cb");
+					fileScheme.Bytes2File(originPath, originPath.Remove(index, 3));
+				}
+			}
+
+			/*创建或读入设置文件部分*/
+			string xmlPath = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
+			xmlPath += "settings.xml";
+			if (!File.Exists(xmlPath))
+			{
+				XMLSaveAndRead xmlHandle = new XMLSaveAndRead();
+
+				//存储信息
+				List<Settings> info = new List<Settings>();
+				Settings settings = new Settings(false, true, ("crtl", "E"), SchemeType.Caesar, SchemeType.RailFence, SchemeType.Substitution);	//默认配置
+				info.Add(settings);
+				//将info的类型List<Test>和自身info传入
+				string xmlInfo = xmlHandle.SerializeObject<List<Settings>>(info);
+				xmlHandle.CreateXML(xmlPath, xmlInfo);
+			}
+			else
+			{
+				XMLSaveAndRead xmlHandle = new XMLSaveAndRead();
+				string doc = xmlHandle.LoadXML(xmlPath);
+				List<Settings> info1 = (List<Settings>)xmlHandle.DeserializeObject<List<Settings>>(doc);
+				for (int i = 0; i < info1.Count; i++)
+				{
+					CommonData.settings.isAutoStart = info1[i].isAutoStart;
+					CommonData.settings.isUsingServer = info1[i].isUsingServer;
+					CommonData.settings.shortCutKey = info1[i].shortCutKey;
+					CommonData.settings.encryptType = info1[i].encryptType;
+					CommonData.settings.decryptType = info1[i].decryptType;
+					CommonData.settings.breakType = info1[i].breakType;
+				}
+			}
+
 			this.TaskListBox.ItemsSource = CommonData.Tasks;
 
 			SqliteClient dbClient = new SqliteClient(CommonData.DbSource);
@@ -39,25 +93,16 @@ namespace CipherBreaker
 			dbClient.Close();
 
 			//DebugWindow debugWindow = new DebugWindow();
+			//debugWindow.Show();
 
-			/*右键快捷加密解密部分*/
-			var args = Environment.GetCommandLineArgs();
-			if (args.Length > 2)
-			{
-				string originPath = args[2];	//获取加密文件路径
-
-				FileScheme fileScheme = new FileScheme();
-
-				if (args[1] == "encrypt")		//加密文件
-                {
-					fileScheme.File2Bytes(originPath, originPath += ".cb");
-				}
-				else if (args[1] == "decrypt" && originPath.Contains(".cb"))	 //解密文件，且检查是否为加密过的文件
-                {
-					int index = originPath.IndexOf(".cb");
-					fileScheme.Bytes2File(originPath, originPath.Remove(index, 3));
-				}
-			}
+			//Task testTask = new Task();
+			//testTask.Name = "test";                                       //测试用
+			//testTask.type = SchemeType.Caesar;
+			//testTask.OptType = OperationType.Encode;                        //测试用
+			//testTask.OriginText = "jmpwfzpv";      //测试用
+			//testTask.Key = "2";
+			//testTask.Date = DateTime.Now;                                  //测试用
+			//CommonData.Tasks.Add(testTask);
 		}
 
 		private void Window_Closed(object sender, EventArgs e)

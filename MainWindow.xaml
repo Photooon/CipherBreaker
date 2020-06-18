@@ -8,6 +8,9 @@
 		Icon="/assets/logo.png"
 		Closed="Window_Closed"
         Title="CipherBreaker" Height="768" Width="1024" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+    <Window.Background>
+        <ImageBrush ImageSource="/assets/背景3.png" Stretch="UniformToFill"/>
+    </Window.Background>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300"/>
@@ -22,7 +25,7 @@
         <StackPanel Orientation="Vertical" Grid.Row="1" Margin="20,0,20,20">
             <Label Content="任务列表" Grid.Row="1" FontSize="24" FontWeight="Bold" Height="40"/>
             <ListBox Grid.Row="1" x:Name="TaskListBox" FontSize="24" FontWeight="Bold" BorderBrush="Black"
-                 SelectionChanged="TaskListBox_SelectionChanged" Height="580">
+                 SelectionChanged="TaskListBox_SelectionChanged" Height="580" Opacity="0.8">
 				<ListBox.ContextMenu>
 					<ContextMenu>
 						<MenuItem Header="新建任务" Click="NewTaskButton_Click"/>
@@ -65,6 +68,6 @@
             </StackPanel>
             <Label Content="进度：" HorizontalContentAlignment="Left" FontSize="24" FontWeight="Bold"/>
         </Grid>-->
-        <ContentControl x:Name="ContentControl" Margin="10,0,10,10" Grid.Row="1" Grid.Column="1"/>
+        <ContentControl x:Name="ContentControl" Margin="10,0,10,10" Grid.Row="1" Grid.Column="1" Opacity="0.8"/>
 	</Grid>
 </Window>
