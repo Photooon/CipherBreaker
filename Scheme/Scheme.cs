@@ -131,6 +131,22 @@ namespace CipherBreaker
 
 			return new RailFence(plain, cipher, key);
 		}
+
+		public static string GetChineseSchemeTypeName(SchemeType type)
+		{
+			switch(type)
+			{
+				case SchemeType.Caesar:
+					return "凯撒算法";
+				case SchemeType.Affine:
+					return "仿射算法";
+				case SchemeType.RailFence:
+					return "栅栏算法";
+				case SchemeType.Substitution:
+					return "置换算法";
+			}
+			return "";
+		}
 	}
 
 }

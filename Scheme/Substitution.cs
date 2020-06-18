@@ -97,6 +97,10 @@ namespace CipherBreaker
 							cipher.Append(char.ToUpper(key[index]));
 						}
 					}
+					else
+					{
+						cipher.Append(this.Plain[i]);
+					}
 				}
 				this.Cipher = cipher.ToString();
 				return (this.Cipher, true);
@@ -135,6 +139,10 @@ namespace CipherBreaker
 							plain.Append(char.ToUpper(key[index]));
 						}
 					}
+					else
+					{
+						plain.Append(this.Cipher[i]);
+					}
 				}
 				this.Plain = plain.ToString();
 				return (this.Plain, true);
@@ -155,7 +163,9 @@ namespace CipherBreaker
 			}
 
 			IGA iga = new IGA(this);
-			return iga.Break(cipher);
+			var result = iga.Break(cipher);
+			this.Plain = result.Item1;
+			return result;
 		}
 
 		public override bool Save(string fileName)

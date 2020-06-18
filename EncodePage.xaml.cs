@@ -25,8 +25,8 @@ namespace CipherBreaker
             this.task = task;
             this.scheme = Scheme.NewScheme(task.type, task.OriginText, task.ResultText, task.Key);
             this.TaskTitle.Content = task.ToString();
-            this.SchemeType.Content = task.type.ToString();
-            this.Key.Text = task.Key;
+            this.SchemeType.Content = Scheme.GetChineseSchemeTypeName(task.type);
+            this.Key.Content = task.Key;
             this.Text.Text = task.OriginText;
             this.Date.Text = task.Date.ToString();
             this.Result.Text = task.ResultText;
