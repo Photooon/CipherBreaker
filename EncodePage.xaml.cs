@@ -63,7 +63,7 @@ namespace CipherBreaker
                 isStarted = true;
                 //StartButton.Content = "暂  停";
 
-                (task.ResultText, _) = scheme.Encode(scheme.Cipher, task.Key);
+                (task.ResultText, _) = scheme.Encode(scheme.Plain, task.Key);
                 this.ProgressBar.Value = ProgressBar.Maximum;
                 Result.Text = task.ResultText;
 

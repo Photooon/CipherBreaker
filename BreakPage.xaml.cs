@@ -93,6 +93,7 @@ namespace CipherBreaker
                 //StartButton.Content = "暂  停";
 
                 Result.Text = "初始化……";
+                ProgressBar.Value = 0;
                 scheme.BreakAsync();
                 await PrintCurrentResultAsync();
                 task.ResultText = Result.Text;
