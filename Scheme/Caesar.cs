@@ -161,6 +161,8 @@ namespace CipherBreaker
 			}
 
 			this.Plain = plain;
+			ProcessLog.Enqueue(plain);
+			ProcessLog.Enqueue("");
 			return (plain, Math.Pow(Math.E, maxProb));
 		}
 		public override bool Save(string fileName)
