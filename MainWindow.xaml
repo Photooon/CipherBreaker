@@ -7,7 +7,7 @@
         mc:Ignorable="d"
 		Icon="/assets/logo.png"
 		Closed="Window_Closed"
-        Title="CipherBreaker" Height="768" Width="1024" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+        Title="CipherBreaker" Height="784" Width="1024" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Window.Background>
         <ImageBrush ImageSource="/assets/背景3.png" Stretch="UniformToFill"/>
     </Window.Background>
@@ -17,34 +17,34 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="77"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Grid.Column="0" Content="Cipher Breaker" FontSize="28" FontWeight="Bold" 
-               VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+               VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,45,0"/>
         <StackPanel Orientation="Vertical" Grid.Row="1" Margin="20,0,20,20">
             <Label Content="任务列表" Grid.Row="1" FontSize="24" FontWeight="Bold" Height="40"/>
             <ListBox Grid.Row="1" x:Name="TaskListBox" FontSize="24" FontWeight="Bold" BorderBrush="Black"
-                 SelectionChanged="TaskListBox_SelectionChanged" Height="580" Opacity="0.8">
-				<ListBox.ContextMenu>
-					<ContextMenu>
-						<MenuItem Header="新建任务" Click="NewTaskButton_Click"/>
-						<MenuItem Header="删除任务" Click="RemoveItem"/>
-						<MenuItem Header="清空任务" Click="ClearTask"/>
-					</ContextMenu>
-				</ListBox.ContextMenu>
-			</ListBox>
-		</StackPanel>
-        <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="0,0,0,0" FlowDirection="RightToLeft">
+                 SelectionChanged="TaskListBox_SelectionChanged" Height="646" Opacity="0.8">
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="新建任务" Click="NewTaskButton_Click"/>
+                        <MenuItem Header="删除任务" Click="RemoveItem"/>
+                        <MenuItem Header="清空任务" Click="ClearTask"/>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+            </ListBox>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Column="1" FlowDirection="RightToLeft">
             <!--<Button x:Name="OptionButton" Content="相关设置" FontSize="24" FontWeight="Bold" Width="150"
                     Background="White" Click="OptionButton_Click"/>
             <Button x:Name="NewTaskButton" Content="新建任务" FontSize="24" FontWeight="Bold" Width="150"
                     Background="White" Click="NewTaskButton_Click"/>-->
             <!--<Border BorderBrush="Black" BorderThickness="1">-->
-			<Image x:Name="Settings" Width="50" MouseLeftButtonDown="Settings_MouseLeftButtonDown" Source="/assets/setting.png" Stretch="Uniform"/>
+            <Image x:Name="Settings" Width="50" MouseLeftButtonDown="Settings_MouseLeftButtonDown" Source="/assets/setting.png" Stretch="Uniform" Margin="30,5,20,0"/>
+            <Image x:Name="NewTask" Width="50" MouseLeftButtonDown="NewTask_MouseLeftButtonDown" Source="/assets/plus.png" Stretch="Uniform" HorizontalAlignment="Stretch" Margin="0,5,0,0"/>
             <!--</Border>-->
             <!--<Border BorderBrush="Black" BorderThickness="1">-->
-			<Image x:Name="NewTask" Width="50" MouseLeftButtonDown="NewTask_MouseLeftButtonDown" Source="/assets/plus.png" Stretch="Uniform"/>
             <!--</Border>-->
         </StackPanel>
         <!--<Grid Grid.Row="1" Grid.Column="1">
@@ -70,5 +70,5 @@
             <Label Content="进度：" HorizontalContentAlignment="Left" FontSize="24" FontWeight="Bold"/>
         </Grid>-->
         <ContentControl x:Name="ContentControl" Margin="10,0,10,10" Grid.Row="1" Grid.Column="1" Opacity="0.8"/>
-	</Grid>
+    </Grid>
 </Window>
