@@ -34,8 +34,8 @@
                         <Label Name="SchemeType" FontSize="24" Height="50"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <Label  FontSize="24" FontWeight="Bold" Height="50" Content="密钥:"/>
-                        <Label Name="Key" FontSize="24" Height="50"/>
+                        <Label  FontSize="24" FontWeight="Bold" Height="50" Content="密钥:" VerticalContentAlignment="Center"/>
+                        <TextBox Name="Key" FontSize="24" Height="50" IsReadOnly="True" VerticalContentAlignment="Center" BorderThickness="0"/>
                     </StackPanel>
                     <Label Content="密文:" FontSize="24" FontWeight="Bold"/>
                     <ScrollViewer VerticalScrollBarVisibility="Auto" Height="130" Padding="10,0,10,0">
@@ -60,8 +60,8 @@
         <StackPanel Grid.Column="1" Margin="10,0,10,10">
             <Label Content="明文:" HorizontalContentAlignment="Left" FontSize="24" FontWeight="Bold"/>
             <Border BorderBrush="Black" BorderThickness="1">
-                <ScrollViewer VerticalScrollBarVisibility="Auto" Height="150" Padding="10,0,10,0">
-                    <TextBlock x:Name="Result" FontSize="24" FontWeight="Bold" TextWrapping="Wrap"/>
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Height="150" Padding="0,0,0,0">
+                    <TextBox x:Name="Result" FontSize="24" TextWrapping="Wrap" BorderThickness="0" IsReadOnly="True"/>
                 </ScrollViewer>
             </Border>
             <Label Content="进度:" HorizontalContentAlignment="Left" FontSize="24" FontWeight="Bold" Margin="0,50,0,0"/>
