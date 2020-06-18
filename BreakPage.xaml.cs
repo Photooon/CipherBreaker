@@ -16,59 +16,59 @@ using System.Windows.Shapes;
 
 namespace CipherBreaker
 {
-    /// <summary>
-    /// BreakPage.xaml 的交互逻辑
-    /// </summary>
-    public partial class BreakPage : Page
-    {
-        public BreakPage(Task task)
-        {
-            InitializeComponent();
-            this.task = task;
-            this.scheme = Scheme.NewScheme(task.type, task.ResultText, task.OriginText, task.Key);
-            this.TaskTitle.Content = task.ToString();
-            this.SchemeType.Content = Scheme.GetChineseSchemeTypeName(task.type);
-            this.Text.Text = task.OriginText;
-            this.Date.Text = task.Date.ToString();
-            this.Result.Text = task.ResultText;
-            if (task.ResultText != null && task.ResultText.Length>0)
-            {
-                this.Result.Text = task.ResultText;
-                ProgressBar.Value = ProgressBar.Maximum;
-            }
-            else
-            {
-                this.Result.Text = "";
-                ProgressBar.Value = 0;
-            }
-        }
+	/// <summary>
+	/// BreakPage.xaml 的交互逻辑
+	/// </summary>
+	public partial class BreakPage : Page
+	{
+		public BreakPage(Task task)
+		{
+			InitializeComponent();
+			this.task = task;
+			this.scheme = Scheme.NewScheme(task.type, task.ResultText, task.OriginText, task.Key);
+			this.TaskTitle.Content = task.ToString();
+			this.SchemeType.Content = Scheme.GetChineseSchemeTypeName(task.type);
+			this.Text.Text = task.OriginText;
+			this.Date.Text = task.Date.ToString();
+			this.Result.Text = task.ResultText;
+			if (task.ResultText != null && task.ResultText.Length > 0)
+			{
+				this.Result.Text = task.ResultText;
+				ProgressBar.Value = ProgressBar.Maximum;
+			}
+			else
+			{
+				this.Result.Text = "";
+				ProgressBar.Value = 0;
+			}
+		}
 
-        private Task task;
-        private Scheme scheme;
-        private bool isStarted = false;
+		private Task task;
+		private Scheme scheme;
+		private bool isStarted = false;
 
-        private void DeleteButton_Click(object sender, RoutedEventArgs e)
-        {
+		private void DeleteButton_Click(object sender, RoutedEventArgs e)
+		{
 
-        }
+		}
 
-        private void CopyButton_Click(object sender, RoutedEventArgs e)
-        {
-            Clipboard.SetDataObject(Result.Text, true);
-        }
+		private void CopyButton_Click(object sender, RoutedEventArgs e)
+		{
+			Clipboard.SetDataObject(Result.Text, true);
+		}
 
-        private async Task<bool> PrintCurrentResultAsync()
-        {
-            string log = "";
-            while(true)
-            {
-                if(!scheme.ProcessLog.TryDequeue(out log))
-                {
-                    await System.Threading.Tasks.Task.Delay(50);
-                    continue;
-                }
-                if(ProgressBar.Value+1 < ProgressBar.Maximum)
-                    ProgressBar.Value++;
+		private async Task<bool> PrintCurrentResultAsync()
+		{
+			string log = "";
+			while (true)
+			{
+				if (!scheme.ProcessLog.TryDequeue(out log))
+				{
+					await System.Threading.Tasks.Task.Delay(50);
+					continue;
+				}
+				if (ProgressBar.Value + 2 < ProgressBar.Maximum)
+					ProgressBar.Value += 2;
 
                 if (log == "")
                 {

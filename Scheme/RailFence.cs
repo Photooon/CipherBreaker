@@ -165,7 +165,7 @@ namespace CipherBreaker
 		public override string GenerateKey()
 		{
 			Random rand = new Random();
-			int key = rand.Next(Cipher.Length) + 1;
+			int key = rand.Next(Plain.Length-1) + 1;
 			return key.ToString();
 		}
 

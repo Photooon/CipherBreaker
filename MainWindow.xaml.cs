@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using System.IO;
 using System.Xml.Serialization;
 using System.Xml;
+using System.Diagnostics.SymbolStore;
 
 namespace CipherBreaker
 {
@@ -57,7 +58,7 @@ namespace CipherBreaker
 
 				//存储信息
 				List<Settings> info = new List<Settings>();
-				Settings settings = new Settings(false, true, ("crtl", "E"), SchemeType.Caesar, SchemeType.RailFence, SchemeType.Substitution);	//默认配置
+				Settings settings = new Settings(false, true, ("crtl", "E"), SchemeType.Caesar, SchemeType.RailFence, SchemeType.Substitution); //默认配置
 				info.Add(settings);
 				//将info的类型List<Test>和自身info传入
 				string xmlInfo = xmlHandle.SerializeObject<List<Settings>>(info);
@@ -84,7 +85,7 @@ namespace CipherBreaker
 			SqliteClient dbClient = new SqliteClient(CommonData.DbSource);
 			dbClient.Open();
 			var taskList = dbClient.QueryAllTask();
-			foreach(var task in taskList)
+			foreach (var task in taskList)
 			{
 				CommonData.Tasks.Add(task);
 			}
@@ -99,7 +100,7 @@ namespace CipherBreaker
 			SqliteClient dbClient = new SqliteClient(CommonData.DbSource);
 			dbClient.Open();
 			dbClient.ClearTask();
-			foreach(var task in CommonData.Tasks)
+			foreach (var task in CommonData.Tasks)
 			{
 				dbClient.InsertTask(task);
 			}
@@ -114,7 +115,7 @@ namespace CipherBreaker
 
 		private void OptionButton_Click(object sender, RoutedEventArgs e)
 		{
-			
+
 		}
 
 		private void TaskListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -206,5 +207,41 @@ namespace CipherBreaker
 			bi.EndInit();
 			this.NewTask.Source = bi;
 		}
-    }
+
+		private void Window_LostFocus(object sender, RoutedEventArgs e)
+		{
+			CommonData.notifier.Notify();
+		}
+
+		private void Window_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+		{
+			CommonData.notifier.MarkRead();
+		}
+
+		private void Window_Loaded(object sender, RoutedEventArgs e)
+		{
+			Hotkey.Regist(this, HotkeyModifiers.MOD_CONTROL, Key.E, () =>
+			{
+				CommonData.ClipScheme = Scheme.ChooseScheme(Clipboard.GetText(), "", "") as SymmetricScheme;
+				CommonData.ClipScheme.Key = CommonData.ClipScheme.GenerateKey();
+				CommonData.ClipScheme.Encode();
+				Clipboard.SetText(CommonData.ClipScheme.Cipher);
+				if (!this.IsKeyboardFocused)
+					CommonData.notifier.Notify();
+			});
+
+			Hotkey.Regist(this, HotkeyModifiers.MOD_CONTROL, Key.D, () =>
+			{
+				if (CommonData.ClipScheme == null) return;
+
+				Clipboard.SetText(CommonData.ClipScheme.Plain);
+				CommonData.notifier.MarkRead();
+			});
+
+			Hotkey.Regist(this, HotkeyModifiers.MOD_CONTROL, Key.R, () =>
+			{
+				CommonData.notifier.MarkRead();
+			});
+		}
+	}
 }
