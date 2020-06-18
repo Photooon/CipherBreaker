@@ -163,5 +163,10 @@ namespace CipherBreaker
 			NewTaskWindow newTaskWindow = new NewTaskWindow(this);
 			newTaskWindow.Show();
 		}
+
+		private void ClearTask(object sender, RoutedEventArgs e)
+		{
+			CommonData.Tasks.Clear();
+		}
 	}
 }

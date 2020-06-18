@@ -29,6 +29,9 @@ namespace CipherBreaker
 		{
 			InitializeComponent();
 			this.mainWindow = mainWindow;
+			EncodeScheme.SelectedIndex = CommonData.settings.encryptTypeIndex;
+			DecodeScheme.SelectedIndex = CommonData.settings.decryptTypeIndex;
+			BreakScheme.SelectedIndex = CommonData.settings.breakTypeIndex;
 		}
 
 		private SchemeType GetSchemeTypeBySelectedIndex(int index)
