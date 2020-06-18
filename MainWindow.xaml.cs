@@ -228,13 +228,14 @@ namespace CipherBreaker
 
 				if(CommonData.ClipScheme==null)
 				{
-					CommonData.ClipScheme = Scheme.ChooseScheme(Clipboard.GetText(), "", "") as SymmetricScheme;
+					CommonData.ClipScheme = Scheme.ChooseScheme("", "", "") as SymmetricScheme;
 				}
 				else if(CommonData.ClipScheme.Plain == Clipboard.GetText())
 				{
 					return;
 				}
 
+				CommonData.ClipScheme.Plain = Clipboard.GetText();
 				CommonData.ClipScheme.Key = CommonData.ClipScheme.GenerateKey();
 				CommonData.ClipScheme.Encode();
 				Clipboard.SetText(CommonData.ClipScheme.Cipher);
