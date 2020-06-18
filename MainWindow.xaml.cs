@@ -186,7 +186,19 @@ namespace CipherBreaker
 		{
 			Hotkey.Regist(this, HotkeyModifiers.MOD_CONTROL, Key.E, () =>
 			{
-				CommonData.ClipScheme = Scheme.ChooseScheme(Clipboard.GetText(), "", "") as SymmetricScheme;
+				CommonData.PressDown = !CommonData.PressDown;
+				if (!CommonData.PressDown)
+					return;
+
+				if(CommonData.ClipScheme==null)
+				{
+					CommonData.ClipScheme = Scheme.ChooseScheme(Clipboard.GetText(), "", "") as SymmetricScheme;
+				}
+				else if(CommonData.ClipScheme.Plain == Clipboard.GetText())
+				{
+					return;
+				}
+
 				CommonData.ClipScheme.Key = CommonData.ClipScheme.GenerateKey();
 				CommonData.ClipScheme.Encode();
 				Clipboard.SetText(CommonData.ClipScheme.Cipher);
