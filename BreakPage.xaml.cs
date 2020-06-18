@@ -27,7 +27,7 @@ namespace CipherBreaker
             this.task = task;
             this.scheme = Scheme.NewScheme(task.type, task.ResultText, task.OriginText, task.Key);
             this.TaskTitle.Content = task.ToString();
-            this.SchemeType.Content = task.type.ToString();
+            this.SchemeType.Content = Scheme.GetChineseSchemeTypeName(task.type);
             this.Text.Text = task.OriginText;
             this.Date.Text = task.Date.ToString();
             this.Result.Text = task.ResultText;
@@ -61,6 +61,7 @@ namespace CipherBreaker
                 Result.Text = "初始化……";
                 scheme.BreakAsync();
                 await PrintCurrentResultAsync();
+                task.ResultText = Result.Text;
             }
         }
 
