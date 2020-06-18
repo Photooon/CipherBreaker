@@ -6,6 +6,8 @@
         xmlns:local="clr-namespace:CipherBreaker"
         mc:Ignorable="d"
 		Icon="/assets/logo.png"
+		
+		GotKeyboardFocus="Window_GotKeyboardFocus"
 		Closed="Window_Closed"
         Title="CipherBreaker" Height="768" Width="1024" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
 	<Window.Background>
