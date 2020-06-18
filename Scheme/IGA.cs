@@ -58,7 +58,7 @@ namespace CipherBreaker
 
 		public IGA(Substitution sub)
 		{
-			this.sub = new Substitution(sub.Plain, sub.Cipher, sub.Key);
+			this.sub = sub;
 		}
 
 		// 计算相似度

@@ -5,34 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CipherBreaker"
         mc:Ignorable="d"
-        Title="NewTaskWindow" Height="432" Width="779" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+        Title="NewTaskWindow" Height="480" Width="855" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
 	<Grid>
 		<TabControl TabStripPlacement="Top" >
-			<TabItem Header="加密" IsSelected="True" FontSize="24" Width="260" FontWeight="Bold" Height="50">
-				<StackPanel Orientation="Vertical" Height="280" Margin="130,0,131,0">
+			<TabItem Header="加密" IsSelected="True" Width="283" FontSize="24" FontWeight="Bold">
+				<StackPanel Orientation="Vertical" Height="280" Margin="50,0,50,0">
 					<StackPanel Orientation="Horizontal" Height="40">
 						<Label Content="任务名：" FontSize="24" FontWeight="Bold" Width="100"/>
-						<TextBox x:Name="EncodeTitle" Width="300"/>
+						<TextBox x:Name="EncodeTitle" Width="500"/>
 					</StackPanel>
 					<StackPanel Orientation="Horizontal" Height="40">
 						<Label Content="明文：" FontSize="24" FontWeight="Bold" Width="100"/>
-						<TextBox x:Name="Plain" Width="300" TextWrapping="Wrap"/>
+						<TextBox x:Name="Plain" Width="500" TextWrapping="Wrap"/>
 						<Image x:Name="ChooseFileButton" Source="/assets/paste.png" MouseLeftButtonDown="ChooseFileButton_Click"/>
 					</StackPanel>
 					<StackPanel Orientation="Horizontal" Height="40">
 						<Label Content="算法：" FontSize="24" FontWeight="Bold" Width="100"/>
-						<ComboBox Name="EncodeScheme" Width="200">
+						<ComboBox Name="EncodeScheme">
 							<ComboBoxItem IsSelected="True">凯撒算法</ComboBoxItem>
 							<ComboBoxItem>置换算法</ComboBoxItem>
 							<ComboBoxItem>栅栏算法</ComboBoxItem>
 							<ComboBoxItem>仿射算法</ComboBoxItem>
 						</ComboBox>
 						<Button x:Name="EncodeSchemeDefault" Content="自动生成" FontSize="20" FontWeight="Bold"
-                                Margin="10,0,0,0" Width="90"/>
+                                Margin="10,0,0,0" Width="90" Visibility="Hidden"/>
 					</StackPanel>
 					<StackPanel Orientation="Horizontal" Height="40">
 						<Label Content="密钥：" FontSize="24" FontWeight="Bold" Width="100"/>
-						<TextBox x:Name="EncodeKey" Width="200"/>
+						<TextBox x:Name="EncodeKey" Width="500"/>
 						<Button x:Name="KeyDefault" Content="自动生成" FontSize="20" FontWeight="Bold"
                                 Margin="10,0,0,0" Width="90" Click="EncodeGenerateKey"/>
 					</StackPanel>
@@ -40,15 +40,15 @@
                             Margin="100,50,100,0" Click="EncodeButton_Click"/>
 				</StackPanel>
 			</TabItem>
-			<TabItem Header="解密" FontSize="24" Width="250" FontWeight="Bold">
-				<StackPanel Orientation="Vertical" Width="400" Height="280">
+			<TabItem Header="解密" FontSize="24" Width="284" FontWeight="Bold">
+				<StackPanel Orientation="Vertical" Height="280"  Margin="50,0,50,0">
 					<StackPanel Orientation="Horizontal" Height="40">
 						<Label Content="任务名：" FontSize="24" FontWeight="Bold" Width="100"/>
-						<TextBox x:Name="DecodeTitle" Width="300"/>
+						<TextBox x:Name="DecodeTitle" Width="500"/>
 					</StackPanel>
 					<StackPanel Orientation="Horizontal" Height="40">
 						<Label Content="密文：" FontSize="24" FontWeight="Bold" Width="100"/>
-						<TextBox x:Name="Cipher" Width="300" TextWrapping="Wrap"/>
+						<TextBox x:Name="Cipher" Width="500" TextWrapping="Wrap"/>
 					</StackPanel>
 					<StackPanel Orientation="Horizontal" Height="40">
 						<Label Content="算法：" FontSize="24" FontWeight="Bold" Width="100"/>
@@ -61,32 +61,32 @@
 					</StackPanel>
 					<StackPanel Orientation="Horizontal" Height="40">
 						<Label Content="密钥：" FontSize="24" FontWeight="Bold" Width="100"/>
-						<TextBox x:Name="DecodeKey" Width="300"/>
+						<TextBox x:Name="DecodeKey" Width="500"/>
 					</StackPanel>
 					<Button x:Name="DecodeButton" Content="创建任务" FontSize="24" FontWeight="Bold"
                             Margin="100,50,100,0" Click="DecodeButton_Click"/>
                 </StackPanel>
             </TabItem>
-            <TabItem Header="破解" IsSelected="True" FontSize="24" Width="250" FontWeight="Bold">
-                <StackPanel Orientation="Vertical" Width="400" Height="200">
+            <TabItem Header="破解" IsSelected="True" FontSize="24" Width="284" FontWeight="Bold">
+				<StackPanel Orientation="Vertical" Height="280"  Margin="50,0,50,0">
                     <StackPanel Orientation="Horizontal" Height="40">
                         <Label Content="任务名：" FontSize="24" FontWeight="Bold" Width="100"/>
-                        <TextBox x:Name="BreakTitle" Width="300"/>
+                        <TextBox x:Name="BreakTitle" Width="500"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Height="40">
                         <Label Content="密文：" FontSize="24" FontWeight="Bold" Width="100"/>
-                        <TextBox x:Name="BreakCipher" Width="300" TextWrapping="Wrap"/>
+						<TextBox x:Name="BreakCipher" Width="500" TextWrapping="Wrap"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Height="40">
                         <Label Content="算法：" FontSize="24" FontWeight="Bold" Width="100"/>
-                        <ComboBox Name="BreakScheme" Width="200">
+                        <ComboBox Name="BreakScheme">
                             <ComboBoxItem IsSelected="True">凯撒算法</ComboBoxItem>
                             <ComboBoxItem>置换算法</ComboBoxItem>
                             <ComboBoxItem>栅栏算法</ComboBoxItem>
                             <ComboBoxItem>仿射算法</ComboBoxItem>
                         </ComboBox>
                         <Button x:Name="BreakSchemeDefault"  Content="自动生成" FontSize="20" FontWeight="Bold"
-                                Margin="10,0,0,0" Width="90"/>
+                                Margin="10,0,0,0" Width="90" Visibility="Hidden"/>
                     </StackPanel>
                     <Button x:Name="BreakButton" Content="创建任务" FontSize="24" FontWeight="Bold"
                             Margin="100,40,100,0" Click="BreakButton_Click"/>

@@ -4,6 +4,7 @@ using System.Text;
 using System.Collections.Concurrent;
 using System.Configuration;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace CipherBreaker
 {
@@ -76,7 +77,13 @@ namespace CipherBreaker
 		public abstract (string, bool) Decode(string cipher = null, string decodeKey = null);
 		public abstract (string, double) Break(string cipher = null);
 
-		public delegate (string, double) AsyncBreak(string cipher = null);
+		public async void BreakAsync(string cipher = null)
+		{
+			await System.Threading.Tasks.Task.Run(() =>
+			{
+				Break(cipher);
+			});
+		}
 
 		public SchemeState End()
 		{

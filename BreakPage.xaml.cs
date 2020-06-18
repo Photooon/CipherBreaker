@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -23,26 +25,42 @@ namespace CipherBreaker
         {
             InitializeComponent();
             this.task = task;
-            this.scheme = Scheme.NewScheme(task.type, task.OriginText, task.ResultText, task.Key);
+            this.scheme = Scheme.NewScheme(task.type, task.ResultText, task.OriginText, task.Key);
+            this.TaskTitle.Content = task.ToString();
+            this.SchemeType.Content = task.type.ToString();
+            this.Text.Text = task.OriginText;
+            this.Date.Text = task.Date.ToString();
+            this.Result.Text = task.ResultText;
+            if (task.ResultText != null && task.ResultText.Length>0)
+            {
+                this.Result.Text = task.ResultText;
+                ProgressBar.Value = ProgressBar.Maximum;
+            }
+            else
+            {
+                this.Result.Text = "";
+                ProgressBar.Value = 0;
+            }
         }
 
         private Task task;
         private Scheme scheme;
-        private bool isStarted = true;
-        private void StartButton_Click(object sender, RoutedEventArgs e)
+        private bool isStarted = false;
+        private async void StartButton_Click(object sender, RoutedEventArgs e)
         {
             if (isStarted)
             {
-                StartButton.Content = "暂  停";
+                isStarted = false;
                 StartButton.Content = "开  始";
             }
             else
             {
-                StartButton.Content = "开  始";
-                Scheme.AsyncBreak caller = new Scheme.AsyncBreak(scheme.Break);
-                caller.BeginInvoke(scheme.Plain, null, null);
-                PrintCurrentResult();
                 isStarted = true;
+                StartButton.Content = "暂  停";
+
+                Result.Text = "初始化……";
+                scheme.BreakAsync();
+                await PrintCurrentResultAsync();
             }
         }
 
@@ -56,16 +74,27 @@ namespace CipherBreaker
             Clipboard.SetDataObject(Result.Text, true);
         }
 
-        private async void PrintCurrentResult()
+        private async Task<bool> PrintCurrentResultAsync()
         {
             string log = "";
-            while(!scheme.ProcessLog.IsEmpty)
+            while(true)
             {
-                scheme.ProcessLog.TryDequeue(out log);
+                if(!scheme.ProcessLog.TryDequeue(out log))
+                {
+                    await System.Threading.Tasks.Task.Delay(50);
+                    continue;
+                }
+                if(ProgressBar.Value+1 < ProgressBar.Maximum)
+                    ProgressBar.Value++;
+
                 if (log == "")
+                {
+                    ProgressBar.Value = ProgressBar.Maximum;
                     break;
+                }
                 Result.Text = log;
             }
+            return true;
         }
     }
 }

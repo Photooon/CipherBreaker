@@ -29,6 +29,8 @@ namespace CipherBreaker
 		{
 			InitializeComponent();
 
+			//DebugWindow debugWindow = new DebugWindow();
+
 			/*右键快捷加密解密部分*/
 			var args = Environment.GetCommandLineArgs();
 			if (args.Length > 2)
@@ -117,7 +119,6 @@ namespace CipherBreaker
 
 		private void NewTaskButton_Click(object sender, RoutedEventArgs e)
 		{
-			
 			NewTaskWindow newTaskWindow = new NewTaskWindow(this);
 			newTaskWindow.Show();
 		}
@@ -134,35 +135,24 @@ namespace CipherBreaker
 				return;
 			}
 			Task task = TaskListBox.SelectedItem as Task;
+
+			Page page = null;
 			if (task.OptType == OperationType.Encode)
 			{
-				EncodePage encodePage = new EncodePage(task);
-				ContentControl.Content = new Frame() { Content = encodePage };
-				encodePage.TaskTitle.Content = task.ToString();
-				encodePage.SchemeType.Content = task.type.ToString();
-				encodePage.Key.Content = task.Key;
-				encodePage.Text.Text = task.OriginText;
-				encodePage.Date.Text = task.Date.ToString();
+				page = new EncodePage(task);
+				(page as EncodePage).DeleteButton.Click += RemoveItem;
 			}
 			else if (task.OptType == OperationType.Decode)
 			{
-				DecodePage decodePage = new DecodePage(task);
-				ContentControl.Content = new Frame() { Content = decodePage };
-				decodePage.TaskTitle.Content = task.ToString();
-				decodePage.SchemeType.Content = task.type.ToString();
-				decodePage.Key.Content = task.Key;
-				decodePage.Text.Text = task.ResultText;
-				decodePage.Date.Text = task.Date.ToString();
+				page = new DecodePage(task);
+				(page as DecodePage).DeleteButton.Click += RemoveItem;
 			}
 			else if (task.OptType == OperationType.Break)
 			{
-				BreakPage breakPage = new BreakPage(task);
-				ContentControl.Content = new Frame() { Content = breakPage };
-				breakPage.TaskTitle.Content = task.ToString();
-				breakPage.SchemeType.Content = task.type.ToString();
-				breakPage.Text.Text = task.ResultText;
-				breakPage.Date.Text = task.Date.ToString();
+				page = new BreakPage(task);
+				(page as BreakPage).DeleteButton.Click += RemoveItem;
 			}
+			ContentControl.Content = new Frame() { Content = page };
 		}
 
 		private void RemoveItem(object sender, RoutedEventArgs e)
