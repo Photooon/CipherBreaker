@@ -14,6 +14,8 @@ namespace CipherBreaker
 		public static Settings settings = new Settings();
 		public static Notifier notifier = new Notifier(Application.Current.MainWindow);
 
+		public static SymmetricScheme ClipScheme = null;
+
 		public static void AddAndSelect(Task task,ListBox taskList)
 		{
 			Tasks.Add(task);
