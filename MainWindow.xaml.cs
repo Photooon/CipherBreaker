@@ -236,7 +236,7 @@ namespace CipherBreaker
 				}
 
 				CommonData.ClipScheme.Plain = Clipboard.GetText();
-				CommonData.ClipScheme.Key = CommonData.ClipScheme.GenerateKey();
+				//CommonData.ClipScheme.Key = CommonData.ClipScheme.GenerateKey();
 				CommonData.ClipScheme.Encode();
 				Clipboard.SetText(CommonData.ClipScheme.Cipher);
 				if (!this.IsKeyboardFocused)
