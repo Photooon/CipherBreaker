@@ -44,21 +44,25 @@ namespace CipherBreaker
 
         private Task task;
         private Scheme scheme;
-        private bool flag = true;
+        private bool isStarted = false;
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
-            if(flag)
+            if (isStarted)
             {
-                StartButton.Content = "暂  停";
-                (task.ResultText, _) = scheme.Encode(scheme.Plain, task.Key);
-                Result.Text = task.ResultText;
-                this.ProgressBar.Value = ProgressBar.Maximum;
+                // 暂停
                 StartButton.Content = "开  始";
             }
             else
             {
+                isStarted = true;
+                StartButton.Content = "暂  停";
+
+                (task.ResultText, _) = scheme.Encode(scheme.Cipher, task.Key);
+                this.ProgressBar.Value = ProgressBar.Maximum;
+                Result.Text = task.ResultText;
+
+                isStarted = false;
                 StartButton.Content = "开  始";
-                flag = true;
             }
         }
 
