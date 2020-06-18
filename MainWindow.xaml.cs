@@ -171,14 +171,14 @@ namespace CipherBreaker
 			ContentControl.Content = null;
 		}
 
-		private void Window_GotFocus(object sender, RoutedEventArgs e)
-		{
-			CommonData.notifier.MarkRead();
-		}
-
 		private void Window_LostFocus(object sender, RoutedEventArgs e)
 		{
 			CommonData.notifier.Notify();
+		}
+
+		private void Window_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+		{
+			CommonData.notifier.MarkRead();
 		}
 	}
 }
