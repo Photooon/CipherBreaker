@@ -149,6 +149,7 @@ namespace CipherBreaker
 			if (TaskListBox.SelectedIndex != -1)
 			{
 				CommonData.Tasks.RemoveAt(TaskListBox.SelectedIndex);
+				ContentControl.Content = null;
 			}
 		}
 
@@ -167,6 +168,7 @@ namespace CipherBreaker
 		private void ClearTask(object sender, RoutedEventArgs e)
 		{
 			CommonData.Tasks.Clear();
+			ContentControl.Content = null;
 		}
 	}
 }
