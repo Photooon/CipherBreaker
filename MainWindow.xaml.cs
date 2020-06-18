@@ -230,7 +230,7 @@ namespace CipherBreaker
 
 				if(CommonData.ClipScheme==null)
 				{
-					CommonData.ClipScheme = Scheme.ChooseScheme("", "", "") as SymmetricScheme;
+					CommonData.ClipScheme = Scheme.ChooseScheme("", "", CommonData.settings.clipDefaultKey) as SymmetricScheme;
 				}
 				else if(CommonData.ClipScheme.Plain == Clipboard.GetText())
 				{
