@@ -11,9 +11,9 @@
         <Label Content="开机自启动" HorizontalAlignment="Left" Margin="112,84,0,0" VerticalAlignment="Top" FontSize="14" Height="28" Width="80"/>
         <Label Content="是否使用服务端服务" HorizontalAlignment="Left" Margin="112,140,0,0" VerticalAlignment="Top" FontSize="14" Height="28" Width="136"/>
         <Label Content="剪切板加密快捷键" HorizontalAlignment="Left" Margin="112,201,0,0" VerticalAlignment="Top" FontSize="14" Height="28" Width="122"/>
-        <Image HorizontalAlignment="Left" Margin="65,83,0,0" VerticalAlignment="Top" Width="30" Height="30" Source="/assets/开机.png" Stretch="UniformToFill"/>
-        <Image HorizontalAlignment="Left" Height="30" Margin="65,139,0,0" VerticalAlignment="Top" Width="30" Source="/assets/服务器.png" Stretch="UniformToFill"/>
-        <Image HorizontalAlignment="Left" Height="30" Margin="65,199,0,0" VerticalAlignment="Top" Width="30" Source="/assets/剪切板.png" Stretch="UniformToFill"/>
+        <Image Name="autoStartImg" HorizontalAlignment="Left" Margin="65,83,0,0" VerticalAlignment="Top" Width="30" Height="30" Source="/assets/开机-关闭.png" Stretch="UniformToFill"/>
+        <Image Name="usingServerImg" HorizontalAlignment="Left" Height="30" Margin="65,139,0,0" VerticalAlignment="Top" Width="30" Source="/assets/服务器-开启.png" Stretch="UniformToFill"/>
+        <Image HorizontalAlignment="Left" Height="30" Margin="65,199,0,0" VerticalAlignment="Top" Width="30" Source="/assets/剪贴板.png" Stretch="UniformToFill"/>
         <Image HorizontalAlignment="Left" Height="30" Margin="65,264,0,0" VerticalAlignment="Top" Width="30" Source="/assets/默认应用.png" Stretch="UniformToFill"/>
         <TextBox Margin="266,207,0,0" Text="Ctrl+E" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" TextAlignment="Center" FontSize="14" DataContextChanged="shortCutKeyTextBox_Change" IsEnabled="False" HorizontalAlignment="Left" Width="50"/>
         <Label Content="设置" HorizontalAlignment="Left" Margin="22,22,0,0" VerticalAlignment="Top" FontSize="24" Height="40" Width="58"/>
@@ -24,7 +24,7 @@
         <ComboBox Name="EncryptComboBox" HorizontalAlignment="Left" Margin="267,268,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBoxSelectionChanged"/>
         <ComboBox x:Name="DecryptComboBox" HorizontalAlignment="Left" Margin="267,306,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBoxSelectionChanged"/>
         <ComboBox x:Name="BreakComboBox" HorizontalAlignment="Left" Margin="267,343,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBoxSelectionChanged"/>
-        <Image Name="isAutoStartSlide" HorizontalAlignment="Left" Margin="266,78,0,0" VerticalAlignment="Top" Width="40" Height="40" Source="/assets/滑动开关-开启.png" Stretch="UniformToFill" MouseDown="isAutoStartMouseDown"/>
+        <Image Name="isAutoStartSlide" HorizontalAlignment="Left" Margin="266,78,0,0" VerticalAlignment="Top" Width="40" Height="40" Source="/assets/滑动开关-关闭.png" Stretch="UniformToFill" MouseDown="isAutoStartMouseDown"/>
         <Image Name="isUsingServerSlide" HorizontalAlignment="Left" Margin="266,135,0,0" VerticalAlignment="Top" Width="40" Height="40" Source="/assets/滑动开关-开启.png" Stretch="UniformToFill" MouseDown="isUsingServerMouseDown"/>
 
     </Grid>

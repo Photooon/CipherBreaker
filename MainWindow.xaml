@@ -9,7 +9,7 @@
 		Closed="Window_Closed"
         Title="CipherBreaker" Height="768" Width="1024" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Window.Background>
-        <ImageBrush ImageSource="/assets/背景.png" Stretch="UniformToFill"/>
+        <ImageBrush ImageSource="/assets/背景3.png" Stretch="UniformToFill"/>
     </Window.Background>
     <Grid>
         <Grid.ColumnDefinitions>

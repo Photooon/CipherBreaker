@@ -14,8 +14,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Diagnostics;
 using System.IO;
+using System.Xml.Serialization;
+using System.Xml;
 
 namespace CipherBreaker
 {
@@ -47,6 +48,37 @@ namespace CipherBreaker
 				}
 			}
 
+			/*创建或读入设置文件部分*/
+			string xmlPath = System.AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
+			xmlPath += "settings.xml";
+			if (!File.Exists(xmlPath))
+			{
+				XMLSaveAndRead xmlHandle = new XMLSaveAndRead();
+
+				//存储信息
+				List<Settings> info = new List<Settings>();
+				Settings settings = new Settings(false, true, ("crtl", "E"), SchemeType.Caesar, SchemeType.RailFence, SchemeType.Substitution);	//默认配置
+				info.Add(settings);
+				//将info的类型List<Test>和自身info传入
+				string xmlInfo = xmlHandle.SerializeObject<List<Settings>>(info);
+				xmlHandle.CreateXML(xmlPath, xmlInfo);
+			}
+			else
+			{
+				XMLSaveAndRead xmlHandle = new XMLSaveAndRead();
+				string doc = xmlHandle.LoadXML(xmlPath);
+				List<Settings> info1 = (List<Settings>)xmlHandle.DeserializeObject<List<Settings>>(doc);
+				for (int i = 0; i < info1.Count; i++)
+				{
+					CommonData.settings.isAutoStart = info1[i].isAutoStart;
+					CommonData.settings.isUsingServer = info1[i].isUsingServer;
+					CommonData.settings.shortCutKey = info1[i].shortCutKey;
+					CommonData.settings.encryptType = info1[i].encryptType;
+					CommonData.settings.decryptType = info1[i].decryptType;
+					CommonData.settings.breakType = info1[i].breakType;
+				}
+			}
+
 			this.TaskListBox.ItemsSource = CommonData.Tasks;
 
 			SqliteClient dbClient = new SqliteClient(CommonData.DbSource);
@@ -59,8 +91,6 @@ namespace CipherBreaker
 			dbClient.Close();
 
 			//DebugWindow debugWindow = new DebugWindow();
-
-			//TODO: 读取或创建setting文件
 			//debugWindow.Show();
 
 			//Task testTask = new Task();
