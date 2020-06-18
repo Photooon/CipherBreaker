@@ -58,11 +58,12 @@ namespace CipherBreaker
 
 				//存储信息
 				List<Settings> info = new List<Settings>();
-				Settings settings = new Settings(false, true, ("crtl", "E"), SchemeType.Caesar, SchemeType.RailFence, SchemeType.Substitution); //默认配置
+				Settings settings = new Settings(false, true, ("crtl", "E"), "3", SchemeType.Caesar, SchemeType.RailFence, SchemeType.Substitution); //默认配置
 				info.Add(settings);
 				//将info的类型List<Test>和自身info传入
 				string xmlInfo = xmlHandle.SerializeObject<List<Settings>>(info);
 				xmlHandle.CreateXML(xmlPath, xmlInfo);
+				CommonData.settings = settings;
 			}
 			else
 			{
@@ -74,6 +75,7 @@ namespace CipherBreaker
 					CommonData.settings.isAutoStart = info1[i].isAutoStart;
 					CommonData.settings.isUsingServer = info1[i].isUsingServer;
 					CommonData.settings.shortCutKey = info1[i].shortCutKey;
+					CommonData.settings.clipDefaultKey = info1[i].clipDefaultKey;
 					CommonData.settings.encryptType = info1[i].encryptType;
 					CommonData.settings.decryptType = info1[i].decryptType;
 					CommonData.settings.breakType = info1[i].breakType;
