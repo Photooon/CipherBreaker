@@ -27,40 +27,61 @@ namespace CipherBreaker
 
         private Task task;
         private Scheme scheme;
-        
-        private void NewStartButton_Click(object sender, RoutedEventArgs e)
+
+        private void NewStartButton_Click(object sender, MouseButtonEventArgs e)
         {
             bool ok;
-            if(task.OptType==OperationType.Encode)
+            if (task.OptType == OperationType.Encode)
             {
                 (ResultText.Text, ok) = scheme.Encode(scheme.Plain, task.Key);
                 ResultText.Text = "密文：" + ResultText.Text;
             }
-            else if(task.OptType==OperationType.Decode)
+            else if (task.OptType == OperationType.Decode)
             {
                 (ResultText.Text, ok) = scheme.Decode(scheme.Plain, task.Key);
                 ResultText.Text = "明文：" + ResultText.Text;
             }
-            else if(task.OptType==OperationType.Break)
+            else if (task.OptType == OperationType.Break)
             {
 
             }
             NewStartButton.IsEnabled = false;
         }
 
-        private void NewStopButton_Click(object sender, RoutedEventArgs e)
+        private void NewStartButton_Enter(object sender, MouseEventArgs e)
         {
-            
+            BitmapImage bi = new BitmapImage();
+            bi.BeginInit();
+            bi.UriSource = new Uri(@"/assets/开始-悬停.png", UriKind.Relative);
+            bi.EndInit();
+            this.NewStartButton.Source = bi;
         }
 
-        private void NewGoOnButton_Click(object sender, RoutedEventArgs e)
+        private void NewStartButton_Leave(object sender, MouseEventArgs e)
         {
-
+            BitmapImage bi = new BitmapImage();
+            bi.BeginInit();
+            bi.UriSource = new Uri(@"/assets/开始-默认.png", UriKind.Relative);
+            bi.EndInit();
+            this.NewStartButton.Source = bi;
         }
 
-        private void NewSaveButton_Click(object sender, RoutedEventArgs e)
+        private void DeleteButton_Enter(object sender, MouseEventArgs e)
         {
+            BitmapImage bi = new BitmapImage();
+            bi.BeginInit();
+            bi.UriSource = new Uri(@"/assets/垃圾桶-悬停.png", UriKind.Relative);
+            bi.EndInit();
+            this.DeleteButton.Source = bi;
+        }
 
+        private void DeleteButton_Leave(object sender, MouseEventArgs e)
+        {
+            BitmapImage bi = new BitmapImage();
+            bi.BeginInit();
+            bi.UriSource = new Uri(@"/assets/垃圾桶-默认.png", UriKind.Relative);
+            bi.EndInit();
+            this.DeleteButton.Source = bi;
         }
     }
 }

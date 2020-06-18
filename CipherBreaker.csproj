@@ -10,10 +10,18 @@
   <ItemGroup>
     <None Remove="assets\logo.png" />
     <None Remove="assets\notify.png" />
+    <None Remove="assets\plus-hover.png" />
     <None Remove="assets\plus.png" />
+    <None Remove="assets\setting-hover.png" />
     <None Remove="assets\setting.png" />
     <None Remove="assets\剪切板.png" />
     <None Remove="assets\剪贴板.png" />
+    <None Remove="assets\垃圾桶-悬停.png" />
+    <None Remove="assets\垃圾桶-默认.png" />
+    <None Remove="assets\密钥.png" />
+    <None Remove="assets\开始-悬停.png" />
+    <None Remove="assets\开始-按下.png" />
+    <None Remove="assets\开始-默认.png" />
     <None Remove="assets\开机-关闭.png" />
     <None Remove="assets\开机-开启.png" />
     <None Remove="assets\开机.png" />
@@ -28,11 +36,19 @@
     <None Remove="assets\背景2.png" />
     <None Remove="assets\背景3.png" />
     <None Remove="assets\默认应用.png" />
+    <None Remove="plus-hover.png" />
     <None Remove="plus.png" />
     <None Remove="Resource\开机.png" />
+    <None Remove="setting-hover.png" />
     <None Remove="setting.png" />
     <None Remove="剪切板.png" />
     <None Remove="剪贴板.png" />
+    <None Remove="垃圾桶-悬停.png" />
+    <None Remove="垃圾桶-默认.png" />
+    <None Remove="密钥.png" />
+    <None Remove="开始-悬停.png" />
+    <None Remove="开始-按下.png" />
+    <None Remove="开始-默认.png" />
     <None Remove="开机-关闭.png" />
     <None Remove="开机-开启.png" />
     <None Remove="开机.png" />
@@ -57,9 +73,17 @@
   <ItemGroup>
     <Resource Include="assets\logo.png" />
     <Resource Include="assets\notify.png" />
+    <Resource Include="assets\plus-hover.png" />
     <Resource Include="assets\plus.png" />
+    <Resource Include="assets\setting-hover.png" />
     <Resource Include="assets\setting.png" />
     <Resource Include="assets\剪贴板.png" />
+    <Resource Include="assets\垃圾桶-悬停.png" />
+    <Resource Include="assets\垃圾桶-默认.png" />
+    <Resource Include="assets\密钥.png" />
+    <Resource Include="assets\开始-悬停.png" />
+    <Resource Include="assets\开始-按下.png" />
+    <Resource Include="assets\开始-默认.png" />
     <Resource Include="assets\开机-关闭.png" />
     <Resource Include="assets\开机-开启.png" />
     <Resource Include="assets\服务器-关闭.png" />
@@ -67,10 +91,9 @@
     <Resource Include="assets\滑动开关-关闭.png" />
     <Resource Include="assets\滑动开关-开启.png" />
     <Resource Include="assets\背景.png" />
-    <Resource Include="assets\背景1.png" />
-    <Resource Include="assets\背景2.png" />
     <Resource Include="assets\背景3.png" />
     <Resource Include="assets\默认应用.png" />
+    <Resource Include="assets\背景1.png" />
   </ItemGroup>
 
   <ItemGroup>

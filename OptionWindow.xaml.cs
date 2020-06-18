@@ -68,9 +68,9 @@ namespace CipherBreaker
             defaultDict = new Dictionary<string, SchemeType>()
             {
                 {"凯撒算法", SchemeType.Caesar},
-                {"仿射算法", SchemeType.Affine},
+                {"置换算法", SchemeType.Substitution},
                 {"栅栏算法", SchemeType.RailFence},
-                {"置换算法", SchemeType.Substitution}
+                {"仿射算法", SchemeType.Affine},
             };
 
             EncryptComboBox.ItemsSource = defaultDict;
@@ -87,6 +87,9 @@ namespace CipherBreaker
             BreakComboBox.DisplayMemberPath = "Key";
             BreakComboBox.SelectedValuePath = "Value";
             BreakComboBox.SelectedIndex = settings.breakTypeIndex;
+
+            //更新TextBox状态
+            clipDefaultKeyTextBox.Text = settings.clipDefaultKey;
         }
 
         private void shortCutKeyTextBox_Change(object sender, DependencyPropertyChangedEventArgs e)
@@ -177,6 +180,16 @@ namespace CipherBreaker
             usingServerImg.Source = bi2;
             this.settings.isUsingServer = !this.settings.isUsingServer;
         }
+
+        private void clipDefaultKeyChanged(object sender, TextChangedEventArgs e)
+        {
+            var clipDeafultKeyTextBox = sender as TextBox;
+
+            if (clipDeafultKeyTextBox.Text != null && this.settings != null && clipDeafultKeyTextBox.Text != "")
+            {
+                this.settings.clipDefaultKey = clipDeafultKeyTextBox.Text;
+            }
+        }
     }
 
     public class Settings
@@ -184,17 +197,19 @@ namespace CipherBreaker
         public bool isAutoStart;                //是否自动开机
         public bool isUsingServer;              //是否使用服务器
         public (string, string) shortCutKey;    //采用A+B模式，如：Ctrl+E
+        public string clipDefaultKey;           //剪贴板加密的默认密钥
         public SchemeType encryptType;          //默认加密算法
         public SchemeType decryptType;          //默认解密算法
         public SchemeType breakType;            //默认破解算法
 
         public Settings() { }
 
-        public Settings(bool isAutoStart, bool isUsingServer, (string, string) shortCutKey, SchemeType encryptType, SchemeType decryptType, SchemeType breakType)
+        public Settings(bool isAutoStart, bool isUsingServer, (string, string) shortCutKey, string clipDefaultKey, SchemeType encryptType, SchemeType decryptType, SchemeType breakType)
         {
             this.isAutoStart = isAutoStart;
             this.isUsingServer = isUsingServer;
             this.shortCutKey = shortCutKey;
+            this.clipDefaultKey = clipDefaultKey;
             this.encryptType = encryptType;
             this.decryptType = decryptType;
             this.breakType = breakType;

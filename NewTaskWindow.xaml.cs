@@ -29,6 +29,9 @@ namespace CipherBreaker
 		{
 			InitializeComponent();
 			this.mainWindow = mainWindow;
+			EncodeScheme.SelectedIndex = CommonData.settings.encryptTypeIndex;
+			DecodeScheme.SelectedIndex = CommonData.settings.decryptTypeIndex;
+			BreakScheme.SelectedIndex = CommonData.settings.breakTypeIndex;
 		}
 
 		private SchemeType GetSchemeTypeBySelectedIndex(int index)
@@ -101,7 +104,7 @@ namespace CipherBreaker
 				Random rand = new Random();
 				if (Plain.Text.Length == 0)
 				{
-					MessageBox.Show("明文不能为空");
+					MessageBox.Show("明文不能为空", "警告");
 					return;
 				}
 				EncodeKey.Text = (rand.Next(Plain.Text.Length) + 1).ToString();
@@ -122,5 +125,5 @@ namespace CipherBreaker
 			}
 			this.Close();
 		}
-	}
+    }
 }

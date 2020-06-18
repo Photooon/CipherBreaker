@@ -25,7 +25,7 @@ namespace CipherBreaker
             this.scheme = Scheme.NewScheme(task.type, task.ResultText, task.OriginText, task.Key);
             this.TaskTitle.Content = task.ToString();
             this.SchemeType.Content = Scheme.GetChineseSchemeTypeName(task.type);
-            this.Key.Content = task.Key;
+            this.Key.Text = task.Key;
             this.Text.Text = task.OriginText;
             this.Date.Text = task.Date.ToString();
             this.Result.Text = task.ResultText;
@@ -43,31 +43,84 @@ namespace CipherBreaker
 
         private Task task;
         private Scheme scheme;
-        private bool flag = true;
-        private void StartButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (flag)
-            {
-                StartButton.Content = "暂  停";
-                (task.ResultText, _) = scheme.Decode(scheme.Cipher, task.Key);
-                Result.Text = task.ResultText;
-                StartButton.Content = "开  始";
-            }
-            else
-            {
-                StartButton.Content = "开  始";
-                flag = true;
-            }
-        }
-
-        private void DeleteButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        private bool isStarted = false;
 
         private void CopyButton_Click(object sender, RoutedEventArgs e)
         {
             Clipboard.SetDataObject(Result.Text, true);
+        }
+
+        private void StartButton_Click(object sender, MouseButtonEventArgs e)
+        {
+            if (isStarted)
+            {
+                // 暂停
+                //StartButton.Content = "开  始";
+            }
+            else
+            {
+                isStarted = true;
+                //StartButton.Content = "暂  停";
+
+                (task.ResultText, _) = scheme.Decode(scheme.Cipher, task.Key);
+                ProgressBar.Value = ProgressBar.Maximum;
+                Result.Text = task.ResultText;
+
+                isStarted = false;
+                //StartButton.Content = "开  始";
+            }
+        }
+
+        private void StartButton_Enter(object sender, MouseEventArgs e)
+        {
+            if (!isStarted)
+            {
+                BitmapImage bi = new BitmapImage();
+                bi.BeginInit();
+                bi.UriSource = new Uri(@"/assets/开始-悬停.png", UriKind.Relative);
+                bi.EndInit();
+                this.StartButton.Source = bi;
+            }
+        }
+
+        private void StartButton_Leave(object sender, MouseEventArgs e)
+        {
+            if (!isStarted)
+            {
+                BitmapImage bi = new BitmapImage();
+                bi.BeginInit();
+                bi.UriSource = new Uri(@"/assets/开始-默认.png", UriKind.Relative);
+                bi.EndInit();
+                this.StartButton.Source = bi;
+            }
+        }
+
+        private void StartButton_Up(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void DeleteButton_Click(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void DeleteButton_Enter(object sender, MouseEventArgs e)
+        {
+            BitmapImage bi = new BitmapImage();
+            bi.BeginInit();
+            bi.UriSource = new Uri(@"/assets/垃圾桶-悬停.png", UriKind.Relative);
+            bi.EndInit();
+            this.DeleteButton.Source = bi;
+        }
+
+        private void DeleteButton_Leave(object sender, MouseEventArgs e)
+        {
+            BitmapImage bi = new BitmapImage();
+            bi.BeginInit();
+            bi.UriSource = new Uri(@"/assets/垃圾桶-默认.png", UriKind.Relative);
+            bi.EndInit();
+            this.DeleteButton.Source = bi;
         }
     }
 }

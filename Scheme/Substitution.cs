@@ -119,7 +119,12 @@ namespace CipherBreaker
 			{
 				this.Key = decodeKey;
 			}
-
+			StringBuilder reverseKey = new StringBuilder(this.Key.Clone() as string);
+			for(int i = 0;i<this.Key.Length;i++)
+			{
+				reverseKey[(int)(this.Key[i] - 'a')] = (char)('a' + i);
+			}
+			
 			if (keyIsValid())
 			{
 				StringBuilder plain = new StringBuilder();
@@ -132,11 +137,11 @@ namespace CipherBreaker
 						int index = this.Cipher[i] - bottom;
 						if (char.IsLower(this.Cipher[i]))
 						{
-							plain.Append(key[index]);
+							plain.Append(reverseKey[index]);
 						}
 						else
 						{
-							plain.Append(char.ToUpper(key[index]));
+							plain.Append(char.ToUpper(reverseKey[index]));
 						}
 					}
 					else

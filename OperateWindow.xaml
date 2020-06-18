@@ -21,14 +21,15 @@
             <ScrollViewer FontSize="24" FontWeight="Bold" Height="50">
                 <TextBlock x:Name="Text" FontSize="24" FontWeight="Bold" TextWrapping="Wrap"/>
             </ScrollViewer>
-            <Label Content="操作:" HorizontalContentAlignment="Left" FontSize="24" FontWeight="Bold"/>
-            <Button x:Name="NewStartButton" Content="开  始" FontSize="24" FontWeight="Bold" Height="50" Click="NewStartButton_Click"/>
-            <Button x:Name="NewStopButton" Content="停  止" FontSize="24" FontWeight="Bold" Height="50" Click="NewStopButton_Click"/>
-            <Button x:Name="NewGoOnButton" Content="继  续" FontSize="24" FontWeight="Bold" Height="50" Click="NewGoOnButton_Click"/>
-            <Button x:Name="NewSaveButton" Content="保  存" FontSize="24" FontWeight="Bold" Height="50" Click="NewSaveButton_Click"/>
             <ScrollViewer FontSize="24" FontWeight="Bold" Height="50" Margin="0,30,0,0">
                 <TextBlock x:Name="ResultText" FontSize="24" FontWeight="Bold" TextWrapping="Wrap"/>
             </ScrollViewer>
+            <StackPanel Height="80" Width="80">
+                <Image x:Name="NewStartButton" Height="80" Width="80" Source="/assets/开始-默认.png" MouseDown="NewStartButton_Click" MouseEnter="NewStartButton_Enter" Stretch="UniformToFill" MouseLeave="NewStartButton_Leave"/>
+            </StackPanel>
+            <StackPanel Height="100">
+                <Image x:Name="DeleteButton" Source="/assets/垃圾桶-默认.png" Stretch="UniformToFill" MouseEnter="DeleteButton_Enter" MouseLeave="DeleteButton_Leave" Width="60" Height="60" Margin="250,20,0,0"/>
+            </StackPanel>
         </StackPanel>
         <Label Grid.Column="1" Content="进度：" HorizontalContentAlignment="Left" FontSize="24" FontWeight="Bold"/>
     </Grid>
