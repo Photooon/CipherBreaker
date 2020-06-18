@@ -164,6 +164,8 @@ namespace CipherBreaker
 			}
 
 			this.Plain = plain;
+			ProcessLog.Enqueue(plain);
+			ProcessLog.Enqueue("");
 			return (plain, Math.Pow(Math.E, maxProb));
 			//throw new NotImplementedException();
 		}

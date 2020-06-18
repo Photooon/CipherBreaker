@@ -100,7 +100,7 @@ namespace CipherBreaker
 				Init();
 			}
 
-			str = Regex.Replace(str, @"\s", "");
+			str = Regex.Replace(str, "[^a-zA-Z]", "");
 
 			if (str.Length >= 4)
 			{
