@@ -24,7 +24,7 @@ namespace CipherBreaker
 
 		public void MarkRead()
 		{
-			//mainwindow.Icon = new BitmapImage(new System.Uri("assets/logo.png",UriKind.Relative));
+			mainwindow.Icon = new BitmapImage(new System.Uri("assets/logo.png",UriKind.Relative));
 		}
 	}
 }
