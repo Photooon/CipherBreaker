@@ -18,6 +18,7 @@
     <None Remove="assets\剪贴板.png" />
     <None Remove="assets\垃圾桶-悬停.png" />
     <None Remove="assets\垃圾桶-默认.png" />
+    <None Remove="assets\密钥.png" />
     <None Remove="assets\开始-悬停.png" />
     <None Remove="assets\开始-按下.png" />
     <None Remove="assets\开始-默认.png" />
@@ -44,6 +45,7 @@
     <None Remove="剪贴板.png" />
     <None Remove="垃圾桶-悬停.png" />
     <None Remove="垃圾桶-默认.png" />
+    <None Remove="密钥.png" />
     <None Remove="开始-悬停.png" />
     <None Remove="开始-按下.png" />
     <None Remove="开始-默认.png" />
@@ -78,6 +80,7 @@
     <Resource Include="assets\剪贴板.png" />
     <Resource Include="assets\垃圾桶-悬停.png" />
     <Resource Include="assets\垃圾桶-默认.png" />
+    <Resource Include="assets\密钥.png" />
     <Resource Include="assets\开始-悬停.png" />
     <Resource Include="assets\开始-按下.png" />
     <Resource Include="assets\开始-默认.png" />
