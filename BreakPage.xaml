@@ -52,7 +52,7 @@
             <Label Content="明文:" HorizontalContentAlignment="Left" FontSize="24" FontWeight="Bold"/>
             <Border BorderBrush="Black" BorderThickness="1">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Height="150">
-                    <TextBlock x:Name="Result" FontSize="24" TextWrapping="Wrap"/>
+                    <TextBox x:Name="Result" FontSize="24" TextWrapping="Wrap" IsReadOnly="True" BorderThickness="0"/>
                 </ScrollViewer>
             </Border>
             <Label Content="进度:" HorizontalContentAlignment="Left" FontSize="24" FontWeight="Bold" Margin="0,50,0,0"/>
