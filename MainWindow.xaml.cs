@@ -30,8 +30,11 @@ namespace CipherBreaker
 		{
 			InitializeComponent();
 
-			/*右键快捷加密解密部分*/
+			/*
+			 * 右键快捷加密解密部分
+			 */
 			var args = Environment.GetCommandLineArgs();
+
 			if (args.Length > 2)
 			{
 				string originPath = args[2];    //获取加密文件路径

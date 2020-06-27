@@ -10,6 +10,9 @@ using System.Timers;
 
 namespace WebCrawler
 {
+	/*
+	 * Url类，用于存储url及url的深度
+	 */
 	[Serializable]
 	public class Url
 	{
@@ -23,6 +26,9 @@ namespace WebCrawler
 		}
 	}
 
+	/*
+	 * 下载完成事件
+	 */
 	public class DownloadedEventArgs : EventArgs
 	{
 		public string html;
@@ -33,6 +39,9 @@ namespace WebCrawler
 		}
 	}
 
+	/*
+	 * 任务被迫中止事件，如达到最大运行时间
+	 */
 	public class TaskTerminatedEvent : EventArgs
 	{
 
@@ -82,6 +91,9 @@ namespace WebCrawler
         #endregion
 
         #region public methods
+		/*
+		 * 单个目标网站作为输入的构造函数
+		 */
         public Crawler(string baseUrl, int maxDepth, int maxThreadCount, int maxRunTime, string wordFrequencyFilePath)
 		{
 			this.urlsDisposed = new Queue<Url>();
@@ -95,20 +107,30 @@ namespace WebCrawler
 			this.maxRunTime = maxRunTime;
 			this.wordFrequencyFilePath = wordFrequencyFilePath;
 
-			checkStateTimer = new System.Timers.Timer();						//定时保存的定时器（用于避免内存爆掉）
+			/*
+			 * 定期保存的定时器（用于避免内存爆掉）
+			 */
+			checkStateTimer = new System.Timers.Timer();
 			checkStateTimer.Interval = CheckStateTime * 1000;
 			checkStateTimer.Elapsed += new ElapsedEventHandler(CheckStateTimerEvent);
 			checkStateTimer.Enabled = true;
 
-			shutDownTimer = new System.Timers.Timer();					//定时关闭的定时器（用于避免运行时间过长）
+			/*
+			 * 定时关闭的定时器（用于避免运行时间过长）
+			 */
+			shutDownTimer = new System.Timers.Timer();
 			shutDownTimer.Interval = maxRunTime * 1000;
 			shutDownTimer.Elapsed += new ElapsedEventHandler(ShutDownTimerEvent);
 			shutDownTimer.Enabled = true;
 			shutDownFlag = false;
-
+			
+			//便于多线程访问而设的实例类指向
 			instance = this;
 		}
 
+		/*
+		 * 多个目标网站作为输入的构造函数
+		 */
 		public Crawler(List<string> baseUrls, int maxDepth, int maxThreadCount, int maxRunTime, string filePath):
 			this(baseUrls[0], maxDepth, maxThreadCount, maxRunTime, filePath)
 		{
@@ -118,6 +140,9 @@ namespace WebCrawler
 			}
 		}
 
+		/*
+		 * 开始爬取函数
+		 */
 		public void Start()
 		{
 			startTime = DateTime.Now;
@@ -133,12 +158,16 @@ namespace WebCrawler
 			}
 		}
 
+		/*
+		 * 从上次执行进度开始爬取函数
+		 */
 		public void CarryOn()
 		{
 			if(File.Exists(wordFreqTempFilePath) && File.Exists(urlsUndisposedTempFilePath) && File.Exists(urlsDisposedTempFilePath))
 			{
 				this.urlsUndisposed.Clear();
 
+				//使用二进制反序列化方式读取进度文件
 				BinaryFormatter bf = new BinaryFormatter();
 				FileStream wordFreqfs = new FileStream(wordFreqTempFilePath, FileMode.Open, FileAccess.Read);
 				FileStream urlsUndisposedfs = new FileStream(urlsUndisposedTempFilePath, FileMode.Open, FileAccess.Read);
@@ -154,11 +183,15 @@ namespace WebCrawler
 			}
 		}
 
-		public void Save()					//Save函数兼具保存WordFrequency和临时状态的功能，方便发生意外时从状态中恢复
+		/*
+		 * Save函数兼具保存WordFrequency和临时状态的功能，方便发生意外时从状态中恢复
+		 */
+		public void Save()
 		{
 			FileStream fout = new FileStream(wordFrequencyFilePath, FileMode.Create, FileAccess.Write);
 			StreamWriter sout = new StreamWriter(fout, System.Text.Encoding.UTF8);
 
+			//写入总词频记录
 			foreach (var wf in wordFrequency)
 			{
 				sout.WriteLine(wf.Key + "," + wf.Value.ToString());
@@ -169,8 +202,10 @@ namespace WebCrawler
 			endTime = DateTime.Now;
 			Console.WriteLine("词频已写入文件");
 
+			//当未爬取完毕时写入临时的进度
 			if(urlsUndisposed.Count != 0)
 			{
+				//使用二进制序列化方式
 				BinaryFormatter bf = new BinaryFormatter();
 				FileStream wordFreqfs = new FileStream(wordFreqTempFilePath, FileMode.OpenOrCreate, FileAccess.ReadWrite);
 				FileStream urlsUndisposedfs = new FileStream(urlsUndisposedTempFilePath, FileMode.OpenOrCreate, FileAccess.ReadWrite);
@@ -191,15 +226,21 @@ namespace WebCrawler
 		#endregion
 
 		#region private methods
+		/*
+		 * 获取网站的域名
+		 */
 		private string GetMainDomain(string url)
 		{
+			//允许爬取的网站的一级域名
 			string domainNameStr = ".com|.co|.info|.net|.org|.me|.mobi|.us|.biz|.xxx|.ca|.co.jp|.com.cn|" +
 				".net.cn|.org.cn|.mx|.tv|.ws|.ag|.com.ag|.net.ag|.org.ag|.am|.asia|.at|.be|.com.br|.net.br|.bz|" +
 				".com.bz|.net.bz|.cc|.com.co|.net.co|.nom.co|.de|.es|.com.es|.nom.es|.org.es|.eu|.fm|.fr|.gs|.in|" +
 				".co.in|.firm.in|.gen.in|.ind.in|.net.in|.org.in|.it|.jobs|.jp|.ms|.com.mx|.nl|.nu|.co.nz|.net.nz|" +
 				".org.nz|.se|.tc|.tk|.tw|.com.tw|.idv.tw|.org.tw|.hk|.co.uk|.me.uk|.org.uk|.vg";
+			
 			string[] domainName = domainNameStr.Split('|');
 
+			//获取网站二级域名
 			foreach (var dn in domainName)
 			{
 				if(url.Contains(dn))
@@ -212,9 +253,13 @@ namespace WebCrawler
 			return "";
 		}
 
+		/*
+		 * 判断是否已经爬取过某链接
+		 */
         private bool ExistUrl(string url)
 		{
 			//这里由于队列中存放的是Url结构体，不能直接使用.contains方法，否则两个url相同但不同深度的Url会被误判
+			//先检测未爬取队列
 			foreach (var urlUndisposed in urlsUndisposed)
 			{
 				if (urlUndisposed.url == url)
@@ -223,6 +268,7 @@ namespace WebCrawler
 				}
 			}
 
+			//再检测已爬取队列
 			foreach (var urlDisposed in urlsDisposed)
 			{
 				if (urlDisposed.url == url)
@@ -233,11 +279,17 @@ namespace WebCrawler
 			return false;
 		}
 
+		/*
+		 * 获取网页中的链接
+		 */
 		private List<string> GetLinks(string html)
 		{
+			//通过正则获取所有链接
 			List<string> newUrls = new List<string>();
 			string hrefRef = @"(href|HREF)[]*=[]*[""'][^""'#>]+[""']";
 			MatchCollection hrefMatches = new Regex(hrefRef).Matches(html);
+
+			//对每个匹配的链接进行过滤
 			foreach (Match hmatch in hrefMatches)
 			{
 				var temp = hmatch.Value.IndexOf('"');
@@ -266,11 +318,16 @@ namespace WebCrawler
 			return newUrls;
 		}
 
+		/*
+		 * 获取页面中的单词词频
+		 */
 		private Dictionary<string, int> GetWordFrequency(string html)
 		{
+			//通过正则获取段落
 			string strRef = @"<p>[^<>]*</p>";			//段落的正则表达式，且除去了内部含有html标签的段落（通常是有渲染的标题）
 			Dictionary<string, int> wordFrequency = new Dictionary<string, int>();
 			MatchCollection paraMatches = new Regex(strRef).Matches(html);
+
 			foreach (Match pm in paraMatches)
 			{
 				try
@@ -307,6 +364,9 @@ namespace WebCrawler
 			return wordFrequency;
 		}
 
+		/*
+		 * 交给线程执行的核心爬取控制函数
+		 */
 		private void Process()
 		{
 			int checkNullCount = 0;			//检查发现url队列为空的次数，达到一定次数时结束线程
@@ -365,11 +425,13 @@ namespace WebCrawler
 					{
 						Console.WriteLine("URL处理失败: " + ex.Message);
 					}
+
 					checkNullCount = 0;
 				}
 				else
 				{
 					checkNullCount += 1;
+
 					if (checkNullCount >= maxCheckNullCount)
 					{
 						break;
@@ -385,20 +447,30 @@ namespace WebCrawler
 			if(threadCount == 0)
 			{
 				Console.WriteLine("所有线程均已结束");
+
 				Save();
+
 				TaskTerminated?.Invoke(this, new TaskTerminatedEvent());	//当所有进程都结束时，调用任务结束事件
 			}
 		}
 
+		/*
+		 * 定期写入的计时器执行的函数
+		 */
 		private static void CheckStateTimerEvent(object o, ElapsedEventArgs e)
 		{
-			Console.WriteLine("定时写入中...");
+			Console.WriteLine("定期写入中...");
+
 			instance.Save();
 		}
 
+		/*
+		 * 定时关闭的计时器执行的函数
+		 */
 		private static void ShutDownTimerEvent(object o, ElapsedEventArgs e)
 		{
 			Console.WriteLine("达到最大运行时间，强制关闭中...");
+
 			instance.shutDownTimer.Stop();
 			instance.shutDownFlag = true;
 		}
